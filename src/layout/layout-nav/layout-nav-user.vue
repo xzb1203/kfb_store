@@ -15,17 +15,17 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '@/store/modules/login'
-import localCache from '@/utils/cache'
+import { useUserStore } from '@/store/modules/login';
+import localCache from '@/utils/cache';
 
-const router = useRouter()
-const userInfo = computed(() => useUserStore().userInfo)
-const avatar = `${import.meta.env.VITE_PICTRUE_URL}userAvatar/${userInfo.value.userAvatar}`
+const router = useRouter();
+const userInfo = computed(() => useUserStore().userInfo);
+const avatar = `${import.meta.env.VITE_PICTRUE_URL}userAvatar/${userInfo.value.userAvatar}`;
 const handleExitClick = () => {
-  localCache.deleteCache('token')
-  localCache.deleteCache('userInfo')
-  router.push('/login')
-}
+  localCache.deleteCache('token');
+  localCache.deleteCache('userInfo');
+  router.push('/login');
+};
 </script>
 
 <style scoped></style>

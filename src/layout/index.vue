@@ -37,7 +37,4 @@ import LayoutMenu from './layout-menu/layout-menu.vue';
     }
   }
 }
-.el-table__header {
-  display: none !important;
-}
 </style>
