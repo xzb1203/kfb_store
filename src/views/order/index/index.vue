@@ -13,12 +13,12 @@
       </div>
     </kl-top-bar>
     <el-card>
-      <kl-table-header :tabs="tabs">
+      <kl-table-header v-model="orderListParameter" :tabs="tabs" @handle-search="handleTableList(1)">
         <template #handle>
           <el-button type="primary" plain>导出工单记录</el-button>
         </template>
       </kl-table-header>
-      <kl-custom-table v-loading="loading" :header-columns="headerColumns" :table-list="tableList">
+      <kl-custom-table v-loading="loading" :total="total" :header-columns="headerColumns" :table-list="tableList">
         <template #user="{ scope }">
           <div w:flex="~ col" w:justify="center" w:text="left" w:w="130px">
             <p>客户:{{ scope.driverUserName }}</p>
@@ -105,9 +105,12 @@ const tableList = ref<orderTableListType[]>([]);
 const total = ref(0);
 const loading = ref(true);
 
-const handleTableList = () => {
+const handleTableList = (pageNum: number) => {
   loading.value = true;
-  useRequest(orderApi.postOrderWithPagingList(orderListParameter), {
+  const params = { ...orderListParameter };
+  params.pageNum = pageNum;
+  params.orderStatus = params.orderStatus === '0' ? '' : params.orderStatus;
+  useRequest(orderApi.postOrderWithPagingList(params), {
     onSuccess: (res) => {
       tableList.value = res.data.datas;
       loading.value = false;
@@ -115,14 +118,14 @@ const handleTableList = () => {
       console.log(res.data, '工单列表');
     },
     onError: () => {
-      // loading.value = false;
+      loading.value = false;
       tableList.value = [];
       total.value = 0;
     },
   });
 };
 onMounted(() => {
-  handleTableList();
+  handleTableList(1);
 });
 </script>
 

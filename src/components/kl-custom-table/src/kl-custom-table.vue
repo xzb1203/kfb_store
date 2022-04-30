@@ -66,10 +66,10 @@ defineProps({
 });
 const paging = reactive({ pageNum: 1, pageSize: 20 });
 const handleSizeChange = (val: number) => {
-  console.log(1);
+  console.log(val);
 };
 const handleCurrentChange = (val: number) => {
-  console.log(1);
+  console.log(val);
 };
 const getCurrentCorlor = (key: string) => {
   let color = '';
