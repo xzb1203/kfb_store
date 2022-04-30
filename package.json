@@ -23,6 +23,7 @@
     "pinia": "^2.0.9",
     "pnpm": "^6.32.11",
     "prism-theme-vars": "^0.2.2",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vue": "^3.2.25",
     "vue-request": "^1.2.4",
     "vue-router": "^4.0.12"

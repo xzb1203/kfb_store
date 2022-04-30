@@ -47,22 +47,21 @@
       type="index"
       label="序号"
       width="55"
-      align="center"
       :fixed="tableColumnOptions.indexFixed"
     ></el-table-column>
     <tisp-table-column v-for="column in columns" :column="column" :border="tableOptions.border"></tisp-table-column>
   </el-table>
 </template>
 <script setup lang="ts">
-import { computed, PropType, ref, watch, nextTick } from 'vue'
-import type { ElTable } from 'element-plus'
+import { computed, PropType, ref, watch, nextTick } from 'vue';
+import { ElTable, ElTableColumn } from 'element-plus';
 import {
   ColumnOptionsType,
   TispTableColumn as TispTableColumnType,
   TispTableOptions,
   TispTableType,
-} from './tisp-table'
-import TispTableColumn from './tisp-table-column.vue'
+} from './tisp-table';
+import TispTableColumn from './tisp-table-column.vue';
 
 const props = defineProps({
   data: {
@@ -81,12 +80,12 @@ const props = defineProps({
     type: Array as PropType<TispTableColumnType[]>,
     required: true,
   },
-})
-const emits = defineEmits(['selections-change', 'current-change', 'expand-change'])
+});
+const emits = defineEmits(['selections-change', 'current-change', 'expand-change']);
 
-type ElTableType = InstanceType<typeof ElTable>
-const elTableRef = ref<ElTableType | null>(null)
-const selections = ref<any[]>([])
+type ElTableType = InstanceType<typeof ElTable>;
+const elTableRef = ref<ElTableType | null>(null);
+const selections = ref<any[]>([]);
 
 const tableOptions = computed(
   () =>
@@ -94,7 +93,7 @@ const tableOptions = computed(
       rowKey: 'id',
       ...props.options,
     } as unknown as ElTableType),
-)
+);
 const tableColumnOptions = computed(
   () =>
     ({
@@ -104,7 +103,7 @@ const tableColumnOptions = computed(
       indexFixed: false,
       ...props.columnOptions,
     } as ColumnOptionsType),
-)
+);
 
 const onSelect = (selection: any, row: any) => {
   selections.value = [
@@ -116,10 +115,10 @@ const onSelect = (selection: any, row: any) => {
         ),
     ),
     ...selection,
-  ]
+  ];
 
-  emits('selections-change', selections.value)
-}
+  emits('selections-change', selections.value);
+};
 const onSelectAll = (selection: any) => {
   if (selection.length === 0) {
     selections.value = [
@@ -130,7 +129,7 @@ const onSelectAll = (selection: any) => {
               v[tableColumnOptions.value.selectKey || 'id'] === item[tableColumnOptions.value.selectKey || 'id'],
           ),
       ),
-    ]
+    ];
   } else {
     selections.value = [...selections.value, ...selection].reduce((list, row) => {
       if (
@@ -139,14 +138,14 @@ const onSelectAll = (selection: any) => {
             item[tableColumnOptions.value.selectKey || 'id'] === row[tableColumnOptions.value.selectKey || 'id'],
         ) < 0
       ) {
-        list.push(row)
+        list.push(row);
       }
-      return list
-    }, [])
+      return list;
+    }, []);
   }
 
-  emits('selections-change', selections.value)
-}
+  emits('selections-change', selections.value);
+};
 
 const onToggleSelection = () => {
   if (selections.value.length > 0) {
@@ -155,58 +154,59 @@ const onToggleSelection = () => {
         const tempIndex = selections.value.findIndex(
           (row: any) =>
             row[tableColumnOptions.value.selectKey || 'id'] === item[tableColumnOptions.value.selectKey || 'id'],
-        )
-        props.data && elTableRef.value?.toggleRowSelection(props.data[index], tempIndex >= 0)
-      })
+        );
+        props.data && elTableRef.value?.toggleRowSelection(props.data[index], tempIndex >= 0);
+      });
     }
   } else {
-    elTableRef.value?.clearSelection()
+    elTableRef.value?.clearSelection();
   }
-}
+};
 
 const setCurrentRow = (row?: any) => {
-  elTableRef.value?.setCurrentRow(row)
-}
+  elTableRef.value?.setCurrentRow(row);
+};
 const onCurrentChange = (row: any) => {
-  emits('current-change', row)
-}
+  emits('current-change', row);
+};
 const onExpandChange = (row: any, expanded: boolean) => {
-  emits('expand-change', { id: row[(tableOptions.value.rowKey as string) || 'id'], expanded })
-}
+  emits('expand-change', { id: row[(tableOptions.value.rowKey as string) || 'id'], expanded });
+};
 const toggleRowSelection = (row: any, selected = true) => {
   nextTick(() => {
-    elTableRef.value?.toggleRowSelection(row, selected)
-  })
-}
+    elTableRef.value?.toggleRowSelection(row, selected);
+  });
+};
 const clearSelection = () => {
-  elTableRef.value?.clearSelection()
-  selections.value = []
-  emits('selections-change', selections.value)
-}
+  elTableRef.value?.clearSelection();
+  selections.value = [];
+  emits('selections-change', selections.value);
+};
 
 const clearFilter = (columnKey: string[] = []) => {
   if (columnKey.length > 0) {
-    elTableRef.value?.clearFilter(columnKey)
+    elTableRef.value?.clearFilter(columnKey);
   } else {
     // ts-ignore
-    elTableRef.value?.clearFilter([])
+    elTableRef.value?.clearFilter([]);
   }
-}
+};
+
 defineExpose<TispTableType>({
   setCurrentRow,
   toggleRowSelection,
   clearSelection,
   clearFilter,
-})
+});
 watch(
   () => props.data,
   () => {
     nextTick(() => {
-      onToggleSelection()
-    })
+      onToggleSelection();
+    });
   },
   {
     deep: true,
   },
-)
+);
 </script>

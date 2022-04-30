@@ -9,6 +9,8 @@ import { ElementPlusResolver, VueUseComponentsResolver } from 'unplugin-vue-comp
 import WindiCSS from 'vite-plugin-windicss';
 import ViteFonts from 'vite-plugin-fonts';
 import { ConfigEnv } from 'vite';
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+import path from 'path';
 
 const defaultClasses = 'prose prose-sm m-auto text-left';
 
@@ -51,6 +53,11 @@ export default (env: ConfigEnv) => {
 
     WindiCSS({
       safelist: defaultClasses,
+    }),
+    //svg自动注册
+    createSvgIconsPlugin({
+      iconDirs: [path.resolve(process.cwd(), 'src/assets/svg')],
+      symbolId: 'icon-[dir]-[name]',
     }),
   ];
 };

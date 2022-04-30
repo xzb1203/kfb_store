@@ -1,3 +1,3 @@
-import TispSvg from './src/tisp-svg.vue'
+import TispSvg from './src/tisp-svg.vue';
 
-export default TispSvg
+export default TispSvg;

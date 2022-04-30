@@ -5,6 +5,7 @@ import App from './App.vue';
 import 'virtual:windi.css';
 import 'virtual:windi-devtools';
 import '@/assets/styles/index.scss';
+import 'virtual:svg-icons-register';
 
 const app = createApp(App);
 
