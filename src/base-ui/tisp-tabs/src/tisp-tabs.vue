@@ -1,3 +1,4 @@
+/* eslint-disable vue/require-prop-type-constructor */ /* eslint-disable vue/require-prop-type-constructor */
 <template>
   <el-tabs v-model="tabValue" :class="className" :type="type" :tab-position="tabPosition">
     <el-tab-pane v-for="item in tabs" :key="item.value" :label="item.label" :name="item.value"> </el-tab-pane>
@@ -7,12 +8,12 @@
 import { PropType } from 'vue';
 
 type tabType = {
-  value: string;
+  value: string | number;
   label: string;
 };
 const props = defineProps({
   modelValue: {
-    type: String,
+    type: [String, Number],
     default: '',
   },
   type: {
@@ -36,7 +37,7 @@ const props = defineProps({
 const emits = defineEmits(['update:modelValue']);
 const tabValue = computed({
   get: () => props.modelValue,
-  set: (val: string) => {
+  set: (val: string | number) => {
     emits('update:modelValue', val);
   },
 });

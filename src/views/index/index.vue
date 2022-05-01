@@ -5,7 +5,7 @@
         <span class="kl-card-title">快捷菜单</span>
       </template>
       <div w:flex="~" w:justify="between">
-        <div v-for="item in shortcutList" class="index-item">
+        <div v-for="item in shortcutList" class="index-item kl-label">
           <tisp-svg :name="item.icon" size="40px"></tisp-svg>
           <span>{{ item.name }}</span>
         </div>

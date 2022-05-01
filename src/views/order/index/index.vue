@@ -1,7 +1,7 @@
 <template>
   <div>
     <kl-top-bar v-loading="amountLoading" :list="topBarList">
-      <router-link to="create">
+      <router-link to="detail">
         <div class="btn">
           <tisp-svg name="icon_fuwu"></tisp-svg>
           <p w:my="5px" w:text="gray-400 space-nowrap">新建工单服务</p>

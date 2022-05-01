@@ -1,8 +1,8 @@
 <template>
   <div class="relative">
     <order-info></order-info>
-    <order-car-info></order-car-info>
-    <order-serve-info></order-serve-info>
+    <order-car-info v-model="params"></order-car-info>
+    <order-serve-info v-model="params.orderServiceUpdateInfo"></order-serve-info>
     <order-part-info></order-part-info>
     <order-remark-info></order-remark-info>
     <div class="flex justify-end bg-white mt-20px rounded-5px p-20px">
@@ -20,6 +20,10 @@ import OrderCarInfo from './components/order-car-info.vue';
 import OrderServeInfo from './components/order-serve-info.vue';
 import OrderPartInfo from './components/order-part-info.vue';
 import OrderRemarkInfo from './components/order-remark-info.vue';
+import testJson from './test.json';
+import type { paramsType } from './type';
+
+const params = ref<paramsType>(testJson);
 </script>
 
 <style scoped></style>

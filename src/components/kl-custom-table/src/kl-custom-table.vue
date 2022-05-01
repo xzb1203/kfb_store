@@ -51,14 +51,6 @@ defineProps({
     type: Array as PropType<any>,
     default: () => [],
   },
-  total: {
-    type: Number,
-    default: 0,
-  },
-  modelValue: {
-    type: Object as PropType<any>,
-    default: () => ({}),
-  },
 });
 
 const getCurrentCorlor = (key: string) => {

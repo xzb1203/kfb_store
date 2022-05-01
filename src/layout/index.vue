@@ -20,16 +20,6 @@ import LayoutMenu from './layout-menu/layout-menu.vue';
 </script>
 
 <style lang="scss">
-.el-main {
-  background: #f5f8fd;
-}
-
-.el-card {
-  border: none !important;
-  &.is-always-shadow {
-    box-shadow: none !important;
-  }
-}
 .web-table {
   &.el-table {
     .el-table__row {

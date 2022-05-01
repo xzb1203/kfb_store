@@ -1,0 +1,16 @@
+.el-main {
+  background: #f5f8fd;
+}
+.el-card {
+  border: none !important;
+  &.is-always-shadow {
+    box-shadow: none !important;
+  }
+}
+.el-table{
+  .el-table__header{
+    .el-table__cell{
+      background-color: #f5f8fd;
+    }
+  }
+}

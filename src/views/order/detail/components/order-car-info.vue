@@ -16,19 +16,19 @@
         <div class="leading-26px">
           <div>
             <span class="mr-10px">客户名称: </span>
-            <span>测试</span>
+            <span class="text-gray-500">测试</span>
           </div>
           <div>
             <span class="mr-10px">联系人: </span>
-            <span>源妹儿</span>
+            <span class="text-gray-500">源妹儿</span>
           </div>
           <div>
             <span class="mr-10px">电话: </span>
-            <span>18081234850</span>
+            <span class="text-gray-500">18081234850</span>
           </div>
           <div>
             <span class="mr-10px">备注: </span>
-            <span>今天天气不错</span>
+            <span class="text-gray-500">今天天气不错</span>
           </div>
         </div>
       </div>
@@ -48,19 +48,19 @@
         <div class="leading-26px">
           <div>
             <span class="mr-10px">车牌号: </span>
-            <span>测试</span>
+            <span class="text-gray-500">测试</span>
           </div>
           <div>
             <span class="mr-10px">里程: </span>
-            <span>源妹儿</span>
+            <span class="text-gray-500">源妹儿</span>
           </div>
           <div>
             <span class="mr-10px">VIN码: </span>
-            <span>18081234850</span>
+            <span class="text-gray-500">18081234850</span>
           </div>
           <div>
             <span class="mr-10px">备注: </span>
-            <span>今天天气不错</span>
+            <span class="text-gray-500">今天天气不错</span>
           </div>
         </div>
       </div>
@@ -72,15 +72,24 @@
           <el-button :icon="CirclePlus" plain type="primary">查看故障图片</el-button>
         </div>
       </template>
-      <el-input type="textarea" rows="5" placeholder="请输入故障描述"></el-input>
+      <el-input v-model="params.faultDescription" type="textarea" rows="5" placeholder="请输入故障描述"></el-input>
     </el-card>
   </div>
 </template>
 
 <script setup lang="ts">
 import { Search, CirclePlus } from '@element-plus/icons-vue';
+import { PropType } from 'vue';
+import type { paramsType } from '../type';
 
+const props = defineProps({
+  modelValue: {
+    type: Object as PropType<paramsType>,
+    default: () => ({}),
+  },
+});
 const val = ref('');
+const params = ref<paramsType>(props.modelValue);
 </script>
 
 <style scoped></style>

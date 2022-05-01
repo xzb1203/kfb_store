@@ -39,9 +39,9 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/order/warranty/index.vue'),
       },
       {
-        path: 'create',
-        name: 'create',
-        component: () => import('@/views/order/create/index.vue'),
+        path: 'detail',
+        name: 'detail',
+        component: () => import('@/views/order/detail/index.vue'),
       },
     ],
   },
