@@ -1,0 +1,111 @@
+{
+  "afterOrderAmountsPayable": 3007,
+  "isCompulsoryPayment": "11",
+  "isSendBack": 0,
+  "isShowOriginalAmount": 0,
+  "orderType": 0,
+  "originalAmount": 3007,
+  "storeName": "测试门店1号",
+  "updateType": 1,
+  "faultDescription": "",
+  "orderId": "d3fb9a795c0d496ea206fb607a48d768",
+  "storeId": "b4ea82aeb3904aaebde3f61632ffde0a",
+  "remark": "这是订单备注",
+  "serviceSwitch": 1,
+  "goodsSwitch": 1,
+  "allocationAllState": 1,
+  //服务信息
+  "orderServiceUpdateInfo": {
+    "detailStageAmountType": 1,
+    "orderServiceItems": [
+      {
+        "itemId": "7b66817b304b4a22a724dd3b96df64d0",
+        "itemName": "增加个服务试试",
+        "itemNameSuffix": "增加个服务试试",
+        "itemNumber": 1,
+        "itemTotalAmount": 998,
+        "itemUnit": "",
+        "itemUnitPrice": 998,
+        "orderDetailId": "2d40642782864d38b1597439c0cd3450",
+        "orderDetailItemId": "c2a4ffb6a0c746c2b567c109f6de1590",
+        "workHour": 12,
+        "workHourServices": [
+          {
+            "allocationProportion": 50,
+            "createTime": 1651375852000,
+            "goodsItemId": "7b66817b304b4a22a724dd3b96df64d0",
+            "id": "778a96caad9d47b1871c0d97be4246c3",
+            "orderId": "d3fb9a795c0d496ea206fb607a48d768",
+            "serviceId": "c2a4ffb6a0c746c2b567c109f6de1590",
+            "serviceName": "增加个服务试试",
+            "storeId": "b4ea82aeb3904aaebde3f61632ffde0a",
+            "userId": "27041febb7b24718815bc7262b292e5e",
+            "workHour": 12,
+            "workHourAll": 100
+          },
+          {
+            "allocationProportion": 50,
+            "goodsItemId": "7b66817b304b4a22a724dd3b96df64d0",
+            "serviceName": "增加个服务试试",
+            "userId": "8893237bae614fd18076d47184f4b0e4",
+            "userName": "测试z",
+            "isEdit": false,
+            "workHourAll": 100,
+            "workHour": 12,
+            "ifEdit": false
+          }
+        ],
+        "servicesTotal": 100,
+        "hasPid": true
+      }
+    ],
+    "detailStageAmount": 0
+  },
+  //配件信息
+  "orderGoodsUpdateInfo": {
+    "detailStageAmountType": 1,
+    "orderGoodsItems": [
+      {
+        "goodsInventory": 99,
+        "itemCode": "OERT11",
+        "itemId": "959e878431df4d27b78fb0cc67558fbb",
+        "itemImage": "goodsDefault.jpg",
+        "itemName": "批量商品14",
+        "itemNumber": 1,
+        "itemStandard": "GE",
+        "itemTotalAmount": 2009,
+        "itemType": 2,
+        "itemUnit": "个",
+        "itemUnitPrice": 2009,
+        "orderDetailId": "a006ca24ed9f47369cb327235ca7e2ee",
+        "orderDetailItemId": "e4b4d6fceeec4481b826a2401a523654",
+        "userId": "27041febb7b24718815bc7262b292e5e",
+        "workHourServices": [
+          {
+            "createTime": 1651375852000,
+            "goodsItemId": "959e878431df4d27b78fb0cc67558fbb",
+            "id": "c51b455de4a44f6c881d87c1b2ee03dc",
+            "orderId": "d3fb9a795c0d496ea206fb607a48d768",
+            "serviceId": "e4b4d6fceeec4481b826a2401a523654",
+            "serviceName": "批量商品14",
+            "storeId": "b4ea82aeb3904aaebde3f61632ffde0a",
+            "userId": "27041febb7b24718815bc7262b292e5e"
+          }
+        ],
+        "itemRemark": "这是配件备注"
+      }
+    ],
+    "detailStageAmount": 0
+  },
+  "carCode": "",
+  "carMileage": "122",
+  "carModels": "",
+  "carModelsName": "",
+  "carPlateNumber": "我的备注",
+  "driverUserId": "99ddd2295908433cbf611c1a7d0b5396",
+  "driverUserName": "大客户",
+  "driverUserPhone": "18782781823",
+  "userResponsibleId": "27041febb7b24718815bc7262b292e5e",
+  "userResponsibleName": "王2",
+  "collectMoneyRemark": ""
+}

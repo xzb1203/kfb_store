@@ -1,5 +1,5 @@
 <template>
-  <el-tabs v-model="tabValue" :class="className" :type="type">
+  <el-tabs v-model="tabValue" :class="className" :type="type" :tab-position="tabPosition">
     <el-tab-pane v-for="item in tabs" :key="item.value" :label="item.label" :name="item.value"> </el-tab-pane>
   </el-tabs>
 </template>
@@ -17,6 +17,10 @@ const props = defineProps({
   },
   type: {
     type: String as PropType<'' | 'card' | 'border-card'>,
+    default: '',
+  },
+  tabPosition: {
+    type: String as PropType<'left' | 'right' | 'top' | 'bottom'>,
     default: '',
   },
   tabs: {

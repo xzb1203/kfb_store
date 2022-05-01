@@ -1,3 +1,3 @@
-import TispTabs from './src/tisp-tabs.vue'
+import TispTabs from './src/tisp-tabs.vue';
 
-export default TispTabs
+export default TispTabs;
