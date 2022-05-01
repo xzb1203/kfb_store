@@ -4,7 +4,7 @@ import { formatJsonToUrlParams, instanceObject } from '@/utils/format';
 import Aes from '@/utils/aes.js'; // 解密
 
 const BASE_PREFIX = import.meta.env.VITE_API_BASEURL;
-const WHITE_URL = ['/websocket/crypt/key', '/websocket/crypt/js/key'];
+const WHITE_URL = ['/websocket/crypt/key', '/websocket/crypt/js/key', '/order/store/order/withPagingList/excel/export'];
 // 创建实例
 const axiosInstance: AxiosInstance = axios.create({
   // 前缀
@@ -31,7 +31,8 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     const AesResponse: any = WHITE_URL.includes(response.config.url as string) ? response : Aes.decryptAes(response);
-    if (AesResponse.data.kfbCode !== '200') {
+    console.log(AesResponse);
+    if (AesResponse.data?.kfbCode !== '200' && !WHITE_URL.includes(response.config.url as string)) {
       ElMessage.error(AesResponse.data.kfbErrorMsg);
     }
     return AesResponse;
@@ -80,6 +81,13 @@ const service = {
     axiosInstance({
       url,
       method: 'GET',
+      responseType: 'arraybuffer',
+      params,
+    }),
+  postDownload: (url: string, params?: object) =>
+    axiosInstance({
+      url,
+      method: 'POST',
       responseType: 'arraybuffer',
       params,
     }),

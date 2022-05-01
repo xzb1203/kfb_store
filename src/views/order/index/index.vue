@@ -1,10 +1,12 @@
 <template>
   <div>
-    <kl-top-bar :list="topBarList">
+    <kl-top-bar v-loading="amountLoading" :list="topBarList">
       <div class="btn">
-        <tisp-svg name="icon_fuwu"></tisp-svg>
-        <p w:my="5px" w:text="gray-400 space-nowrap">新建工单服务</p>
-        <p>创建工单</p>
+        <router-link to="create">
+          <tisp-svg name="icon_fuwu"></tisp-svg>
+          <p w:my="5px" w:text="gray-400 space-nowrap">新建工单服务</p>
+          <p>创建工单</p></router-link
+        >
       </div>
       <div class="btn" w:ml="20px">
         <tisp-svg name="icon_guanli"></tisp-svg>
@@ -13,67 +15,86 @@
       </div>
     </kl-top-bar>
     <el-card>
-      <kl-table-header v-model="orderListParameter" :tabs="tabs" @handle-search="handleTableList(1)">
-        <template #handle>
-          <el-button type="primary" plain>导出工单记录</el-button>
-        </template>
+      <kl-table-header
+        v-model="orderListParameter"
+        :tabs="tabs"
+        @handle-export="handleExport('open')"
+        @handle-search="handleTableList(1)"
+      >
       </kl-table-header>
-      <kl-custom-table v-loading="loading" :total="total" :header-columns="headerColumns" :table-list="tableList">
-        <template #user="{ scope }">
-          <div w:flex="~ col" w:justify="center" w:text="left" w:w="130px">
-            <p>客户:{{ scope.driverUserName }}</p>
-            <p>电话：{{ scope.orderContactsPhone }}</p>
-            <p>车牌或设备：{{ scope.orderCarPlateNumber }}</p>
-            <p>车型：{{ scope.orderModelsName || '暂未选择' }}</p>
-            <p>vin码: {{ scope.vIN }}</p>
-          </div>
-        </template>
-        <template #fault="{ scope }">
-          <div w:flex="~" w:align="items-center" w:justify="center" w:w="130px">
-            <div>{{ scope.orderFaultDescription || '暂无故障描述' }}</div>
-          </div>
-        </template>
-        <template #handle="{ scope }">
-          <div w:w="130px">
-            <el-button plain type="text">
-              <el-icon>
-                <Edit></Edit>
-              </el-icon>
-              继续做单
-            </el-button>
-            <el-button plain type="text" class="!ml-0">
-              <el-icon>
-                <Wallet></Wallet>
-              </el-icon>
-              工单结算
-            </el-button>
-          </div>
-        </template>
-      </kl-custom-table>
+      <el-scrollbar :height="height">
+        <kl-custom-table
+          v-model="orderListParameter"
+          v-loading="loading"
+          :total="total"
+          :header-columns="headerColumns"
+          :table-list="tableList"
+          @handle-page="handleTableList"
+        >
+          <template #handle="{ scope }">
+            <div w:w="130px">
+              <el-button plain type="text">
+                <el-icon>
+                  <Edit></Edit>
+                </el-icon>
+                继续做单
+              </el-button>
+              <el-button plain type="text" class="!ml-0">
+                <el-icon>
+                  <Wallet></Wallet>
+                </el-icon>
+                工单结算
+              </el-button>
+            </div>
+          </template>
+        </kl-custom-table>
+      </el-scrollbar>
+      <div w:flex="~" w:justify="end" w:mt="10px">
+        <el-pagination
+          v-model:currentPage="orderListParameter.pageNum"
+          v-model:page-size="orderListParameter.pageSize"
+          layout="total,sizes, prev, pager, next"
+          background
+          :total="total"
+          @size-change="handleTableList"
+          @current-change="handleTableList"
+        >
+        </el-pagination>
+      </div>
     </el-card>
+    <kl-export-dialog
+      ref="exportRef"
+      v-model="orderListParameter"
+      :down-loading="downLoading"
+      @handle-export="handleExport('close')"
+    ></kl-export-dialog>
   </div>
 </template>
 
 <script setup lang="tsx">
 import { useRequest } from 'vue-request';
 import { Edit, Wallet } from '@element-plus/icons-vue';
+import { ElMessage } from 'element-plus';
 import KlTopBar from '@/components/kl-top-bar';
 import KlTableHeader from '@/components/kl-table-header';
 import KlCustomTable from '@/components/kl-custom-table';
 import TispSvg from '@/base-ui/tisp-svg';
 import orderApi from '@/api/modules/order';
 import { useUserStore } from '@/store/modules/login';
-import type { orderTableListType } from './type';
+import type { orderTableListType, iconNamesType, topBarListType } from './type';
+import KlExportDialog from '@/components/kl-export-dialog';
+import { downloadFile } from '@/utils/download-file';
 
 const userInfo = computed(() => useUserStore().userInfo);
-const topBarList = ref([
-  { name: '当月累计完成工单', value: 63, icon: 'icon_gongdan' },
-  { name: '待处理', value: 9342254, icon: 'icon_daichuli' },
-  { name: '进行中', value: 9342254, icon: 'icon_jinxingzhong' },
-  { name: '已完成', value: 2471380, icon: 'icon_yiwancheng' },
-  { name: '已作废', value: 63, icon: 'icon_yizuofei' },
-  { name: '已取消(司机)', value: 63, icon: 'icon_yiquxiao' },
-]);
+const topBarList = ref<topBarListType[]>([]);
+const exportRef = ref();
+const iconNames: iconNamesType = {
+  '1': 'icon_jinxingzhong',
+  '2': 'icon_yiwancheng',
+  '3': 'icon_yizuofei',
+  '4': 'icon_daichuli',
+  '5': 'icon_yiquxiao',
+};
 const tabs = ref([
   { label: '全部', value: '' },
   { label: '待处理', value: '4' },
@@ -100,15 +121,33 @@ const orderListParameter = reactive({
   pageSize: 20,
   storeId: userInfo.value.userParentId,
 });
-
 const tableList = ref<orderTableListType[]>([]);
 const total = ref(0);
 const loading = ref(true);
+const downLoading = ref(false);
+const height = ref(`${document.documentElement.clientHeight - 380}px`);
+const handleExport = (val: string) => {
+  if (val === 'open') {
+    exportRef.value.dialogVisible = true;
+  } else {
+    downLoading.value = true;
+    useRequest(orderApi.postDownOrderExcel(orderListParameter), {
+      onSuccess: (res) => {
+        downloadFile('卡服邦工单明细 ', 'xlsx', res);
+        ElMessage.success('导出成功!');
+        exportRef.value.dialogVisible = false;
+        downLoading.value = false;
+        orderListParameter.orderAddBeginTimeStr = '';
+        orderListParameter.orderAddEndTimeStr = '';
+      },
+    });
+  }
+};
 
-const handleTableList = (pageNum: number) => {
+const handleTableList = (val: number) => {
   loading.value = true;
   const params = { ...orderListParameter };
-  params.pageNum = pageNum;
+  params.pageNum = val || params.pageNum;
   params.orderStatus = params.orderStatus === '0' ? '' : params.orderStatus;
   useRequest(orderApi.postOrderWithPagingList(params), {
     onSuccess: (res) => {
@@ -124,8 +163,25 @@ const handleTableList = (pageNum: number) => {
     },
   });
 };
+const { loading: amountLoading, run: handleGetOrderTotal } = useRequest(orderApi.getOrderTotal, {
+  onSuccess: (res) => {
+    topBarList.value = res.data.datas.map((item: any) => ({
+      label: item.orderStatusName,
+      value: item.orderStatusNumber,
+      icon: iconNames[item.orderStatus],
+    }));
+  },
+  onError: () => {
+    topBarList.value = [];
+  },
+});
+const handleResize = () => {
+  height.value = `${document.documentElement.clientHeight - 380}px`;
+};
 onMounted(() => {
   handleTableList(1);
+  handleGetOrderTotal(userInfo.value.userParentId);
+  window.addEventListener('resize', handleResize);
 });
 </script>
 

@@ -38,6 +38,11 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         name: 'warranty',
         component: () => import('@/views/order/warranty/index.vue'),
       },
+      {
+        path: 'create',
+        name: 'create',
+        component: () => import('@/views/order/create/index.vue'),
+      },
     ],
   },
 ];

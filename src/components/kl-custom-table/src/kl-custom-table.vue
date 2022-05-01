@@ -16,11 +16,15 @@
           <div>暂无商品</div>
           <div>暂无服务</div>
         </div>
-        <div w:flex="~" w:justify="center" w:w="130px" w:text="center">
-          <slot name="user" :scope="item"></slot>
+        <div w:flex="~ col" w:justify="center" w:text="left" w:w="130px">
+          <p>客户:{{ item.driverUserName }}</p>
+          <p>电话：{{ item.orderContactsPhone }}</p>
+          <p>车牌或设备：{{ item.orderCarPlateNumber }}</p>
+          <p>车型：{{ item.orderModelsName || '暂未选择' }}</p>
+          <p>vin码: {{ item.vIN }}</p>
         </div>
-        <div w:flex="~" w:justify="center" w:w="130px" w:text="center">
-          <slot name="fault" :scope="item"></slot>
+        <div w:flex="~" w:align="items-center" w:justify="center" w:w="130px">
+          <div>{{ item.orderFaultDescription || '暂无故障描述' }}</div>
         </div>
         <div w:text="center" w:w="130px">
           <p>￥{{ item.orderAmountsPayable || 0 }}</p>
@@ -31,18 +35,6 @@
           <slot name="handle" :scope="item"></slot>
         </div>
       </div>
-    </div>
-    <div w:flex="~" w:justify="end" w:mt="10px">
-      <el-pagination
-        v-model:currentPage="paging.pageNum"
-        v-model:page-size="paging.pageSize"
-        layout="total,sizes, prev, pager, next"
-        background
-        :total="total"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      >
-      </el-pagination>
     </div>
   </div>
 </template>
@@ -63,14 +55,12 @@ defineProps({
     type: Number,
     default: 0,
   },
+  modelValue: {
+    type: Object as PropType<any>,
+    default: () => ({}),
+  },
 });
-const paging = reactive({ pageNum: 1, pageSize: 20 });
-const handleSizeChange = (val: number) => {
-  console.log(val);
-};
-const handleCurrentChange = (val: number) => {
-  console.log(val);
-};
+
 const getCurrentCorlor = (key: string) => {
   let color = '';
   switch (key) {

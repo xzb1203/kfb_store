@@ -47,3 +47,11 @@ export type orderTableListType = {
   orderVisibility: number;
   vIN: string;
 };
+export type iconNamesType = {
+  [key: string]: string;
+};
+export type topBarListType = {
+  label: string;
+  value: string;
+  icon: string;
+};
