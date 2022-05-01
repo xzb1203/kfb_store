@@ -2,7 +2,7 @@
   <div class="index">
     <el-card w:mb="20px">
       <template #header>
-        <span w:text="1.25rem bold">快捷菜单</span>
+        <span class="kl-card-title">快捷菜单</span>
       </template>
       <div w:flex="~" w:justify="between">
         <div v-for="item in shortcutList" class="index-item">
@@ -13,7 +13,7 @@
     </el-card>
     <el-card>
       <template #header>
-        <span w:text="1.25rem bold">视频教学</span>
+        <span class="kl-card-title">视频教学</span>
       </template>
       <el-row :gutter="20">
         <el-col v-for="item in videoList" :span="4" class="mb-20px">

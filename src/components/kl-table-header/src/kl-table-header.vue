@@ -77,4 +77,8 @@ watch(
 );
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+:deep(.el-form-item) {
+  @apply font-bold text-gray-600;
+}
+</style>

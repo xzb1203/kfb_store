@@ -3,7 +3,7 @@
     <el-card class="w-full">
       <template #header>
         <div class="flex items-center justify-between">
-          <span class="whitespace-nowrap">客户信息</span>
+          <span class="whitespace-nowrap kl-card-title">客户信息</span>
           <div class="flex">
             <el-input v-model="val" placeholder="客户名称" clearable></el-input>
             <el-button type="primary" :icon="Search">搜索</el-button>
@@ -36,7 +36,7 @@
     <el-card class="w-full ml-20px">
       <template #header>
         <div class="flex items-center justify-between">
-          <span class="whitespace-nowrap">车辆信息</span>
+          <span class="whitespace-nowrap kl-card-title">车辆信息</span>
           <div class="flex">
             <el-button :icon="CirclePlus" plain type="primary">新增车辆</el-button>
             <el-button :icon="CirclePlus" plain type="primary">选择车辆</el-button>
@@ -68,7 +68,7 @@
     <el-card class="w-full ml-20px">
       <template #header>
         <div class="flex items-center justify-between">
-          <span class="whitespace-nowrap">故障信息</span>
+          <span class="whitespace-nowrap kl-card-title">故障信息</span>
           <el-button :icon="CirclePlus" plain type="primary">查看故障图片</el-button>
         </div>
       </template>

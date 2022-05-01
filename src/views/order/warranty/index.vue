@@ -4,12 +4,12 @@
       <div class="btn">
         <tisp-svg name="icon_fuwu"></tisp-svg>
         <p w:my="5px" w:text="gray-400 space-nowrap">新建工单服务</p>
-        <p>创建工单</p>
+        <p class="kl-label">创建工单</p>
       </div>
       <div class="btn" w:ml="20px">
         <tisp-svg name="icon_guanli"></tisp-svg>
         <p w:my="5px" w:text="gray-400 space-nowrap">管理服务项目</p>
-        <p>服务管理</p>
+        <p class="kl-label">服务管理</p>
       </div>
     </kl-top-bar>
     <el-card>

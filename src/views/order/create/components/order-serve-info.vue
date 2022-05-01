@@ -2,7 +2,7 @@
   <el-card class="mt-20px">
     <template #header>
       <div class="flex justify-between">
-        <span>服务信息</span>
+        <span class="kl-card-title">服务信息</span>
         <div>
           <el-switch v-model="value1" active-text="添加作业人员" />
           <el-button :icon="CirclePlus" type="primary" plain class="ml-20px">新增服务</el-button>
@@ -11,11 +11,20 @@
     </template>
     <div class="flex">
       <tisp-tabs v-model="current" :tabs="tabs" tab-position="left"></tisp-tabs>
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="date" label="Date" align="center" />
-        <el-table-column prop="name" label="Name" align="center" />
-        <el-table-column prop="address" label="Address" align="center" />
-      </el-table>
+      <div class="w-full">
+        <el-table :data="tableData" style="width: 100%">
+          <el-table-column prop="date" label="服务名称" align="center" />
+          <el-table-column prop="date" label="服务价格" align="center" />
+          <el-table-column prop="date" label="服务工时" align="center" />
+          <el-table-column prop="date" label="作业人员" align="center" />
+          <el-table-column prop="date" label="工时分成" align="center" />
+          <el-table-column prop="date" label="操作" align="center" />
+        </el-table>
+        <div class="text-right mt-20px">
+          <span class="kl-label">小计:</span>
+          <span class="text-red-500 ml-10px">¥ 0.00</span>
+        </div>
+      </div>
     </div>
   </el-card>
 </template>

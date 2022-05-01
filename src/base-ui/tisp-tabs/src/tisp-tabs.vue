@@ -21,7 +21,7 @@ const props = defineProps({
   },
   tabPosition: {
     type: String as PropType<'left' | 'right' | 'top' | 'bottom'>,
-    default: '',
+    default: 'top',
   },
   tabs: {
     type: Array as PropType<tabType[]>,
@@ -43,6 +43,9 @@ const tabValue = computed({
 </script>
 <style lang="scss" scoped>
 :deep(.el-tabs__nav-wrap::after) {
-  height: 0;
+  height: 0 !important;
+}
+:deep(.el-tabs__item) {
+  @apply font-bold text-gray-600;
 }
 </style>

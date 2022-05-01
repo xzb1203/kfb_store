@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="relative">
     <order-info></order-info>
     <order-car-info></order-car-info>
     <order-serve-info></order-serve-info>

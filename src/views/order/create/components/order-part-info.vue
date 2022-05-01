@@ -2,9 +2,9 @@
   <el-card class="mt-20px">
     <template #header>
       <div class="flex justify-between">
-        <span>配件信息</span>
+        <span class="kl-card-title">配件信息</span>
         <div>
-          <el-switch v-model="value1" active-text="添加配件负责人" />
+          <el-switch v-model="value1" active-text="添加负责人员" />
           <el-button :icon="CirclePlus" type="primary" plain class="ml-20px">新增商品</el-button>
         </div>
       </div>
