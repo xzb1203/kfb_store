@@ -7,6 +7,8 @@ const orderApi = {
   getOrderDetail: (orderId: string) => service.get(`${prefix}/infobypk/${orderId}`),
   postDownOrderExcel: (data: object) => service.postDownload(`${prefix}/withPagingList/excel/export`, data),
   postCreateOrder: (data: object) => service.postParams(`${prefix}/save`, data),
+  postkeywordwithPagingList: (data: object) =>
+    service.postParams(`/organization/driver/user/keyword/withPagingList`, data),
 };
 
 export default orderApi;

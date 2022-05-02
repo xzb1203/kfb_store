@@ -5,7 +5,29 @@
         <div class="flex items-center justify-between">
           <span class="whitespace-nowrap kl-card-title">客户信息</span>
           <div class="flex">
-            <el-input v-model="params.orderDriverUserName" placeholder="客户名称" clearable></el-input>
+            <el-autocomplete
+              v-model="orderDriverUserName"
+              :fetch-suggestions="querySearch"
+              popper-class="w-275px  relative"
+              placeholder="客户名称"
+              @select="handleSelect"
+            >
+              <template #default="{ item }">
+                <div :class="['flex', 'items-center', item.driverId === first ? 'mt-40px' : '']">
+                  <div v-if="item.driverId === first" class="title">
+                    搜索到 <span class="text-blue-500">{{ total }}</span> 个相关客户
+                  </div>
+                  <el-image
+                    class="w-50px h-50px rounded-full mr-15px mb-10px"
+                    src="https://kfbnet2019.obs.cn-north-1.myhuaweicloud.com/userAvatar/userAvatar.jpg"
+                  ></el-image>
+                  <div>
+                    <p>{{ item.driverName }}</p>
+                    <p>{{ item.driverPhone }}</p>
+                  </div>
+                </div>
+              </template>
+            </el-autocomplete>
             <el-button type="primary" :icon="Search">搜索</el-button>
             <el-button :icon="CirclePlus" plain type="primary">新增客户</el-button>
           </div>
@@ -80,7 +102,10 @@
 <script setup lang="ts">
 import { Search, CirclePlus } from '@element-plus/icons-vue';
 import { PropType } from 'vue';
+import { useRequest } from 'vue-request';
 import type { orderDetailType } from '../orderDetailType';
+import orderApi from '@/api/modules/order';
+import { useUserStore } from '@/store/modules/login';
 
 const props = defineProps({
   modelValue: {
@@ -89,6 +114,38 @@ const props = defineProps({
   },
 });
 const params = computed(() => props.modelValue);
+const storeInfo = computed(() => useUserStore().storeInfo);
+const orderDriverUserName = ref('');
+const total = ref(0);
+const first = ref('');
+const querySearch = (searchKeywords: string, cb) => {
+  console.log(searchKeywords);
+  const data = {
+    driverStatus: 1,
+    searchKeywords: searchKeywords || 1,
+    storeId: storeInfo.value.id,
+  };
+  useRequest(orderApi.postkeywordwithPagingList(data), {
+    onSuccess: (res) => {
+      total.value = res.data.total;
+      first.value = res.data.datas[0].driverId;
+      cb(res.data.datas);
+      console.log(res, '司机详情');
+    },
+    onError: () => {
+      console.log(123);
+    },
+  });
+  console.log(1);
+};
+const handleSelect = () => {
+  console.log(1);
+};
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.title {
+  @apply absolute top-0 left-0 w-full z-50 bg-white py-2px pl-10px text-gray-500;
+  border-bottom: 1px solid var(--el-border-color-light);
+}
+</style>
