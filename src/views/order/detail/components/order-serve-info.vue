@@ -11,6 +11,7 @@
     </template>
     <div class="flex">
       <tisp-tabs v-model="params.orderServiceItems.detailStageAmountType" :tabs="tabs" tab-position="left"></tisp-tabs>
+
       <div class="w-full">
         <el-table :data="params.orderServiceItems.projectDetails" style="width: 100%">
           <el-table-column prop="date" label="服务名称" align="center">
@@ -86,10 +87,9 @@ const params = computed<orderDetailType>(() => props.modelValue);
 
 const value1 = ref(true);
 const tabs: any[] = [
-  { label: '分开结算', value: 0 },
-  { label: '合并结算', value: 1 },
+  { label: '分开结算', value: '1' },
+  { label: '合并结算', value: '0' },
 ];
-
 const querySearch = () => {
   console.log(123);
 };

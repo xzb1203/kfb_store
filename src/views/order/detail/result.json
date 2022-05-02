@@ -35,7 +35,7 @@
   "orderRemark": "这是订单备注",
   "orderReplacementParts": {
     "detailStageAmount": 86.55,
-    "detailStageAmountType": 1,
+    "detailStageAmountType": "1",
     "orderDetailId": "efcd9ed179794932b72b39696b8e2069",
     "orderId": "11a31a62fc3d4eb6a846c01387eac0af",
     "projectDetails": [
@@ -85,14 +85,14 @@
   ],
   "orderServiceItems": {
     "detailStageAmount": 234,
-    "detailStageAmountType": 1,
+    "detailStageAmountType": "1",
     "orderDetailId": "1b79d58dadce4ca7b8fbc27219e2138a",
     "orderId": "11a31a62fc3d4eb6a846c01387eac0af",
     "projectDetails": [
       {
         "itemId": "0c033618291b4402b674b861ad830726",
-        "itemName": "洗车车",
-        "itemNameSuffix": "洗车车",
+        "itemName": "json数据",
+        "itemNameSuffix": "json数据",
         "itemNumber": 1,
         "itemTotalAmount": 234,
         "itemUnit": "",

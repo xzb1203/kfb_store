@@ -66,7 +66,7 @@
 import { CirclePlus, Delete } from '@element-plus/icons-vue';
 import TispTabs from '@/base-ui/tisp-tabs';
 
-const current = ref('0');
+const current = ref('1');
 const value1 = ref(true);
 const value = ref('');
 type tabType = {
@@ -74,8 +74,8 @@ type tabType = {
   label: string;
 };
 const tabs: tabType[] = [
-  { label: '分开结算', value: '0' },
-  { label: '合并结算', value: '1' },
+  { label: '分开结算', value: '1' },
+  { label: '合并结算', value: '0' },
 ];
 const options = [
   {

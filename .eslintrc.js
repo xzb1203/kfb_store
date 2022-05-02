@@ -53,5 +53,6 @@ module.exports = {
     'consistent-return': 'off',
     'no-param-reassign': 'off',
     'no-debugger': 'off',
+    'no-async-promise-executor': 'off',
   },
 };

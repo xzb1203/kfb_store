@@ -37,6 +37,12 @@ const staffOptions = ref<optionsType[]>([]);
 const handleGetOrderInfo = () => {
   useRequest(orderApi.getOrderDetail(route.query.orderId as string), {
     onSuccess: (res) => {
+      res.data.datas.orderServiceItems.detailStageAmountType = String(
+        res.data.datas.orderServiceItems.detailStageAmountType,
+      );
+      res.data.datas.orderReplacementParts.detailStageAmountType = String(
+        res.data.datas.orderReplacementParts.detailStageAmountType,
+      );
       params.value = res.data.datas;
       loading.value = false;
       console.log(res, '工单详情');

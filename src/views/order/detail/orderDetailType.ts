@@ -36,7 +36,7 @@ export type orderDetailType = {
   orderRemark: string;
   orderReplacementParts: {
     detailStageAmount: number;
-    detailStageAmountType: number;
+    detailStageAmountType: string;
     orderDetailId: string;
     orderId: string;
     projectDetails: [
@@ -86,7 +86,7 @@ export type orderDetailType = {
   ];
   orderServiceItems: {
     detailStageAmount: number;
-    detailStageAmountType: number;
+    detailStageAmountType: string;
     orderDetailId: string;
     orderId: string;
     projectDetails: [
