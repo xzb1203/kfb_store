@@ -10,9 +10,9 @@
       </div>
     </template>
     <div class="flex">
-      <tisp-tabs v-model="orderServiceUpdateInfo.detailStageAmountType" :tabs="tabs" tab-position="left"></tisp-tabs>
+      <tisp-tabs v-model="params.orderServiceItems.detailStageAmountType" :tabs="tabs" tab-position="left"></tisp-tabs>
       <div class="w-full">
-        <el-table :data="orderServiceUpdateInfo.orderServiceItems" style="width: 100%">
+        <el-table :data="params.orderServiceItems.projectDetails" style="width: 100%">
           <el-table-column prop="date" label="服务名称" align="center">
             <template #default="{ row }">
               <el-autocomplete
@@ -74,18 +74,18 @@
 import { CirclePlus, Edit, Delete } from '@element-plus/icons-vue';
 import { PropType } from 'vue';
 import TispTabs from '@/base-ui/tisp-tabs';
-import type { OrderServiceUpdateInfo, tabType } from '../type';
+import type { orderDetailType } from '../orderDetailType';
 
 const props = defineProps({
   modelValue: {
-    type: Object as PropType<any>,
+    type: Object as PropType<orderDetailType>,
     default: () => ({}),
   },
 });
-const orderServiceUpdateInfo = ref<OrderServiceUpdateInfo>(props.modelValue);
-const value1 = ref(true);
+const params = computed<orderDetailType>(() => props.modelValue);
 
-const tabs: tabType[] = [
+const value1 = ref(true);
+const tabs: any[] = [
   { label: '分开结算', value: 0 },
   { label: '合并结算', value: 1 },
 ];

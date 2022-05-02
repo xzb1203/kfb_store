@@ -72,7 +72,7 @@
           <el-button :icon="CirclePlus" plain type="primary">查看故障图片</el-button>
         </div>
       </template>
-      <el-input v-model="params.faultDescription" type="textarea" rows="5" placeholder="请输入故障描述"></el-input>
+      <el-input v-model="params.orderFaultDescription" type="textarea" rows="5" placeholder="请输入故障描述"></el-input>
     </el-card>
   </div>
 </template>

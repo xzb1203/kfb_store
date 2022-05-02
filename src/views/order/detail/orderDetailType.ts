@@ -150,3 +150,17 @@ export type orderDetailType = {
   storeProvinceName: string;
   userStandbyPhone: number;
 };
+export type optionsType = {
+  label: string;
+  value: string;
+};
+export type postPersonnelListType = {
+  userAddTimeStr: string;
+  userAvatar: string;
+  userId: string;
+  userLoginAccount: string;
+  userName: string;
+  userPushMoneyPercent: string;
+  userRoleName: string;
+  userStatus: number;
+};

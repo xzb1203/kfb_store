@@ -131,7 +131,7 @@ const handleCreatedOrder = () => {
   useRequest(orderApi.postCreateOrder({ storeId: storeInfo.value.id, orderType: 0 }), {
     onSuccess: (res) => {
       const orderId = res.data.datas;
-      router.push({ name: 'orderDetail', query: { orderId } });
+      router.push({ name: 'orderDetail', query: { orderId: 'bc8ac10e8e9b4278a7c73486aa713641' } });
     },
     onError: () => {
       router.push({ name: '404' });
