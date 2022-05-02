@@ -24,6 +24,7 @@
 <script setup lang="ts">
 import { ArrowRight } from '@element-plus/icons-vue';
 import { useRequest } from 'vue-request';
+import { PropType } from 'vue';
 import { useUserStore } from '@/store/modules/login';
 
 const storeInfo = computed(() => useUserStore().storeInfo);
@@ -37,7 +38,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-
   placeholder: {
     type: String,
     default: '',
@@ -45,6 +45,10 @@ const props = defineProps({
   api: {
     type: Function,
     default: null,
+  },
+  apiParams: {
+    type: Object as PropType<any>,
+    default: () => ({}),
   },
 });
 const total = ref(0);
@@ -56,12 +60,7 @@ const formData = computed({
   },
 });
 const handleQuerySearch = (searchKeywords: string, cb: any) => {
-  const data = {
-    driverStatus: 1,
-    searchKeywords: searchKeywords || 1,
-    storeId: storeInfo.value.id,
-  };
-  useRequest(props.api(data), {
+  useRequest(props.api({ ...props.apiParams, searchKeywords: searchKeywords || 1 }), {
     onSuccess: (res: any) => {
       total.value = res.data.total;
       res.data.datas[0].top = true;

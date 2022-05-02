@@ -2,8 +2,8 @@
   <div class="relative">
     <order-info v-model="params" :staff-options="staffOptions"></order-info>
     <order-car-info v-model="params"></order-car-info>
-    <order-serve-info v-model="params"></order-serve-info>
-    <order-part-info></order-part-info>
+    <order-serve-info v-model="params.orderServiceItems" :staff-options="staffOptions"></order-serve-info>
+    <order-part-info v-model="params.orderReplacementParts" :staff-options="staffOptions"></order-part-info>
     <order-remark-info></order-remark-info>
     <div class="flex justify-end bg-white mt-20px rounded-5px p-20px">
       <el-button type="primary">结算</el-button>

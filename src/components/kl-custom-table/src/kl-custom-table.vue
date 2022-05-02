@@ -13,8 +13,10 @@
       </div>
       <div w:w="full" w:flex="~" w:align="items-center" w:justify="around" w:p="20px">
         <div w:w="130px" w:text="center">
-          <div>暂无商品</div>
-          <div>暂无服务</div>
+          服务{{ item.orderServiceItems.projectDetails.map((item:any) => item.itemName) }} <br />
+          商品{{ item.orderReplacementParts.projectDetails.map((item:any) => item.itemName) }}
+          <!-- <div>暂无商品</div>
+          <div>暂无服务</div> -->
         </div>
         <div w:flex="~ col" w:justify="center" w:text="left" w:w="130px">
           <p>客户:{{ item.driverUserName }}</p>

@@ -31,7 +31,7 @@
         >
           <template #handle="{ scope }">
             <div w:w="130px">
-              <el-button plain type="text">
+              <el-button plain type="text" @click="handleGoOrderInfo(scope)">
                 <el-icon>
                   <Edit></Edit>
                 </el-icon>
@@ -127,6 +127,9 @@ const loading = ref(true);
 const downLoading = ref(false);
 const height = ref(`${document.documentElement.clientHeight - 380}px`);
 
+const handleGoOrderInfo = (scope: orderTableListType) => {
+  router.push({ name: 'orderDetail', query: { orderId: scope.orderId } });
+};
 const handleCreatedOrder = () => {
   useRequest(orderApi.postCreateOrder({ storeId: storeInfo.value.id, orderType: 0 }), {
     onSuccess: (res) => {

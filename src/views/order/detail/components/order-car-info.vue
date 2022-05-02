@@ -9,15 +9,13 @@
               v-model="orderDriverUserName"
               placeholder="客户名称"
               :api="orderApi.postkeywordwithPagingList"
+              :api-params="apiParams"
               :show-more="false"
               @select="handleSelect"
             >
               <template #default="{ item }">
                 <div class="flex items-center">
-                  <el-image
-                    class="w-50px h-50px rounded-full mr-15px"
-                    src="https://kfbnet2019.obs.cn-north-1.myhuaweicloud.com/userAvatar/userAvatar.jpg"
-                  ></el-image>
+                  <el-image class="w-50px h-50px rounded-full mr-15px" :src="imgUrl + item.driverAvatar"></el-image>
                   <div>
                     <p>{{ item.driverName }}</p>
                     <p>{{ item.driverPhone }}</p>
@@ -111,9 +109,15 @@ const props = defineProps({
     default: () => ({}),
   },
 });
+const storeInfo = computed(() => useUserStore().storeInfo);
 const params = computed(() => props.modelValue);
+const imgUrl = `${import.meta.env.VITE_PICTRUE_URL}userAvatar/`;
 const orderDriverUserName = ref('');
-
+// 搜索关键词参数
+const apiParams = {
+  driverStatus: 1,
+  storeId: storeInfo.value.id,
+};
 const handleSelect = (item: any) => {
   console.log(item);
 };

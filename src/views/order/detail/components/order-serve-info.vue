@@ -10,10 +10,10 @@
       </div>
     </template>
     <div class="flex">
-      <tisp-tabs v-model="params.orderServiceItems.detailStageAmountType" :tabs="tabs" tab-position="left"></tisp-tabs>
+      <tisp-tabs v-model="orderServiceItems.detailStageAmountType" :tabs="tabs" tab-position="left"></tisp-tabs>
 
       <div class="w-full">
-        <el-table :data="params.orderServiceItems.projectDetails" style="width: 100%">
+        <el-table :data="orderServiceItems.projectDetails" style="width: 100%">
           <el-table-column prop="date" label="服务名称" align="center">
             <template #default="{ row }">
               <el-autocomplete
@@ -43,7 +43,7 @@
           <el-table-column prop="date" label="作业人员" align="center">
             <template #default="{ row }">
               <div v-for="item2 in row.workHourServices">
-                {{ item2.userName }}
+                {{ getUserName(item2.userId) }}
               </div>
             </template>
           </el-table-column>
@@ -75,21 +75,28 @@
 import { CirclePlus, Edit, Delete } from '@element-plus/icons-vue';
 import { PropType } from 'vue';
 import TispTabs from '@/base-ui/tisp-tabs';
-import type { orderDetailType } from '../orderDetailType';
+import type { orderDetailType, orderServiceItemsType, optionsType } from '../orderDetailType';
 
 const props = defineProps({
   modelValue: {
-    type: Object as PropType<orderDetailType>,
+    type: Object as PropType<orderServiceItemsType>,
     default: () => ({}),
   },
+  staffOptions: {
+    type: Array as PropType<optionsType[]>,
+    default: () => [],
+  },
 });
-const params = computed<orderDetailType>(() => props.modelValue);
+const orderServiceItems = computed<orderServiceItemsType>(() => props.modelValue);
 
 const value1 = ref(true);
 const tabs: any[] = [
   { label: '分开结算', value: '1' },
   { label: '合并结算', value: '0' },
 ];
+const getUserName = (id: string) => {
+  return props.staffOptions.find((item: optionsType) => item.value === id)?.label;
+};
 const querySearch = () => {
   console.log(123);
 };

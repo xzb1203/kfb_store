@@ -11,7 +11,7 @@
     </template>
     <div class="flex">
       <tisp-tabs v-model="current" :tabs="tabs" tab-position="left"></tisp-tabs>
-      <el-table :data="tableData" style="width: 100%">
+      <el-table :data="orderReplacementParts.projectDetails" style="width: 100%">
         <el-table-column prop="date" label="配件图片" align="center">
           <template #default="{ row }">
             <el-image></el-image>
@@ -20,35 +20,39 @@
         <el-table-column prop="date" label="配件信息" align="center">
           <template #default="{ row }">
             <div class="text-left">
-              <div><span class="mr-10px inline-block w-50px text-right">名称: </span> <span>很好的配件</span></div>
-              <div><span class="mr-10px inline-block w-50px text-right">编号: </span> <span>BH1099</span></div>
+              <div>
+                <span class="mr-10px inline-block w-50px text-right">名称: </span> <span>{{ row.itemName }}</span>
+              </div>
+              <div>
+                <span class="mr-10px inline-block w-50px text-right">编号: </span> <span>{{ row.itemCode }}</span>
+              </div>
             </div>
           </template>
         </el-table-column>
         <el-table-column prop="date" label="配件数量" align="center">
           <template #default="{ row }">
-            <el-input-number v-model="row.workHour" :min="1" :max="10" controls-position="right" />
+            <el-input-number v-model="row.itemNumber" :min="1" :max="10" controls-position="right" />
           </template>
         </el-table-column>
         <el-table-column prop="date" label="配件价格" align="center">
           <template #default="{ row }">
-            <el-input-number v-model="row.workHour" :min="1" :max="10" controls-position="right" />
+            <el-input-number v-model="row.itemUnitPrice" :min="1" :max="10" controls-position="right" />
           </template>
         </el-table-column>
         <el-table-column prop="date" label="金额" align="center">
           <template #default="{ row }">
-            <el-input-number v-model="row.workHour" :min="1" :max="10" controls-position="right" />
+            <el-input-number v-model="row.itemTotalAmount" :min="1" :max="10" controls-position="right" />
           </template>
         </el-table-column>
         <el-table-column prop="date" label="配件备注" align="center">
           <template #default="{ row }">
-            <el-input placeholder="请输入备注信息"></el-input>
+            <el-input v-model="row.orderGoodsRemark" placeholder="请输入备注信息"></el-input>
           </template>
         </el-table-column>
         <el-table-column prop="date" label="配件负责人" align="center">
           <template #default="{ row }">
-            <el-select v-model="value" class="m-2" placeholder="请选择负责人">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+            <el-select v-model="row.userId" class="m-2" placeholder="请选择负责人">
+              <el-option v-for="item in staffOptions" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
           </template>
         </el-table-column>
@@ -64,8 +68,21 @@
 
 <script setup lang="ts">
 import { CirclePlus, Delete } from '@element-plus/icons-vue';
+import { PropType } from 'vue';
 import TispTabs from '@/base-ui/tisp-tabs';
+import type { orderReplacementPartsType, optionsType } from '../orderDetailType';
 
+const props = defineProps({
+  modelValue: {
+    type: Object as PropType<orderReplacementPartsType>,
+    default: () => ({}),
+  },
+  staffOptions: {
+    type: Array as PropType<optionsType[]>,
+    default: () => [],
+  },
+});
+const orderReplacementParts = computed<orderReplacementPartsType>(() => props.modelValue);
 const current = ref('1');
 const value1 = ref(true);
 const value = ref('');

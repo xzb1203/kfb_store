@@ -34,107 +34,14 @@ export type orderDetailType = {
   orderPaymentTimeStr: string;
   orderReliefAmount: number;
   orderRemark: string;
-  orderReplacementParts: {
-    detailStageAmount: number;
-    detailStageAmountType: string;
-    orderDetailId: string;
-    orderId: string;
-    projectDetails: [
-      {
-        goodsInventory: number;
-        itemCode: string;
-        itemId: string;
-        itemImage: string;
-        itemName: string;
-        itemNumber: number;
-        itemStandard: string;
-        itemTotalAmount: number;
-        itemType: number;
-        itemUnit: string;
-        itemUnitPrice: number;
-        orderDetailId: string;
-        orderDetailItemId: string;
-        orderGoodsRemark: string;
-        userId: string;
-        workHourServices: [
-          {
-            createTime: number;
-            goodsItemId: string;
-            id: string;
-            orderId: string;
-            serviceId: string;
-            serviceName: string;
-            storeId: string;
-            userId: string;
-          },
-        ];
-        itemRemark: string;
-      },
-      {
-        itemUnitPrice: number;
-        workHour: number;
-        itemImage: string;
-        itemRemark: string;
-      },
-    ];
-  };
+  orderReplacementParts: orderReplacementPartsType;
   orderResponsible: [
     {
       orderResponsible: string;
       orderResponsibleName: string;
     },
   ];
-  orderServiceItems: {
-    detailStageAmount: number;
-    detailStageAmountType: string;
-    orderDetailId: string;
-    orderId: string;
-    projectDetails: [
-      {
-        itemId: string;
-        itemName: string;
-        itemNameSuffix: string;
-        itemNumber: number;
-        itemTotalAmount: number;
-        itemUnit: string;
-        itemUnitPrice: number;
-        orderDetailId: string;
-        orderDetailItemId: string;
-        workHour: number;
-        workHourServices: [
-          {
-            allocationProportion: number;
-            createTime: number;
-            goodsItemId: string;
-            id: string;
-            orderId: string;
-            serviceId: string;
-            serviceName: string;
-            storeId: string;
-            userId: string;
-            workHour: number;
-          },
-          {
-            allocationProportion: number;
-            createTime: number;
-            goodsItemId: string;
-            id: string;
-            orderId: string;
-            serviceId: string;
-            serviceName: string;
-            storeId: string;
-            userId: string;
-            workHour: number;
-          },
-        ];
-      },
-      {
-        itemUnitPrice: number;
-        itemNumber: number;
-        workHour: number;
-      },
-    ];
-  };
+  orderServiceItems: orderServiceItemsType;
   orderSettlementTimeStr: string;
   orderStatus: number;
   orderStatusName: string;
@@ -150,6 +57,101 @@ export type orderDetailType = {
   storeName: string;
   storeProvinceName: string;
   userStandbyPhone: number;
+};
+export type orderReplacementPartsType = {
+  detailStageAmount: number;
+  detailStageAmountType: string;
+  orderDetailId: string;
+  orderId: string;
+  projectDetails: [
+    {
+      goodsInventory: number;
+      itemCode: string;
+      itemId: string;
+      itemImage: string;
+      itemName: string;
+      itemNumber: number;
+      itemStandard: string;
+      itemTotalAmount: number;
+      itemType: number;
+      itemUnit: string;
+      itemUnitPrice: number;
+      orderDetailId: string;
+      orderDetailItemId: string;
+      orderGoodsRemark: string;
+      userId: string;
+      workHourServices: [
+        {
+          createTime: number;
+          goodsItemId: string;
+          id: string;
+          orderId: string;
+          serviceId: string;
+          serviceName: string;
+          storeId: string;
+          userId: string;
+        },
+      ];
+      itemRemark: string;
+    },
+    {
+      itemUnitPrice: number;
+      workHour: number;
+      itemImage: string;
+      itemRemark: string;
+    },
+  ];
+};
+export type orderServiceItemsType = {
+  detailStageAmount: number;
+  detailStageAmountType: string;
+  orderDetailId: string;
+  orderId: string;
+  projectDetails: [
+    {
+      itemId: string;
+      itemName: string;
+      itemNameSuffix: string;
+      itemNumber: number;
+      itemTotalAmount: number;
+      itemUnit: string;
+      itemUnitPrice: number;
+      orderDetailId: string;
+      orderDetailItemId: string;
+      workHour: number;
+      workHourServices: [
+        {
+          allocationProportion: number;
+          createTime: number;
+          goodsItemId: string;
+          id: string;
+          orderId: string;
+          serviceId: string;
+          serviceName: string;
+          storeId: string;
+          userId: string;
+          workHour: number;
+        },
+        {
+          allocationProportion: number;
+          createTime: number;
+          goodsItemId: string;
+          id: string;
+          orderId: string;
+          serviceId: string;
+          serviceName: string;
+          storeId: string;
+          userId: string;
+          workHour: number;
+        },
+      ];
+    },
+    {
+      itemUnitPrice: number;
+      itemNumber: number;
+      workHour: number;
+    },
+  ];
 };
 export type optionsType = {
   label: string;
