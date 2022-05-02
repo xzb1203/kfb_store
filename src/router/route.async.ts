@@ -35,12 +35,12 @@ const asyncRoutes: Array<RouteRecordRaw> = [
       },
       {
         path: 'warranty',
-        name: 'warranty',
+        name: 'orderWarranty',
         component: () => import('@/views/order/warranty/index.vue'),
       },
       {
         path: 'detail',
-        name: 'detail',
+        name: 'orderDetail',
         component: () => import('@/views/order/detail/index.vue'),
       },
     ],

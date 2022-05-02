@@ -80,16 +80,16 @@
 <script setup lang="ts">
 import { Search, CirclePlus } from '@element-plus/icons-vue';
 import { PropType } from 'vue';
-import type { paramsType } from '../type';
+import type { orderDetailType } from '../orderDetailType';
 
 const props = defineProps({
   modelValue: {
-    type: Object as PropType<paramsType>,
+    type: Object as PropType<orderDetailType>,
     default: () => ({}),
   },
 });
 const val = ref('');
-const params = ref<paramsType>(props.modelValue);
+const params = ref<orderDetailType>(props.modelValue);
 </script>
 
 <style scoped></style>

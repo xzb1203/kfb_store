@@ -1,7 +1,7 @@
 <template>
   <el-card class="mt-20px">
     <template #header>
-      <div class="flex justify-between">
+      <div class="flex justify-between items-center">
         <span class="kl-card-title">配件信息</span>
         <div>
           <el-switch v-model="value1" active-text="添加负责人员" />

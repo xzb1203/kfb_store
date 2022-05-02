@@ -24,6 +24,7 @@ const avatar = `${import.meta.env.VITE_PICTRUE_URL}userAvatar/${userInfo.value.u
 const handleExitClick = () => {
   localCache.deleteCache('token');
   localCache.deleteCache('userInfo');
+  localCache.deleteCache('storeInfo');
   router.push('/login');
 };
 </script>

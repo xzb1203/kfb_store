@@ -1,13 +1,11 @@
 <template>
   <div>
     <kl-top-bar v-loading="amountLoading" :list="topBarList">
-      <router-link to="detail">
-        <div class="btn">
-          <tisp-svg name="icon_fuwu"></tisp-svg>
-          <p w:my="5px" w:text="gray-400 space-nowrap">新建工单服务</p>
-          <p class="kl-label">创建工单</p>
-        </div>
-      </router-link>
+      <div class="btn" @click="handleCreatedOrder">
+        <tisp-svg name="icon_fuwu"></tisp-svg>
+        <p w:my="5px" w:text="gray-400 space-nowrap">新建工单服务</p>
+        <p class="kl-label">创建工单</p>
+      </div>
       <div class="btn" w:ml="20px">
         <tisp-svg name="icon_guanli"></tisp-svg>
         <p w:my="5px" w:text="gray-400 space-nowrap">管理服务项目</p>
@@ -85,7 +83,9 @@ import type { orderTableListType, iconNamesType, topBarListType } from './type';
 import KlExportDialog from '@/components/kl-export-dialog';
 import { downloadFile } from '@/utils/download-file';
 
+const router = useRouter();
 const userInfo = computed(() => useUserStore().userInfo);
+const storeInfo = computed(() => useUserStore().storeInfo);
 const topBarList = ref<topBarListType[]>([]);
 const exportRef = ref();
 const iconNames: iconNamesType = {
@@ -126,6 +126,18 @@ const total = ref(0);
 const loading = ref(true);
 const downLoading = ref(false);
 const height = ref(`${document.documentElement.clientHeight - 380}px`);
+
+const handleCreatedOrder = () => {
+  useRequest(orderApi.postCreateOrder({ storeId: storeInfo.value.id, orderType: 0 }), {
+    onSuccess: (res) => {
+      const orderId = res.data.datas;
+      router.push({ name: 'orderDetail', query: { orderId } });
+    },
+    onError: () => {
+      router.push({ name: '404' });
+    },
+  });
+};
 const handleExport = (val: string) => {
   if (val === 'open') {
     exportRef.value.dialogVisible = true;
