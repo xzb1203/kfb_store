@@ -1,5 +1,6 @@
 export type orderDetailType = {
   addUserName: string;
+  orderContactsPerson: string;
   carEngineCode: string;
   carMileageName: string;
   driverAddress: string;
