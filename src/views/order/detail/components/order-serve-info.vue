@@ -14,6 +14,7 @@
         <el-tab-pane name="1" label="分开结算"></el-tab-pane>
         <el-tab-pane v-if="params.serviceSwitch === '0'" name="0" label="合并结算"></el-tab-pane>
       </el-tabs>
+      {{ top }}
       <div ref="tableRef" class="flex-1 relative" style="width: calc(100% - 140px)">
         <div class="absolute z-60 left-84px" :style="{ top: top }">
           <kl-autocomplete
@@ -141,15 +142,14 @@ const apiParams = {
   searchKeywords: '',
   storeId: storeInfo.value.id,
 };
-const value1 = ref('1');
 const field = ref('');
 const tableRef = ref();
-const top = ref('75px');
+const top = ref('55px');
 watch(
   () => params.value.orderServiceItems.projectDetails.length,
   (val: number) => {
     if (!val) return;
-    val === 1 ? (top.value = '127px') : (top.value = `${tableRef.value.offsetHeight + 20}px`);
+    val === 1 ? (top.value = '105px') : (top.value = `${tableRef.value.offsetHeight + 20}px`);
   },
   { deep: true },
 );
