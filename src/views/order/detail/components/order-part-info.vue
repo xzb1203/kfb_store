@@ -10,7 +10,6 @@
       </div>
     </template>
     <div class="flex">
-      {{ orderReplacementParts.detailStageAmountType }}
       <el-tabs v-model="orderReplacementParts.detailStageAmountType" tab-position="left">
         <el-tab-pane name="1" label="分开结算"></el-tab-pane>
         <el-tab-pane name="0" label="合并结算"></el-tab-pane>
@@ -18,7 +17,38 @@
       <el-table :data="orderReplacementParts.projectDetails" style="width: 100%">
         <el-table-column prop="date" label="配件图片" align="center">
           <template #default="{ row }">
-            <el-image></el-image>
+            <!-- <el-image></el-image> -->
+            <kl-autocomplete
+              v-model="emptyValue"
+              placeholder="配件名称,编号"
+              :api="goodsApi.postStoreGoods"
+              :api-params="apiParams"
+              :show-more="true"
+              @select="handleSelect"
+            >
+              <template #default="{ item }">
+                <div class="flex flex-col w-full" style="border-bottom: 1px dashed var(--el-border-color-light)">
+                  <div class="flex items-center">
+                    <el-image class="w-50px h-50px" :src="imgUrl + item.goodsImage"></el-image>
+                    <div class="ml-10px leading-24px">
+                      <p>
+                        <span class="font-bold w-70px inline-block">商品名称: </span><span>{{ item.goodsName }}</span>
+                      </p>
+                      <!-- <p><span class="font-bold">编号: </span> <span>{{item.goodsCode}}</span></p> -->
+                      <p>
+                        <span class="font-bold w-70px inline-block">库<span class="invisible">占位</span>存: </span>
+                        <span>{{ item.storeGoodsInventory }}</span>
+                      </p>
+                      <!-- <p><span class="font-bold">仓位号: </span> <span>{{item.goodsPositionNumber}}</span></span></p> -->
+                      <p>
+                        <span class="font-bold w-70px inline-block">￥: </span>
+                        <span>{{ item.storeGoodsSalePrice }}</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </kl-autocomplete>
           </template>
         </el-table-column>
         <el-table-column prop="date" label="配件信息" align="center">
@@ -67,6 +97,10 @@
         </el-table-column>
       </el-table>
     </div>
+    <div class="text-right mt-20px">
+      <span class="kl-label">小计:</span>
+      <span class="text-red-500 ml-10px">¥ 0.00</span>
+    </div>
   </el-card>
 </template>
 
@@ -74,6 +108,9 @@
 import { CirclePlus, Delete } from '@element-plus/icons-vue';
 import { PropType } from 'vue';
 import type { orderReplacementPartsType, optionsType } from '../orderDetailType';
+import KlAutocomplete from '@/components/kl-autocomplete';
+import goodsApi from '@/api/modules/goods';
+import { useUserStore } from '@/store/modules/login';
 
 const props = defineProps({
   modelValue: {
@@ -85,9 +122,24 @@ const props = defineProps({
     default: () => [],
   },
 });
+const storeInfo = computed(() => useUserStore().storeInfo);
+
 const orderReplacementParts = computed<orderReplacementPartsType>(() => props.modelValue);
-const current = ref('1');
+const imgUrl = `${import.meta.env.VITE_PICTRUE_URL}productPicture/`;
+
+const emptyValue = ref('');
+// 搜索关键词参数
+const apiParams = {
+  sortname: 'storeGoodsInventory',
+  sortorder: 'desc',
+  searchKeywords: '',
+  storeId: storeInfo.value.id,
+  pageSize: 999,
+};
 const value1 = ref(true);
+const handleSelect = (item: any) => {
+  console.log(item);
+};
 </script>
 
 <style scoped></style>

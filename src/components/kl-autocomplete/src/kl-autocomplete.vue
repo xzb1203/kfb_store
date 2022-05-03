@@ -7,7 +7,7 @@
     @select="handleSelect"
   >
     <template #default="{ item }">
-      <div :class="['flex', 'items-center', item.top ? 'mt-40px' : '']">
+      <div :class="['flex', 'items-center', item.top ? 'mt-40px' : '', item.bottom && showMore ? 'mb-40px' : '']">
         <div v-if="item.top" class="header-title">
           搜索到 <span class="text-blue-500">{{ total }}</span> 条信息
         </div>
@@ -83,7 +83,7 @@ const handleSelect = (item: any) => {
   border-bottom: 1px solid var(--el-border-color-light);
 }
 .bottom-title {
-  @apply absolute bottom-0 left-0 w-full z-50 bg-white py-2px pl-10px text-gray-500 cursor-pointer text-blue-500;
+  @apply flex items-center absolute bottom-0 left-0 w-full z-50 bg-white py-2px pl-10px text-gray-500 cursor-pointer text-blue-500;
   border-top: 1px solid var(--el-border-color-light);
 }
 </style>

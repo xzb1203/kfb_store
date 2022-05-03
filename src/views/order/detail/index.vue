@@ -2,9 +2,9 @@
   <div class="relative">
     <order-info v-model="params" :staff-options="staffOptions"></order-info>
     <order-car-info v-model="params"></order-car-info>
-    <order-serve-info v-model="params.orderServiceItems" :staff-options="staffOptions"></order-serve-info>
+    <order-serve-info v-model="params" :staff-options="staffOptions"></order-serve-info>
     <order-part-info v-model="params.orderReplacementParts" :staff-options="staffOptions"></order-part-info>
-    <order-remark-info></order-remark-info>
+    <order-remark-info v-model="params.orderRemark"></order-remark-info>
     <div class="flex justify-end bg-white mt-20px rounded-5px p-20px">
       <el-button type="primary">结算</el-button>
       <el-button type="primary">保存</el-button>
@@ -24,26 +24,23 @@ import OrderPartInfo from './components/order-part-info.vue';
 import OrderRemarkInfo from './components/order-remark-info.vue';
 import type { orderDetailType, optionsType, postPersonnelListType } from './orderDetailType';
 import orderApi from '@/api/modules/order';
-import result from './result.json';
+import resultObj from './result.json';
 import personnelApi from '@/api/modules/personnel';
 import { useUserStore } from '@/store/modules/login';
 
 const route = useRoute();
 const storeInfo = computed(() => useUserStore().storeInfo);
-const params = ref<orderDetailType>(result as unknown as orderDetailType);
+const params = ref<orderDetailType>(resultObj as unknown as orderDetailType);
 const loading = ref(true);
 const staffOptions = ref<optionsType[]>([]);
 
 const handleGetOrderInfo = () => {
   useRequest(orderApi.getOrderDetail(route.query.orderId as string), {
     onSuccess: (res) => {
-      res.data.datas.orderServiceItems.detailStageAmountType = String(
-        res.data.datas.orderServiceItems.detailStageAmountType,
-      );
-      res.data.datas.orderReplacementParts.detailStageAmountType = String(
-        res.data.datas.orderReplacementParts.detailStageAmountType,
-      );
-      params.value = res.data.datas;
+      const result = res.data.datas;
+      result.orderServiceItems.detailStageAmountType = String(result.orderServiceItems.detailStageAmountType);
+      result.orderReplacementParts.detailStageAmountType = String(result.orderReplacementParts.detailStageAmountType);
+      params.value = result;
       loading.value = false;
       console.log(res, '工单详情');
     },

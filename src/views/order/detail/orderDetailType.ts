@@ -94,65 +94,44 @@ export type orderReplacementPartsType = {
       ];
       itemRemark: string;
     },
-    {
-      itemUnitPrice: number;
-      workHour: number;
-      itemImage: string;
-      itemRemark: string;
-    },
   ];
 };
+// 服务信息
 export type orderServiceItemsType = {
   detailStageAmount: number;
   detailStageAmountType: string;
   orderDetailId: string;
   orderId: string;
-  projectDetails: [
+  projectDetails: serveProjectDetailsType[];
+};
+// 服务信息每列
+export type serveProjectDetailsType = {
+  itemId: string;
+  itemName?: string;
+  itemNameSuffix?: string;
+  itemNumber?: number;
+  itemTotalAmount?: number;
+  itemUnit?: string;
+  itemUnitPrice?: number;
+  orderDetailId: string;
+  orderDetailItemId?: string;
+  workHour?: number;
+  workHourServices: [
     {
-      itemId: string;
-      itemName: string;
-      itemNameSuffix: string;
-      itemNumber: number;
-      itemTotalAmount: number;
-      itemUnit: string;
-      itemUnitPrice: number;
-      orderDetailId: string;
-      orderDetailItemId: string;
-      workHour: number;
-      workHourServices: [
-        {
-          allocationProportion: number;
-          createTime: number;
-          goodsItemId: string;
-          id: string;
-          orderId: string;
-          serviceId: string;
-          serviceName: string;
-          storeId: string;
-          userId: string;
-          workHour: number;
-        },
-        {
-          allocationProportion: number;
-          createTime: number;
-          goodsItemId: string;
-          id: string;
-          orderId: string;
-          serviceId: string;
-          serviceName: string;
-          storeId: string;
-          userId: string;
-          workHour: number;
-        },
-      ];
-    },
-    {
-      itemUnitPrice: number;
-      itemNumber: number;
-      workHour: number;
+      allocationProportion?: number;
+      createTime?: number;
+      goodsItemId: string;
+      id: string;
+      orderId: string;
+      serviceId: string;
+      serviceName?: string;
+      storeId: string;
+      userId: string;
+      workHour?: number;
     },
   ];
 };
+
 export type optionsType = {
   label: string;
   value: string;
