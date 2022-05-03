@@ -20,6 +20,10 @@ const axiosInstance: AxiosInstance = axios.create({
 // 请求拦截器
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
+    // 解决后端的坑 todo
+    if (config.url === '/organization/driver/user/keyword/withPagingList') {
+      config.params.searchKeywords = config.params.searchKeywords ? config.params.searchKeywords : 1;
+    }
     return Aes.encryptAesConfig(config);
   },
   (error: AxiosError) => {

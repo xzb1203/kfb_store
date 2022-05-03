@@ -116,6 +116,7 @@ const orderDriverUserName = ref('');
 // 搜索关键词参数
 const apiParams = {
   driverStatus: 1,
+  searchKeywords: 1,
   storeId: storeInfo.value.id,
 };
 const handleSelect = (item: any) => {

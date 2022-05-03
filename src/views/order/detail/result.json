@@ -32,47 +32,41 @@
   "orderOnePayAmount": 0,
   "orderPaymentTimeStr": "",
   "orderReliefAmount": 0,
-  "orderRemark": "这是订单备注",
+  "orderRemark": "",
   "orderReplacementParts": {
-    "detailStageAmount": 86.55,
-    "detailStageAmountType": "1",
-    "orderDetailId": "efcd9ed179794932b72b39696b8e2069",
-    "orderId": "11a31a62fc3d4eb6a846c01387eac0af",
+    "detailStageAmount": 0,
+    "detailStageAmountType": 1,
+    "orderDetailId": "",
+    "orderId": "",
     "projectDetails": [
       {
         "goodsInventory": 99,
-        "itemCode": "BH004",
-        "itemId": "a44122794a934ba999e0ece7dfeebe60",
-        "itemImage": "goodsDefault.jpg",
-        "itemName": "高压连接管交换件",
-        "itemNumber": 1,
-        "itemStandard": "支/盒",
-        "itemTotalAmount": 86.55,
-        "itemType": 2,
-        "itemUnit": "支",
-        "itemUnitPrice": 86.55,
-        "orderDetailId": "efcd9ed179794932b72b39696b8e2069",
-        "orderDetailItemId": "889fa88f74e34703a7cb006eed0ba73c",
-        "orderGoodsRemark": "这是配件备注",
-        "userId": "2ee0096666b04a30a548e5f91f4496ce",
+        "itemCode": "",
+        "itemId": "",
+        "itemImage": "",
+        "itemName": "",
+        "itemNumber": 0,
+        "itemStandard": "",
+        "itemTotalAmount": 0,
+        "itemType": 0,
+        "itemUnit": "",
+        "itemUnitPrice": 0,
+        "orderDetailId": "",
+        "orderDetailItemId": "",
+        "orderGoodsRemark": "",
+        "userId": "",
         "workHourServices": [
           {
             "createTime": 1651413072000,
-            "goodsItemId": "a44122794a934ba999e0ece7dfeebe60",
-            "id": "be61bdc4111343f6beb039402448aba7",
-            "orderId": "11a31a62fc3d4eb6a846c01387eac0af",
-            "serviceId": "889fa88f74e34703a7cb006eed0ba73c",
-            "serviceName": "高压连接管交换件",
-            "storeId": "f48b3abd276e49d69c8710f659f3400b",
-            "userId": "2ee0096666b04a30a548e5f91f4496ce"
+            "goodsItemId": "",
+            "id": "",
+            "orderId": "",
+            "serviceId": "",
+            "serviceName": "",
+            "storeId": "",
+            "userId": ""
           }
         ],
-        "itemRemark": "这是配件备注"
-      },
-      {
-        "itemUnitPrice": 0,
-        "workHour": 0,
-        "itemImage": "",
         "itemRemark": ""
       }
     ]
@@ -84,53 +78,36 @@
     }
   ],
   "orderServiceItems": {
-    "detailStageAmount": 234,
-    "detailStageAmountType": "1",
-    "orderDetailId": "1b79d58dadce4ca7b8fbc27219e2138a",
-    "orderId": "11a31a62fc3d4eb6a846c01387eac0af",
+    "detailStageAmount": 0,
+    "detailStageAmountType": 1,
+    "orderDetailId": "",
+    "orderId": "",
     "projectDetails": [
       {
-        "itemId": "0c033618291b4402b674b861ad830726",
-        "itemName": "json数据",
-        "itemNameSuffix": "json数据",
+        "itemId": "",
+        "itemName": "",
+        "itemNameSuffix": "",
         "itemNumber": 1,
-        "itemTotalAmount": 234,
+        "itemTotalAmount": "",
         "itemUnit": "",
-        "itemUnitPrice": 234,
-        "orderDetailId": "1b79d58dadce4ca7b8fbc27219e2138a",
-        "orderDetailItemId": "cd59d8140e5246c3b61db7b26e05a976",
-        "workHour": 2,
+        "itemUnitPrice": 0,
+        "orderDetailId": "",
+        "orderDetailItemId": "",
+        "workHour": 0,
         "workHourServices": [
           {
-            "allocationProportion": 50,
-            "createTime": 1651413072000,
-            "goodsItemId": "0c033618291b4402b674b861ad830726",
-            "id": "4b58d18dcab349d588cd10c1fd034939",
-            "orderId": "11a31a62fc3d4eb6a846c01387eac0af",
-            "serviceId": "cd59d8140e5246c3b61db7b26e05a976",
-            "serviceName": "洗车车",
-            "storeId": "f48b3abd276e49d69c8710f659f3400b",
-            "userId": "58c62a67005a428cb1a66331b5a2dc2a",
-            "workHour": 2
-          },
-          {
-            "allocationProportion": 50,
-            "createTime": 1651413072000,
-            "goodsItemId": "0c033618291b4402b674b861ad830726",
-            "id": "a092377c2e6740ebac464c98ebf002d9",
-            "orderId": "11a31a62fc3d4eb6a846c01387eac0af",
-            "serviceId": "cd59d8140e5246c3b61db7b26e05a976",
-            "serviceName": "洗车车",
-            "storeId": "f48b3abd276e49d69c8710f659f3400b",
-            "userId": "2ee0096666b04a30a548e5f91f4496ce",
-            "workHour": 2
+            "allocationProportion": 0,
+            "createTime": 0,
+            "goodsItemId": "",
+            "id": "",
+            "orderId": "",
+            "serviceId": "",
+            "serviceName": "",
+            "storeId": "",
+            "userId": "",
+            "workHour": 0
           }
         ]
-      },
-      {
-        "itemUnitPrice": 0,
-        "itemNumber": 0,
-        "workHour": 0
       }
     ]
   },

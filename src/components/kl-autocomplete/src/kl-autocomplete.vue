@@ -60,12 +60,15 @@ const formData = computed({
   },
 });
 const handleQuerySearch = (searchKeywords: string, cb: any) => {
-  useRequest(props.api({ ...props.apiParams, searchKeywords: searchKeywords || 1 }), {
+  useRequest(props.api({ ...props.apiParams, searchKeywords: formData.value }), {
     onSuccess: (res: any) => {
-      total.value = res.data.total;
-      res.data.datas[0].top = true;
-      res.data.datas[res.data.datas.length - 1].bottom = true;
-      cb(res.data.datas);
+      if (res.data?.datas.length) {
+        console.log(res.data.datas, '本次搜索结果');
+        total.value = res.data.datas.length;
+        res.data.datas[0].top = true;
+        res.data.datas[res.data.datas.length - 1].bottom = true;
+      }
+      cb(res.data?.datas ?? []);
     },
   });
 };

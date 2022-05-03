@@ -10,13 +10,16 @@
       </div>
     </template>
     <div class="flex">
-      <tisp-tabs v-model="orderServiceItems.detailStageAmountType" :tabs="tabs" tab-position="left"></tisp-tabs>
-
+      {{ orderServiceItems.detailStageAmountType }}
+      <el-tabs v-model="orderServiceItems.detailStageAmountType" tab-position="left">
+        <el-tab-pane name="1" label="分开结算"></el-tab-pane>
+        <el-tab-pane name="0" label="合并结算"></el-tab-pane>
+      </el-tabs>
       <div class="w-full">
         <el-table :data="orderServiceItems.projectDetails" style="width: 100%">
           <el-table-column prop="date" label="服务名称" align="center">
             <template #default="{ row }">
-              <el-autocomplete
+              <!-- <el-autocomplete
                 v-model="row.itemName"
                 :fetch-suggestions="querySearch"
                 popper-class="my-autocomplete"
@@ -27,17 +30,42 @@
                   <div>{{ item.value }}</div>
                   <span>{{ item.link }}</span>
                 </template>
-              </el-autocomplete>
+              </el-autocomplete> -->
+              <kl-autocomplete
+                v-model="row.itemName"
+                placeholder="客户名称"
+                :api="goodsApi.postServiceList"
+                :api-params="apiParams"
+                :show-more="false"
+                @select="handleSelect"
+              >
+                <template #default="{ item }">
+                  <div class="flex flex-col w-full" style="border-bottom: 1px dashed var(--el-border-color-light)">
+                    <div>
+                      <span class="font-bold">名称: </span>
+                      <span class="truncation">{{ item.serviceName }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span>
+                        <span class="font-bold">工时: </span> <span>{{ item.serviceWorkHour }} 小时</span>
+                      </span>
+                      <span>
+                        <span class="font-bold">￥: </span> <span>{{ item.serviceAmount || 0.0 }}</span>
+                      </span>
+                    </div>
+                  </div>
+                </template>
+              </kl-autocomplete>
             </template>
           </el-table-column>
           <el-table-column prop="date" label="服务价格 / 元" align="center">
             <template #default="{ row }">
-              <el-input-number v-model="row.itemUnitPrice" :min="1" :max="10" controls-position="right" />
+              <el-input-number v-model="row.itemUnitPrice" :min="0" controls-position="right" />
             </template>
           </el-table-column>
           <el-table-column prop="date" label="服务工时 / 小时" align="center">
             <template #default="{ row }">
-              <el-input-number v-model="row.workHour" :min="1" :max="10" controls-position="right" />
+              <el-input-number v-model="row.workHour" :min="0" controls-position="right" />
             </template>
           </el-table-column>
           <el-table-column prop="date" label="作业人员" align="center">
@@ -74,8 +102,10 @@
 <script setup lang="ts">
 import { CirclePlus, Edit, Delete } from '@element-plus/icons-vue';
 import { PropType } from 'vue';
-import TispTabs from '@/base-ui/tisp-tabs';
-import type { orderDetailType, orderServiceItemsType, optionsType } from '../orderDetailType';
+import type { orderServiceItemsType, optionsType } from '../orderDetailType';
+import KlAutocomplete from '@/components/kl-autocomplete';
+import goodsApi from '@/api/modules/goods';
+import { useUserStore } from '@/store/modules/login';
 
 const props = defineProps({
   modelValue: {
@@ -88,12 +118,15 @@ const props = defineProps({
   },
 });
 const orderServiceItems = computed<orderServiceItemsType>(() => props.modelValue);
-
+const storeInfo = computed(() => useUserStore().storeInfo);
+// 搜索关键词参数
+const apiParams = {
+  pageSize: 999,
+  searchKeywords: '',
+  storeId: storeInfo.value.id,
+};
 const value1 = ref(true);
-const tabs: any[] = [
-  { label: '分开结算', value: '1' },
-  { label: '合并结算', value: '0' },
-];
+
 const getUserName = (id: string) => {
   return props.staffOptions.find((item: optionsType) => item.value === id)?.label;
 };

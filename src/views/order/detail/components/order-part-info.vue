@@ -10,7 +10,11 @@
       </div>
     </template>
     <div class="flex">
-      <tisp-tabs v-model="current" :tabs="tabs" tab-position="left"></tisp-tabs>
+      {{ orderReplacementParts.detailStageAmountType }}
+      <el-tabs v-model="orderReplacementParts.detailStageAmountType" tab-position="left">
+        <el-tab-pane name="1" label="分开结算"></el-tab-pane>
+        <el-tab-pane name="0" label="合并结算"></el-tab-pane>
+      </el-tabs>
       <el-table :data="orderReplacementParts.projectDetails" style="width: 100%">
         <el-table-column prop="date" label="配件图片" align="center">
           <template #default="{ row }">
@@ -31,17 +35,17 @@
         </el-table-column>
         <el-table-column prop="date" label="配件数量" align="center">
           <template #default="{ row }">
-            <el-input-number v-model="row.itemNumber" :min="1" :max="10" controls-position="right" />
+            <el-input-number v-model="row.itemNumber" :min="0" controls-position="right" />
           </template>
         </el-table-column>
         <el-table-column prop="date" label="配件价格" align="center">
           <template #default="{ row }">
-            <el-input-number v-model="row.itemUnitPrice" :min="1" :max="10" controls-position="right" />
+            <el-input-number v-model="row.itemUnitPrice" :min="0" controls-position="right" />
           </template>
         </el-table-column>
         <el-table-column prop="date" label="金额" align="center">
           <template #default="{ row }">
-            <el-input-number v-model="row.itemTotalAmount" :min="1" :max="10" controls-position="right" />
+            <el-input-number v-model="row.itemTotalAmount" :min="0" controls-position="right" />
           </template>
         </el-table-column>
         <el-table-column prop="date" label="配件备注" align="center">
@@ -69,7 +73,6 @@
 <script setup lang="ts">
 import { CirclePlus, Delete } from '@element-plus/icons-vue';
 import { PropType } from 'vue';
-import TispTabs from '@/base-ui/tisp-tabs';
 import type { orderReplacementPartsType, optionsType } from '../orderDetailType';
 
 const props = defineProps({
@@ -85,33 +88,6 @@ const props = defineProps({
 const orderReplacementParts = computed<orderReplacementPartsType>(() => props.modelValue);
 const current = ref('1');
 const value1 = ref(true);
-const value = ref('');
-type tabType = {
-  value: string;
-  label: string;
-};
-const tabs: tabType[] = [
-  { label: '分开结算', value: '1' },
-  { label: '合并结算', value: '0' },
-];
-const options = [
-  {
-    value: 'Option1',
-    label: 'Option1',
-  },
-  {
-    value: 'Option2',
-    label: 'Option2',
-  },
-];
-const tableData = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    workHour: 12,
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-];
 </script>
 
 <style scoped></style>
