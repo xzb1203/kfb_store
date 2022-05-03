@@ -114,22 +114,22 @@ export type serveProjectDetailsType = {
   itemUnit?: string;
   itemUnitPrice?: number;
   orderDetailId: string;
-  orderDetailItemId?: string;
+  orderDetailItemId: string;
   workHour?: number;
-  workHourServices: [
-    {
-      allocationProportion?: number;
-      createTime?: number;
-      goodsItemId: string;
-      id: string;
-      orderId: string;
-      serviceId: string;
-      serviceName?: string;
-      storeId: string;
-      userId: string;
-      workHour?: number;
-    },
-  ];
+  workHourServices: serveWorkHourServicesType[];
+};
+export type serveWorkHourServicesType = {
+  allocationProportion: number;
+  createTime?: number;
+  goodsItemId: string;
+  id: string;
+  orderId: string;
+  serviceId: string;
+  serviceName?: string;
+  storeId: string;
+  userId: string;
+  workHour?: number;
+  isEdit?: boolean;
 };
 
 export type optionsType = {

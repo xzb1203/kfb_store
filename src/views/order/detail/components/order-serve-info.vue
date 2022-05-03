@@ -98,7 +98,9 @@
           </el-table-column>
           <el-table-column prop="date" label="操作" align="center">
             <template #default="{ row, $index }">
-              <el-button type="text" :icon="Edit">编辑</el-button>
+              <el-button v-if="params.serviceSwitch === '1'" type="text" :icon="Edit" @click="handleEdit(row, $index)">
+                编辑
+              </el-button>
               <el-button type="text" :icon="Delete" @click="handleDelete($index)">删除</el-button>
             </template>
           </el-table-column>
@@ -110,6 +112,12 @@
       </div>
     </div>
   </el-card>
+  <edit-serve-dialog
+    ref="editServeDialogRef"
+    v-model="currentItem"
+    :staff-options="staffOptions"
+    @handle-confirm="handleConfirm"
+  ></edit-serve-dialog>
 </template>
 
 <script setup lang="ts">
@@ -120,6 +128,7 @@ import KlAutocomplete from '@/components/kl-autocomplete';
 import goodsApi from '@/api/modules/goods';
 import { useUserStore } from '@/store/modules/login';
 import type { searchOptionsType } from '../type';
+import EditServeDialog from './edit-serve-dialog.vue';
 
 const props = defineProps({
   modelValue: {
@@ -131,10 +140,7 @@ const props = defineProps({
     default: () => [],
   },
 });
-// orderServiceItemsType
-// const orderServiceItems = computed<orderServiceItemsType>(() => props.modelValue);
-const params = computed(() => props.modelValue);
-
+const params = computed<orderDetailType>(() => props.modelValue);
 const storeInfo = computed(() => useUserStore().storeInfo);
 // 搜索关键词参数
 const apiParams = {
@@ -145,6 +151,10 @@ const apiParams = {
 const field = ref('');
 const tableRef = ref();
 const top = ref('55px');
+
+const editServeDialogRef = ref<InstanceType<typeof EditServeDialog>>();
+const currentItem = ref<serveProjectDetailsType>();
+const currentIndex = ref(0);
 watch(
   () => params.value.orderServiceItems.projectDetails.length,
   (val: number) => {
@@ -153,6 +163,17 @@ watch(
   },
   { deep: true },
 );
+
+const handleConfirm = () => {
+  params.value.orderServiceItems.projectDetails[currentIndex.value] = currentItem.value as serveProjectDetailsType;
+};
+const handleEdit = (row: serveProjectDetailsType, index: number) => {
+  if (editServeDialogRef.value) {
+    editServeDialogRef.value.dialogVisible = true;
+  }
+  currentItem.value = JSON.parse(JSON.stringify(row));
+  currentIndex.value = index;
+};
 const getUserName = (id: string) => {
   return props.staffOptions.find((item: optionsType) => item.value === id)?.label;
 };
@@ -174,7 +195,7 @@ const handleSelect = (item: searchOptionsType) => {
     workHour: item.serviceWorkHour,
     workHourServices: [
       {
-        allocationProportion: 0,
+        allocationProportion: 100,
         createTime: 0,
         goodsItemId: item.serviceId,
         id: '',
