@@ -52,7 +52,11 @@ const props = defineProps({
     default: () => [],
   },
 });
-const params = computed(() => props.modelValue);
+const emits = defineEmits(['update:modelValue']);
+const params = computed({
+  get: () => props.modelValue,
+  set: (val) => emits('update:modelValue', val),
+});
 </script>
 
 <style scoped></style>

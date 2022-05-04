@@ -1,14 +1,14 @@
 <template>
   <el-dialog v-model="dialogVisible" title="编辑工时分成" width="30%" center>
     <el-table :data="currentItem.workHourServices" style="width: 100%">
-      <el-table-column prop="date" label="作业人员" width="180">
+      <el-table-column prop="date" label="作业人员">
         <template #default="{ row }">
           <el-select v-model="row.userId" class="m-2" placeholder="请选择负责人">
             <el-option v-for="item in staffOptions" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="工时分成 / %" width="180">
+      <el-table-column prop="name" label="工时分成 / %">
         <template #default="{ row }">
           <el-input-number
             v-model="row.allocationProportion"
