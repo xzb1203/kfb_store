@@ -4,7 +4,13 @@
       <div class="flex justify-between items-center">
         <span class="kl-card-title">配件信息</span>
         <div>
-          <el-switch v-model="params.goodsSwitch" active-value="1" inactive-value="0" active-text="添加负责人员" />
+          <el-switch
+            v-model="params.goodsSwitch"
+            active-value="1"
+            inactive-value="0"
+            active-text="添加负责人员"
+            @change="handleSwitch"
+          />
           <el-button :icon="CirclePlus" type="primary" plain class="ml-20px">新增商品</el-button>
         </div>
       </div>
@@ -40,8 +46,8 @@
                     </p>
                     <!-- <p><span class="font-bold">仓位号: </span> <span>{{item.goodsPositionNumber}}</span></span></p> -->
                     <p>
-                      <span class="w-70px inline-block">￥: </span>
-                      <span class="text-gray-400">{{ item.storeGoodsSalePrice }}</span>
+                      <span class="w-70px inline-block">单<span class="invisible">占位</span>价: </span>
+                      <span class="text-gray-400">¥ {{ item.storeGoodsSalePrice }} </span>
                     </p>
                   </div>
                 </div>
@@ -50,12 +56,12 @@
           </kl-autocomplete>
         </div>
         <el-table :data="params.orderReplacementParts.projectDetails" style="width: 100%">
-          <el-table-column prop="date" label="配件图片" align="center">
+          <el-table-column label="配件图片" align="center">
             <template #default="{ row }">
               <el-image :src="imgUrl + row.itemImage" class="w-50px h-50px"></el-image>
             </template>
           </el-table-column>
-          <el-table-column prop="date" label="配件信息" align="center">
+          <el-table-column label="配件信息" align="center">
             <template #default="{ row }">
               <div class="text-left">
                 <div>
@@ -67,44 +73,57 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column prop="date" label="配件数量" align="center">
+          <el-table-column label="配件数量" align="center">
             <template #default="{ row }">
-              <el-input-number v-model="row.itemNumber" :min="0" controls-position="right" />
+              <el-input-number
+                v-model="row.itemNumber"
+                :min="0"
+                controls-position="right"
+                @change="handleItemUnitPrice"
+              />
             </template>
           </el-table-column>
           <el-table-column
             v-if="params.orderReplacementParts.detailStageAmountType === '1'"
-            prop="date"
             label="配件单价"
             align="center"
           >
             <template #default="{ row }">
-              <el-input-number v-model="row.itemUnitPrice" :min="0" controls-position="right" />
+              <el-input-number
+                v-model="row.itemUnitPrice"
+                :min="0"
+                controls-position="right"
+                @change="handleItemUnitPrice"
+              />
             </template>
           </el-table-column>
           <el-table-column
             v-if="params.orderReplacementParts.detailStageAmountType === '1'"
-            prop="date"
             label="配件总额"
             align="center"
           >
             <template #default="{ row }">
-              <el-input-number v-model="row.itemTotalAmount" :min="0" controls-position="right" />
+              <el-input-number
+                v-model="row.itemTotalAmount"
+                :min="0"
+                controls-position="right"
+                @change="handleTotalAmount"
+              />
             </template>
           </el-table-column>
-          <el-table-column prop="date" label="配件备注" align="center">
+          <el-table-column label="配件备注" align="center">
             <template #default="{ row }">
               <el-input v-model="row.orderGoodsRemark" placeholder="请输入备注信息"></el-input>
             </template>
           </el-table-column>
-          <el-table-column v-if="params.goodsSwitch === '1'" prop="date" label="配件负责人" align="center">
+          <el-table-column v-if="params.goodsSwitch === '1'" label="配件负责人" align="center">
             <template #default="{ row }">
               <el-select v-model="row.userId" class="m-2" placeholder="请选择负责人">
                 <el-option v-for="item in staffOptions" :label="item.label" :value="item.value" />
               </el-select>
             </template>
           </el-table-column>
-          <el-table-column prop="date" label="操作" align="center">
+          <el-table-column label="操作" align="center">
             <template #default="{ $index }">
               <el-button type="text" :icon="Delete" @click="handleDelete($index)">删除</el-button>
             </template>
@@ -122,7 +141,12 @@
 <script setup lang="ts">
 import { CirclePlus, Delete } from '@element-plus/icons-vue';
 import { PropType } from 'vue';
-import type { orderReplacementPartsType, optionsType, orderDetailType } from '../orderDetailType';
+import type {
+  orderReplacementPartsType,
+  optionsType,
+  orderDetailType,
+  partsProjectDetailsType,
+} from '../orderDetailType';
 import type { goodsSearchOptionsType } from '../type';
 import KlAutocomplete from '@/components/kl-autocomplete';
 import goodsApi from '@/api/modules/goods';
@@ -151,11 +175,29 @@ const apiParams = {
   pageSize: 999,
 };
 const totalPrice = computed(() =>
-  params.value.orderReplacementParts.projectDetails.reduce((pre: number, cur: any) => {
-    return pre + cur.itemNumber * cur.itemUnitPrice;
-  }, 0),
+  params.value.orderReplacementParts.projectDetails
+    .reduce((pre: number, cur: partsProjectDetailsType) => {
+      return pre + cur.itemNumber * cur.itemUnitPrice;
+    }, 0)
+    .toFixed(2),
 );
-
+const handleSwitch = (val: string | number | boolean) => {
+  if (val === '1') params.value.orderReplacementParts.detailStageAmountType = '1';
+};
+const handleItemUnitPrice = (val: number | undefined) => {
+  if (val) {
+    params.value.orderReplacementParts.projectDetails.forEach((item: partsProjectDetailsType) => {
+      item.itemTotalAmount = Number((item.itemNumber * item.itemUnitPrice).toFixed(2));
+    });
+  }
+};
+const handleTotalAmount = (val: number | undefined) => {
+  if (val) {
+    params.value.orderReplacementParts.projectDetails.forEach((item: partsProjectDetailsType) => {
+      item.itemUnitPrice = Number((val / item.itemNumber).toFixed(2));
+    });
+  }
+};
 const handleDelete = (index: number) => {
   params.value.orderReplacementParts.projectDetails.splice(index, 1);
 };
@@ -168,7 +210,7 @@ const handleSelect = (item: goodsSearchOptionsType) => {
     itemName: item.goodsName,
     itemNumber: 1,
     itemStandard: item.goodsStandard,
-    itemTotalAmount: 0,
+    itemTotalAmount: Number(item.storeGoodsSalePrice.replace(/,/g, '')),
     itemType: 0,
     itemUnit: item.goodsUnit,
     itemUnitPrice: Number(item.storeGoodsSalePrice.replace(/,/g, '')),
