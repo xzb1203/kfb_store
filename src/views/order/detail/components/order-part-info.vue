@@ -99,7 +99,7 @@
     </div>
     <div class="text-right mt-20px">
       <span class="kl-label">小计:</span>
-      <span class="text-red-500 ml-10px">¥ 0.00</span>
+      <span class="text-red-500 ml-10px text-1.125rem font-bold">¥ 0.00</span>
     </div>
   </el-card>
 </template>

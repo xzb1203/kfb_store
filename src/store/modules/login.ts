@@ -44,6 +44,8 @@ export const useUserStore = defineStore('user', {
       // 门店信息
       useRequest(loginApi.postStoreInfo(), {
         onSuccess: (res) => {
+          console.log(res.data, '门店信息');
+
           this.storeInfo = res.data.additionalParameters;
           localCache.setCache('storeInfo', res.data.additionalParameters);
         },

@@ -46,7 +46,7 @@ export type orderDetailType = {
   orderStatus: number;
   orderStatusName: string;
   orderTotalAmount: number;
-  serviceSwitch: number;
+  serviceSwitch: string;
   storeAddress: string;
   storeCityName: string;
   storeContactsPhone: string;
@@ -112,7 +112,7 @@ export type serveProjectDetailsType = {
   itemNumber?: number;
   itemTotalAmount?: number;
   itemUnit?: string;
-  itemUnitPrice?: number;
+  itemUnitPrice: number;
   orderDetailId: string;
   orderDetailItemId: string;
   workHour?: number;

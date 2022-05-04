@@ -12,10 +12,11 @@
     <div class="flex">
       <el-tabs v-model="params.orderServiceItems.detailStageAmountType" tab-position="left">
         <el-tab-pane name="1" label="分开结算"></el-tab-pane>
-        <el-tab-pane v-if="params.serviceSwitch === '0'" name="0" label="合并结算"></el-tab-pane>
+        <el-tab-pane v-if="!serviceSwitch" name="0" label="合并结算"></el-tab-pane>
       </el-tabs>
       <div ref="tableRef" class="flex-1 relative" style="width: calc(100% - 140px)">
-        <div :class="['absolute', 'z-60', 'bottom-0', params.serviceSwitch === '0' ? 'left-84px' : 'left-25px']">
+        <!-- , params.serviceSwitch === '0' ? 'left-84px' : 'left-25px' -->
+        <div :class="['absolute', 'z-60', 'bottom-0']">
           <kl-autocomplete
             v-model="field"
             placeholder="服务名称"
@@ -43,13 +44,13 @@
         </div>
         <el-table :data="params.orderServiceItems.projectDetails" style="width: 100%">
           <el-table-column prop="date" label="服务名称" align="center">
-            <template #default="{ row }">
+            <template #default="{ row, $index }">
               <kl-autocomplete
                 v-model="row.itemName"
                 placeholder="服务名称"
                 :api="goodsApi.postServiceList"
                 :api-params="apiParams"
-                @select="handleItemSelect(row)"
+                @select="handleItemSelect($event, $index)"
               >
                 <template #default="{ item }">
                   <div class="flex flex-col w-full" style="border-bottom: 1px dashed var(--el-border-color-light)">
@@ -70,7 +71,7 @@
               </kl-autocomplete>
             </template>
           </el-table-column>
-          <el-table-column prop="date" label="服务价格 / 元" align="center">
+          <el-table-column v-if="clearingSwitch" prop="date" label="服务价格 / 元" align="center">
             <template #default="{ row }">
               <el-input-number v-model="row.itemUnitPrice" :min="0" controls-position="right" />
             </template>
@@ -80,24 +81,23 @@
               <el-input-number v-model="row.workHour" :min="0" controls-position="right" />
             </template>
           </el-table-column>
-          <el-table-column v-if="params.serviceSwitch === '1'" prop="date" label="作业人员" align="center">
+          <el-table-column v-if="serviceSwitch" prop="date" label="作业人员" align="center">
             <template #default="{ row }">
               <div v-for="item2 in row.workHourServices">
                 {{ getUserName(item2.userId) }}
               </div>
             </template>
           </el-table-column>
-          <el-table-column v-if="params.serviceSwitch === '1'" prop="date" label="工时分成" align="center">
+          <el-table-column v-if="serviceSwitch" prop="date" label="工时分成" align="center">
             <template #default="{ row }">
               <div v-for="item2 in row.workHourServices" class="flex items-center">
-                <el-slider v-model="item2.allocationProportion" class="!h-28px" />
-                <span class="whitespace-nowrap ml-10px">{{ item2.allocationProportion }}%</span>
+                <el-progress :percentage="item2.allocationProportion" class="w-full" />
               </div>
             </template>
           </el-table-column>
           <el-table-column prop="date" label="操作" align="center">
             <template #default="{ row, $index }">
-              <el-button v-if="params.serviceSwitch === '1'" type="text" :icon="Edit" @click="handleEdit(row, $index)">
+              <el-button v-if="serviceSwitch" type="text" :icon="Edit" @click="handleEdit(row, $index)">
                 编辑
               </el-button>
               <el-button type="text" :icon="Delete" @click="handleDelete($index)">删除</el-button>
@@ -105,8 +105,11 @@
           </el-table-column>
         </el-table>
         <div class="text-right mt-20px">
-          <span class="kl-label">小计:</span>
-          <span class="text-red-500 ml-10px">¥ 0.00</span>
+          <span class="kl-label mr-10px">小计:</span>
+          <span v-if="clearingSwitch" class="text-red-500 text-1.125rem font-bold"> ¥ {{ totalPrice }} </span>
+          <span v-else>
+            <el-input v-model="params.orderServiceItems.detailStageAmount" class="!w-150px mr-10px"></el-input> /元
+          </span>
         </div>
       </div>
     </div>
@@ -122,7 +125,13 @@
 <script setup lang="ts">
 import { CirclePlus, Edit, Delete } from '@element-plus/icons-vue';
 import { PropType } from 'vue';
-import type { orderDetailType, orderServiceItemsType, optionsType, serveProjectDetailsType } from '../orderDetailType';
+import type {
+  orderDetailType,
+  orderServiceItemsType,
+  optionsType,
+  serveProjectDetailsType,
+  serveWorkHourServicesType,
+} from '../orderDetailType';
 import KlAutocomplete from '@/components/kl-autocomplete';
 import goodsApi from '@/api/modules/goods';
 import { useUserStore } from '@/store/modules/login';
@@ -153,7 +162,15 @@ const tableRef = ref();
 const editServeDialogRef = ref<InstanceType<typeof EditServeDialog>>();
 const currentItem = ref<serveProjectDetailsType>();
 const currentIndex = ref(0);
-
+const totalPrice = computed(() =>
+  params.value.orderServiceItems.projectDetails.reduce((pre: number, cur: serveProjectDetailsType) => {
+    return pre + cur.itemUnitPrice;
+  }, 0),
+);
+// 作业人员开关 1开 0关
+const serviceSwitch = computed(() => params.value.serviceSwitch === '1');
+// 结算方式 1分开 0合并
+const clearingSwitch = computed(() => params.value.orderServiceItems.detailStageAmountType === '1');
 const handleConfirm = () => {
   params.value.orderServiceItems.projectDetails[currentIndex.value] = currentItem.value as serveProjectDetailsType;
 };
@@ -171,7 +188,6 @@ const handleDelete = (index: number) => {
   params.value.orderServiceItems.projectDetails.splice(index, 1);
 };
 const handleSelect = (item: searchOptionsType) => {
-  console.log(item, '当前选择的搜索');
   params.value.orderServiceItems.projectDetails.push({
     itemId: item.serviceId,
     itemName: item.serviceName,
@@ -193,14 +209,39 @@ const handleSelect = (item: searchOptionsType) => {
         serviceId: '',
         serviceName: '',
         storeId: '',
-        userId: '',
+        userId: props.staffOptions[0].value,
         workHour: item.serviceWorkHour,
       },
     ],
   });
 };
-const handleItemSelect = (item: any) => {
-  console.log(item);
+const handleItemSelect = (item: searchOptionsType, index: number) => {
+  params.value.orderServiceItems.projectDetails[index] = {
+    itemId: item.serviceId,
+    itemName: item.serviceName,
+    itemNameSuffix: '',
+    itemNumber: 1,
+    itemTotalAmount: 1,
+    itemUnit: item.serviceUnit,
+    itemUnitPrice: item.serviceAmount,
+    orderDetailId: '',
+    orderDetailItemId: '',
+    workHour: item.serviceWorkHour,
+    workHourServices: [
+      {
+        allocationProportion: 100,
+        createTime: 0,
+        goodsItemId: item.serviceId,
+        id: '',
+        orderId: '',
+        serviceId: '',
+        serviceName: '',
+        storeId: '',
+        userId: props.staffOptions[0].value,
+        workHour: item.serviceWorkHour,
+      },
+    ],
+  };
 };
 </script>
 
