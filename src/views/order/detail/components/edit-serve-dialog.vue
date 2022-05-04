@@ -13,6 +13,7 @@
           <el-input-number
             v-model="row.allocationProportion"
             :min="0"
+            :max="100"
             controls-position="right"
             @change="handleChangeNum(row)"
           />
@@ -71,7 +72,7 @@ function handleAdd() {
     orderId: '',
     serviceId: currentItem.value.orderDetailItemId,
     serviceName: '',
-    storeId: '61cf6c6f78924e61a5375a7c3293,de0d',
+    storeId: '',
     userId: '',
     workHour: 0,
   });
@@ -90,17 +91,23 @@ function handleSetAllocationProportion() {
   // 编辑过的列
   const isEditItem = currentItem.value.workHourServices.filter((item: serveWorkHourServicesType) => item.isEdit);
   // 编辑过的总和
-  const isEditItemTotal = isEditItem.reduce((pre: number, cur: serveWorkHourServicesType) => {
+  const editItemTotal = isEditItem.reduce((pre: number, cur: serveWorkHourServicesType) => {
     return pre + cur.allocationProportion;
   }, 0);
   // 没有编辑过的
   const noEditItem = currentItem.value.workHourServices.filter((item: serveWorkHourServicesType) => !item.isEdit);
+  // 没有编辑过的总和
+  const noEditItemTotal = noEditItem.reduce((pre: number, cur: serveWorkHourServicesType) => {
+    return pre + cur.allocationProportion;
+  }, 0);
   currentItem.value.workHourServices.forEach((item: serveWorkHourServicesType) => {
     if (currentItem.value.workHourServices.length === 1) {
       item.allocationProportion = 100;
       return;
     }
-    if (!item.isEdit) item.allocationProportion = Number(((100 - isEditItemTotal) / noEditItem.length).toFixed(0));
+    if (!item.isEdit) {
+      item.allocationProportion = Number(((100 - editItemTotal) / noEditItem.length).toFixed(0));
+    }
   });
 }
 defineExpose({

@@ -14,9 +14,8 @@
         <el-tab-pane name="1" label="分开结算"></el-tab-pane>
         <el-tab-pane v-if="params.serviceSwitch === '0'" name="0" label="合并结算"></el-tab-pane>
       </el-tabs>
-      {{ top }}
       <div ref="tableRef" class="flex-1 relative" style="width: calc(100% - 140px)">
-        <div class="absolute z-60 left-84px" :style="{ top: top }">
+        <div :class="['absolute', 'z-60', 'bottom-0', params.serviceSwitch === '0' ? 'left-84px' : 'left-25px']">
           <kl-autocomplete
             v-model="field"
             placeholder="服务名称"
@@ -150,19 +149,10 @@ const apiParams = {
 };
 const field = ref('');
 const tableRef = ref();
-const top = ref('55px');
 
 const editServeDialogRef = ref<InstanceType<typeof EditServeDialog>>();
 const currentItem = ref<serveProjectDetailsType>();
 const currentIndex = ref(0);
-watch(
-  () => params.value.orderServiceItems.projectDetails.length,
-  (val: number) => {
-    if (!val) return;
-    val === 1 ? (top.value = '105px') : (top.value = `${tableRef.value.offsetHeight + 20}px`);
-  },
-  { deep: true },
-);
 
 const handleConfirm = () => {
   params.value.orderServiceItems.projectDetails[currentIndex.value] = currentItem.value as serveProjectDetailsType;
