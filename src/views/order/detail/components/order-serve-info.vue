@@ -14,7 +14,7 @@
         <el-tab-pane name="1" label="分开结算"></el-tab-pane>
         <el-tab-pane v-if="!serviceSwitch" name="0" label="合并结算"></el-tab-pane>
       </el-tabs>
-      <div ref="tableRef" class="flex-1 relative" style="width: calc(100% - 140px)">
+      <div class="flex-1 relative" style="width: calc(100% - 140px)">
         <!-- , params.serviceSwitch === '0' ? 'left-84px' : 'left-25px' -->
         <div :class="['absolute', 'z-60', 'bottom-0']">
           <kl-autocomplete
@@ -125,13 +125,7 @@
 <script setup lang="ts">
 import { CirclePlus, Edit, Delete } from '@element-plus/icons-vue';
 import { PropType } from 'vue';
-import type {
-  orderDetailType,
-  orderServiceItemsType,
-  optionsType,
-  serveProjectDetailsType,
-  serveWorkHourServicesType,
-} from '../orderDetailType';
+import type { orderDetailType, optionsType, serveProjectDetailsType } from '../orderDetailType';
 import KlAutocomplete from '@/components/kl-autocomplete';
 import goodsApi from '@/api/modules/goods';
 import { useUserStore } from '@/store/modules/login';
@@ -157,11 +151,11 @@ const apiParams = {
   storeId: storeInfo.value.id,
 };
 const field = ref('');
-const tableRef = ref();
 
 const editServeDialogRef = ref<InstanceType<typeof EditServeDialog>>();
 const currentItem = ref<serveProjectDetailsType>();
 const currentIndex = ref(0);
+// 服务价格总计
 const totalPrice = computed(() =>
   params.value.orderServiceItems.projectDetails.reduce((pre: number, cur: serveProjectDetailsType) => {
     return pre + cur.itemUnitPrice;

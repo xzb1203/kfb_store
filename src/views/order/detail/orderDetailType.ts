@@ -63,36 +63,35 @@ export type orderReplacementPartsType = {
   detailStageAmountType: string;
   orderDetailId: string;
   orderId: string;
-  projectDetails: [
+  projectDetails: partsProjectDetailsType[];
+};
+export type partsProjectDetailsType = {
+  goodsInventory: number;
+  itemCode: string;
+  itemId: string;
+  itemImage: string;
+  itemName: string;
+  itemNumber: number;
+  itemStandard: string;
+  itemTotalAmount: number;
+  itemType: number;
+  itemUnit: string;
+  itemUnitPrice: number;
+  orderDetailId: string;
+  orderDetailItemId: string;
+  orderGoodsRemark: string;
+  userId: string;
+  itemRemark: string;
+  workHourServices: [
     {
-      goodsInventory: number;
-      itemCode: string;
-      itemId: string;
-      itemImage: string;
-      itemName: string;
-      itemNumber: number;
-      itemStandard: string;
-      itemTotalAmount: number;
-      itemType: number;
-      itemUnit: string;
-      itemUnitPrice: number;
-      orderDetailId: string;
-      orderDetailItemId: string;
-      orderGoodsRemark: string;
+      createTime: number;
+      goodsItemId: string;
+      id: string;
+      orderId: string;
+      serviceId: string;
+      serviceName: string;
+      storeId: string;
       userId: string;
-      workHourServices: [
-        {
-          createTime: number;
-          goodsItemId: string;
-          id: string;
-          orderId: string;
-          serviceId: string;
-          serviceName: string;
-          storeId: string;
-          userId: string;
-        },
-      ];
-      itemRemark: string;
     },
   ];
 };

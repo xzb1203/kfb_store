@@ -40,7 +40,7 @@
     "orderId": "",
     "projectDetails": [
       {
-        "goodsInventory": 99,
+        "goodsInventory": 0,
         "itemCode": "",
         "itemId": "",
         "itemImage": "",
@@ -55,6 +55,7 @@
         "orderDetailItemId": "",
         "orderGoodsRemark": "",
         "userId": "",
+        "itemRemark": "",
         "workHourServices": [
           {
             "createTime": 0,
@@ -66,8 +67,7 @@
             "storeId": "",
             "userId": ""
           }
-        ],
-        "itemRemark": ""
+        ]
       }
     ]
   },
