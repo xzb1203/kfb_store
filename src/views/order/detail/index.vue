@@ -7,7 +7,7 @@
     <order-remark-info v-model="params.orderRemark"></order-remark-info>
     <div class="flex justify-end bg-white mt-20px rounded-5px p-20px">
       <el-button type="primary">结算</el-button>
-      <el-button type="primary">保存</el-button>
+      <el-button type="primary" @click="handleSave">保存</el-button>
       <el-button type="primary">打印</el-button>
       <el-button type="primary">取消工单</el-button>
     </div>
@@ -34,6 +34,9 @@ const params = ref<orderDetailType>(resultObj as unknown as orderDetailType);
 const loading = ref(true);
 const staffOptions = ref<optionsType[]>([]);
 
+const handleSave = () => {
+  console.log(params.value, '保存的工单信息');
+};
 const handleGetOrderInfo = () => {
   useRequest(orderApi.getOrderDetail(route.query.orderId as string), {
     onSuccess: (res) => {

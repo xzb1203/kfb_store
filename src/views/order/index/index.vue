@@ -1,72 +1,70 @@
 <template>
-  <div>
-    <kl-top-bar v-loading="amountLoading" :list="topBarList">
-      <div class="btn" @click="handleCreatedOrder">
-        <tisp-svg name="icon_fuwu"></tisp-svg>
-        <p w:my="5px" w:text="gray-400 space-nowrap">新建工单服务</p>
-        <p class="kl-label">创建工单</p>
-      </div>
-      <div class="btn" w:ml="20px">
-        <tisp-svg name="icon_guanli"></tisp-svg>
-        <p w:my="5px" w:text="gray-400 space-nowrap">管理服务项目</p>
-        <p class="kl-label">服务管理</p>
-      </div>
-    </kl-top-bar>
-    <el-card>
-      <kl-table-header
-        v-model="orderListParameter"
-        :tabs="tabs"
-        @handle-export="handleExport('open')"
-        @handle-search="handleTableList(1)"
-      >
-      </kl-table-header>
-      <el-scrollbar :height="height">
-        <kl-custom-table
-          v-model="orderListParameter"
-          v-loading="loading"
-          :total="total"
-          :header-columns="headerColumns"
-          :table-list="tableList"
-          @handle-page="handleTableList"
-        >
-          <template #handle="{ scope }">
-            <div w:w="130px">
-              <el-button plain type="text" @click="handleGoOrderInfo(scope)">
-                <el-icon>
-                  <Edit></Edit>
-                </el-icon>
-                继续做单
-              </el-button>
-              <el-button plain type="text" class="!ml-0">
-                <el-icon>
-                  <Wallet></Wallet>
-                </el-icon>
-                工单结算
-              </el-button>
-            </div>
-          </template>
-        </kl-custom-table>
-      </el-scrollbar>
-      <div w:flex="~" w:justify="end" w:mt="10px">
-        <el-pagination
-          v-model:currentPage="orderListParameter.pageNum"
-          v-model:page-size="orderListParameter.pageSize"
-          layout="total,sizes, prev, pager, next"
-          background
-          :total="total"
-          @size-change="handleTableList"
-          @current-change="handleTableList"
-        >
-        </el-pagination>
-      </div>
-    </el-card>
-    <kl-export-dialog
-      ref="exportRef"
+  <kl-top-bar v-loading="amountLoading" :list="topBarList">
+    <div class="btn" @click="handleCreatedOrder">
+      <tisp-svg name="icon_fuwu"></tisp-svg>
+      <p w:my="5px" w:text="gray-400 space-nowrap">新建工单服务</p>
+      <p class="kl-label">创建工单</p>
+    </div>
+    <div class="btn ml-20px">
+      <tisp-svg name="icon_guanli"></tisp-svg>
+      <p w:my="5px" w:text="gray-400 space-nowrap">管理服务项目</p>
+      <p class="kl-label">服务管理</p>
+    </div>
+  </kl-top-bar>
+  <el-card>
+    <kl-table-header
       v-model="orderListParameter"
-      :down-loading="downLoading"
-      @handle-export="handleExport('close')"
-    ></kl-export-dialog>
-  </div>
+      :tabs="tabs"
+      @handle-export="handleExport('open')"
+      @handle-search="handleTableList(1)"
+    >
+    </kl-table-header>
+    <el-scrollbar :height="height">
+      <kl-custom-table
+        v-model="orderListParameter"
+        v-loading="loading"
+        :total="total"
+        :header-columns="headerColumns"
+        :table-list="tableList"
+        @handle-page="handleTableList"
+      >
+        <template #handle="{ scope }">
+          <div w:w="130px">
+            <el-button plain type="text" @click="handleGoOrderInfo(scope)">
+              <el-icon>
+                <Edit></Edit>
+              </el-icon>
+              继续做单
+            </el-button>
+            <el-button plain type="text" class="!ml-0">
+              <el-icon>
+                <Wallet></Wallet>
+              </el-icon>
+              工单结算
+            </el-button>
+          </div>
+        </template>
+      </kl-custom-table>
+    </el-scrollbar>
+    <div w:flex="~" w:justify="end" w:mt="10px">
+      <el-pagination
+        v-model:currentPage="orderListParameter.pageNum"
+        v-model:page-size="orderListParameter.pageSize"
+        layout="total,sizes, prev, pager, next"
+        background
+        :total="total"
+        @size-change="handleTableList"
+        @current-change="handleTableList"
+      >
+      </el-pagination>
+    </div>
+  </el-card>
+  <kl-export-dialog
+    ref="exportRef"
+    v-model="orderListParameter"
+    :down-loading="downLoading"
+    @handle-export="handleExport('close')"
+  ></kl-export-dialog>
 </template>
 
 <script setup lang="tsx">

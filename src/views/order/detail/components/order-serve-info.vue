@@ -16,7 +16,6 @@
       </div>
     </template>
     <div class="flex">
-      {{ params.orderServiceItems.detailStageAmountType }}
       <el-tabs v-model="params.orderServiceItems.detailStageAmountType" tab-position="left">
         <el-tab-pane name="1" label="分开结算"></el-tab-pane>
         <el-tab-pane v-if="!serviceSwitch" name="0" label="合并结算"></el-tab-pane>
