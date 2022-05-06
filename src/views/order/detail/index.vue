@@ -1,11 +1,12 @@
 <template>
-  <div class="relative">
+  <div class="relative pb-70px">
     <order-info v-model="params" :staff-options="staffOptions"></order-info>
     <order-car-info v-model="params"></order-car-info>
     <order-serve-info v-model="params" :staff-options="staffOptions"></order-serve-info>
     <order-part-info v-model="params" :staff-options="staffOptions"></order-part-info>
     <order-remark-info v-model="params.orderRemark"></order-remark-info>
-    <div class="flex justify-end bg-white mt-20px rounded-5px p-20px">
+
+    <div class="footer">
       <el-button type="primary">结算</el-button>
       <el-button type="primary" @click="handleSave">保存</el-button>
       <el-button type="primary">打印</el-button>
@@ -72,4 +73,10 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.footer {
+  @apply flex justify-end bg-white w-full mt-20px rounded-5px p-20px fixed right-35px bottom-0 w-[calc(100%-255px)];
+  border-top: 1px solid var(--el-border-color-light);
+  box-shadow: var(--el-box-shadow-light);
+}
+</style>

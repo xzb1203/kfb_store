@@ -11,7 +11,9 @@
             active-text="添加负责人员"
             @change="handleSwitch"
           />
-          <el-button :icon="CirclePlus" type="primary" plain class="ml-20px">新增商品</el-button>
+          <el-button :icon="CirclePlus" type="primary" plain class="ml-20px" @click="handleAddGoods"
+            >新增商品</el-button
+          >
         </div>
       </div>
     </template>
@@ -61,14 +63,16 @@
               <el-image :src="imgUrl + row.itemImage" class="w-50px h-50px"></el-image>
             </template>
           </el-table-column>
-          <el-table-column label="配件信息" align="center">
+          <el-table-column label="配件信息" align="center" width="200px">
             <template #default="{ row }">
-              <div class="text-left">
+              <div class="text-left whitespace-normal">
                 <div>
-                  <span class="mr-10px inline-block w-50px text-right">名称: </span> <span>{{ row.itemName }}</span>
+                  <span class="mr-10px inline-block w-50px text-right">名称: </span>
+                  <span class="whitespace-normal">{{ row.itemName }}</span>
                 </div>
                 <div>
-                  <span class="mr-10px inline-block w-50px text-right">编号: </span> <span>{{ row.itemCode }}</span>
+                  <span class="mr-10px inline-block w-50px text-right whitespace-normal">编号: </span>
+                  <span class="whitespace-normal">{{ row.itemCode }}</span>
                 </div>
               </div>
             </template>
@@ -77,6 +81,7 @@
             <template #default="{ row }">
               <el-input-number
                 v-model="row.itemNumber"
+                class="!w-100px"
                 :min="0"
                 controls-position="right"
                 @change="handleItemUnitPrice"
@@ -92,6 +97,7 @@
               <el-input-number
                 v-model="row.itemUnitPrice"
                 :min="0"
+                class="!w-100px"
                 controls-position="right"
                 @change="handleItemUnitPrice"
               />
@@ -106,6 +112,7 @@
               <el-input-number
                 v-model="row.itemTotalAmount"
                 :min="0"
+                class="!w-100px"
                 controls-position="right"
                 @change="handleTotalAmount"
               />
@@ -113,7 +120,7 @@
           </el-table-column>
           <el-table-column label="配件备注" align="center">
             <template #default="{ row }">
-              <el-input v-model="row.orderGoodsRemark" placeholder="请输入备注信息"></el-input>
+              <el-input v-model="row.orderGoodsRemark" type="textarea" rows="1" placeholder="请输入备注信息"></el-input>
             </template>
           </el-table-column>
           <el-table-column v-if="params.goodsSwitch === '1'" label="配件负责人" align="center">
@@ -136,6 +143,7 @@
       </div>
     </div>
   </el-card>
+  <kl-add-goods-dialog ref="addGoodsDialogRef"></kl-add-goods-dialog>
 </template>
 
 <script setup lang="ts">
@@ -151,6 +159,7 @@ import type { goodsSearchOptionsType } from '../type';
 import KlAutocomplete from '@/components/kl-autocomplete';
 import goodsApi from '@/api/modules/goods';
 import { useUserStore } from '@/store/modules/login';
+import KlAddGoodsDialog from '@/components/kl-add-goods-dialog';
 
 const props = defineProps({
   modelValue: {
@@ -162,7 +171,11 @@ const props = defineProps({
     default: () => [],
   },
 });
-const params = computed<orderDetailType>(() => props.modelValue);
+const emits = defineEmits(['update:modelValue']);
+const params = computed({
+  get: () => props.modelValue,
+  set: (val) => emits('update:modelValue', val),
+});
 const storeInfo = computed(() => useUserStore().storeInfo);
 const imgUrl = `${import.meta.env.VITE_PICTRUE_URL}productPicture/`;
 const emptyValue = ref('');
@@ -174,6 +187,8 @@ const apiParams = {
   storeId: storeInfo.value.id,
   pageSize: 999,
 };
+const addGoodsDialogRef = ref<InstanceType<typeof KlAddGoodsDialog>>();
+
 const totalPrice = computed(() =>
   params.value.orderReplacementParts.projectDetails
     .reduce((pre: number, cur: partsProjectDetailsType) => {
@@ -181,6 +196,14 @@ const totalPrice = computed(() =>
     }, 0)
     .toFixed(2),
 );
+
+const handleAddGoods = () => {
+  if (addGoodsDialogRef.value) {
+    addGoodsDialogRef.value.dialogVisible = true;
+    console.log('新增商品');
+  }
+};
+
 const handleSwitch = (val: string | number | boolean) => {
   if (val === '1') params.value.orderReplacementParts.detailStageAmountType = '1';
 };

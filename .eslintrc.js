@@ -54,5 +54,6 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-debugger': 'off',
     'no-async-promise-executor': 'off',
+    'prefer-destructuring': 'off',
   },
 };

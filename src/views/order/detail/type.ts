@@ -37,3 +37,21 @@ export type goodsSearchOptionsType = {
   storeGoodsTotalSales: number;
   top: boolean;
 };
+export type carListType = {
+  bottom?: boolean;
+  carEngineCode: string;
+  carId: string;
+  carLastMaintenanceMileage: string;
+  carMileageName: string;
+  carModelsId: string;
+  carModelsName: string;
+  carModelsNameTwo: string;
+  carName: string;
+  carPlateNumber: string;
+  driverUserPhone: string;
+  relId: string;
+  remark: string;
+  storeId: string;
+  top?: boolean;
+  totalOrderNumber: number;
+};

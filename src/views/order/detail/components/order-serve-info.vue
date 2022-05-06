@@ -11,7 +11,9 @@
             active-text="添加作业人员"
             @change="handleSwitch"
           />
-          <el-button :icon="CirclePlus" type="primary" plain class="ml-20px">新增服务</el-button>
+          <el-button :icon="CirclePlus" type="primary" plain class="ml-20px" @click="handleAddServe"
+            >新增服务</el-button
+          >
         </div>
       </div>
     </template>
@@ -126,6 +128,7 @@
     :staff-options="staffOptions"
     @handle-confirm="handleConfirm"
   ></edit-serve-dialog>
+  <kl-add-serve-dialog ref="addServeDialogRef"></kl-add-serve-dialog>
 </template>
 
 <script setup lang="ts">
@@ -137,6 +140,7 @@ import goodsApi from '@/api/modules/goods';
 import { useUserStore } from '@/store/modules/login';
 import type { searchOptionsType } from '../type';
 import EditServeDialog from './edit-serve-dialog.vue';
+import KlAddServeDialog from '@/components/kl-add-serve-dialog';
 
 const props = defineProps({
   modelValue: {
@@ -148,7 +152,11 @@ const props = defineProps({
     default: () => [],
   },
 });
-const params = computed<orderDetailType>(() => props.modelValue);
+const emits = defineEmits(['update:modelValue']);
+const params = computed({
+  get: () => props.modelValue,
+  set: (val) => emits('update:modelValue', val),
+});
 const storeInfo = computed(() => useUserStore().storeInfo);
 // 搜索关键词参数
 const apiParams = {
@@ -159,6 +167,7 @@ const apiParams = {
 const field = ref('');
 
 const editServeDialogRef = ref<InstanceType<typeof EditServeDialog>>();
+const addServeDialogRef = ref<InstanceType<typeof KlAddServeDialog>>();
 const currentItem = ref<serveProjectDetailsType>();
 const currentIndex = ref(0);
 // 服务价格总计
@@ -174,6 +183,12 @@ const serviceSwitch = computed(() => params.value.serviceSwitch === '1');
 // 结算方式 1分开 0合并
 const clearingSwitch = computed(() => params.value.orderServiceItems.detailStageAmountType === '1');
 
+const handleAddServe = () => {
+  if (addServeDialogRef.value) {
+    addServeDialogRef.value.dialogVisible = true;
+    console.log('新增服务');
+  }
+};
 const handleSwitch = (val: string | number | boolean) => {
   if (val === '1') params.value.orderServiceItems.detailStageAmountType = '1';
 };

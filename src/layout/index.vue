@@ -7,7 +7,7 @@
       <el-aside width="200px">
         <layout-menu></layout-menu>
       </el-aside>
-      <el-main class="min-w-1300px">
+      <el-main class="min-w-1300px overflow-y-auto h-[calc(100vh-60px)]">
         <router-view></router-view>
       </el-main>
     </el-container>

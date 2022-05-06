@@ -9,6 +9,7 @@ const orderApi = {
   postCreateOrder: (data: object) => service.postParams(`${prefix}/save`, data),
   postkeywordwithPagingList: (data: object) =>
     service.postParams(`/organization/driver/user/keyword/withPagingList`, data),
+  putSaveOrder: (data: object) => service.put(`${prefix}/goods/unite/update`, data),
 };
 
 export default orderApi;

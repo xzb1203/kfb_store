@@ -25,7 +25,7 @@ export type orderDetailType = {
   orderFaultImage: any[];
   orderId: string;
   orderIncomeExpendLog: any[];
-  orderMileage: number;
+  orderMileage: number | string;
   orderModelsId: string;
   orderModelsName: string;
   orderModelsNameTwo: string;

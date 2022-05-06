@@ -60,8 +60,10 @@ const formData = computed({
   },
 });
 const handleQuerySearch = (searchKeywords: string, cb: any) => {
+  console.log({ ...props.apiParams, searchKeywords: formData.value });
   useRequest(props.api({ ...props.apiParams, searchKeywords: formData.value }), {
     onSuccess: (res: any) => {
+      console.log(res);
       if (res.data?.datas.length) {
         console.log(res.data.datas, '本次搜索结果');
         total.value = res.data.datas.length;
