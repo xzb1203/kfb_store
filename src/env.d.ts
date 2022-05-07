@@ -37,3 +37,4 @@ declare interface ImportMeta {
 declare interface Window {
   // extend the window
 }
+declare module 'crypto-js'

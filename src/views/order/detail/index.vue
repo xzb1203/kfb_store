@@ -49,46 +49,81 @@ const total = computed(() => {
 const handleSave = () => {
   const data = params.value;
   const queryParams = {
-    afterOrderAmountsPayable: total,
-    carCode: data.orderCarCode,
-    carMileage: data.orderMileage,
-    carModels: '',
-    carModelsName: data.carMileageName,
-    carPlateNumber: data.orderDriverUserCarPlateNumber,
-    collectMoneyRemark: '',
-    compulsoryPayment: '',
-    driverUserId: data.driverCarId,
-    driverUserName: data.orderDriverUserName,
-    driverUserPhone: data.orderContactsPhone,
-    faultDescription: data.orderFaultDescription,
-    goodsSwitch: data.goodsSwitch,
-    serviceSwitch: data.serviceSwitch,
+    afterOrderAmountsPayable: 2007,
     isCompulsoryPayment: '11',
     isSendBack: 0,
     isShowOriginalAmount: 0,
-    orderDiscountAmount: '',
-    orderId: route.query.orderId,
-    originalAmount: total,
-    payType: '',
-    receiptAmount: '',
-    remark: data.orderRemark,
-    storeId: storeInfo.value.id,
-    storeName: storeInfo.value.storeName,
+    orderType: 0,
+    originalAmount: 2007,
+    storeName: '测试门店5号',
     updateType: 1,
-    userResponsibleId: data.userResponsibleId, // todo
-    userResponsibleName: data.addUserName,
+    faultDescription: '',
+    orderId: '0f468477ed1d4dacbb787495651cd39e',
+    storeId: '61cf6c6f78924e61a5375a7c3293de0d',
+    serviceSwitch: 0,
+    goodsSwitch: 0,
+    allocationAllState: '',
     orderServiceUpdateInfo: {
-      detailStageAmount: data.orderServiceItems.detailStageAmount,
-      detailStageAmountType: data.orderServiceItems.detailStageAmountType,
-      orderServiceItems: data.orderServiceItems.projectDetails,
+      detailStageAmountType: 1,
+      orderServiceItems: [],
+      detailStageAmount: 0,
     },
     orderGoodsUpdateInfo: {
-      detailStageAmount: data.orderReplacementParts.detailStageAmount,
-      detailStageAmountType: data.orderReplacementParts.detailStageAmountType,
-      orderGoodsItems: data.orderReplacementParts.projectDetails,
+      detailStageAmountType: 1,
+      orderGoodsItems: [
+        {
+          goodsInventory: 200.5,
+          itemCode: '0-9',
+          itemId: 'a4bf02ac0c194b10b1158ab4f7d3b4e0',
+          itemImage: 'goodsDefault.jpg',
+          itemName: '商品12',
+          itemNumber: 1,
+          itemStandard: 'GE',
+          itemTotalAmount: 2007,
+          itemType: 2,
+          itemUnit: '个',
+          itemUnitPrice: 2007,
+          orderDetailId: '5f944219f33b44d28a6dcccbc27a1596',
+          orderDetailItemId: '816760677d134b86b23159c9a2476973',
+          userId: 'e7721b53f53149b383992ed5053ec4de',
+          workHourServices: [
+            {
+              createTime: 1651936013000,
+              goodsItemId: 'a4bf02ac0c194b10b1158ab4f7d3b4e0',
+              id: 'a03e32d350b441cbb98ea1790fbb3659',
+              orderId: '0f468477ed1d4dacbb787495651cd39e',
+              serviceId: '816760677d134b86b23159c9a2476973',
+              serviceName: '商品12',
+              storeId: '61cf6c6f78924e61a5375a7c3293de0d',
+              userId: 'e7721b53f53149b383992ed5053ec4de',
+            },
+          ],
+        },
+      ],
+      detailStageAmount: 0,
     },
+    carCode: '23435553434534534',
+    carMileage: '0',
+    carModels: '41abe4c80ed040f6adcb98a89eaf1ee3',
+    carModelsName: '龙腾',
+    carPlateNumber: '川A12354',
+    driverUserId: '63ff383c11704e5aa1fb733567cadc45',
+    driverUserName: '卡卡西',
+    driverUserPhone: '18081233333',
+    userResponsibleId: 'e7721b53f53149b383992ed5053ec4de',
+    userResponsibleName: '王',
+    collectMoneyRemark: '',
   };
-  console.log(params.value, '保存的工单信息');
+  console.log(queryParams, '保存的参数');
+  useRequest(orderApi.putSaveOrder(queryParams), {
+    onSuccess: (res) => {
+      const result = res.data.datas;
+      console.log(result);
+    },
+    onError: () => {
+      ElMessage.error('保存失败');
+    },
+  });
 };
 const handleGetOrderInfo = () => {
   useRequest(orderApi.getOrderDetail(route.query.orderId as string), {

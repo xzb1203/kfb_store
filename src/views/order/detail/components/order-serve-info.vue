@@ -193,33 +193,21 @@ const handleSwitch = (val: string | number | boolean) => {
   if (val === '1') {
     params.value.orderServiceItems.detailStageAmountType = '1';
   } else {
-    params.value.orderServiceItems.projectDetails = [
-      {
-        itemId: '',
-        itemName: '',
-        itemNameSuffix: '',
-        itemNumber: 1,
-        itemTotalAmount: 0,
-        itemUnit: '',
-        itemUnitPrice: 0,
-        orderDetailId: '',
-        orderDetailItemId: '',
-        workHour: 0,
-        workHourServices: [
-          {
-            allocationProportion: 100,
-            createTime: 0,
-            goodsItemId: '',
-            orderId: '',
-            serviceId: '',
-            serviceName: '',
-            storeId: '',
-            userId: params.value.userResponsibleId,
-            workHour: 0,
-          },
-        ],
-      },
-    ];
+    params.value.orderServiceItems.projectDetails.forEach((item) => {
+      item.workHourServices = [
+        {
+          allocationProportion: 100,
+          createTime: 0,
+          goodsItemId: '',
+          orderId: '',
+          serviceId: '',
+          serviceName: '',
+          storeId: '',
+          userId: params.value.userResponsibleId,
+          workHour: 0,
+        },
+      ];
+    });
   }
 };
 const handleConfirm = () => {
