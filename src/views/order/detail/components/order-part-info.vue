@@ -205,7 +205,41 @@ const handleAddGoods = () => {
 };
 
 const handleSwitch = (val: string | number | boolean) => {
-  if (val === '1') params.value.orderReplacementParts.detailStageAmountType = '1';
+  if (val === '1') {
+    params.value.orderReplacementParts.detailStageAmountType = '1';
+  } else {
+    params.value.orderReplacementParts.projectDetails = [
+      {
+        goodsInventory: 0,
+        itemCode: '',
+        itemId: '',
+        itemImage: '',
+        itemName: '',
+        itemNumber: 0,
+        itemStandard: '',
+        itemTotalAmount: 0,
+        itemType: 0,
+        itemUnit: '',
+        itemUnitPrice: 0,
+        orderDetailId: '',
+        orderDetailItemId: '',
+        orderGoodsRemark: '',
+        userId: params.value.userResponsibleId,
+        itemRemark: '',
+        workHourServices: [
+          {
+            createTime: 0,
+            goodsItemId: '',
+            orderId: '',
+            serviceId: '',
+            serviceName: '',
+            storeId: '',
+            userId: params.value.userResponsibleId,
+          },
+        ],
+      },
+    ];
+  }
 };
 const handleItemUnitPrice = (val: number | undefined) => {
   if (val) {
@@ -240,23 +274,26 @@ const handleSelect = (item: goodsSearchOptionsType) => {
     orderDetailId: '',
     orderDetailItemId: '',
     orderGoodsRemark: '',
-    userId: props.staffOptions[0].value,
+    userId: params.value.userResponsibleId,
     itemRemark: '',
     workHourServices: [
       {
         createTime: 0,
         goodsItemId: item.storeGoodsId,
-        id: '',
         orderId: '',
         serviceId: '',
         serviceName: '',
         storeId: '',
-        userId: props.staffOptions[0].value,
+        userId: params.value.userResponsibleId,
       },
     ],
   });
   console.log(params.value.orderReplacementParts.projectDetails, '所有配件');
 };
+
+defineExpose({
+  totalPrice,
+});
 </script>
 
 <style scoped></style>

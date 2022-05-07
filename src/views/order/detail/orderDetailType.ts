@@ -1,5 +1,6 @@
 export type orderDetailType = {
   addUserName: string;
+  userResponsibleId: string;
   orderContactsPerson: string;
   carEngineCode: string;
   carMileageName: string;
@@ -86,7 +87,6 @@ export type partsProjectDetailsType = {
     {
       createTime: number;
       goodsItemId: string;
-      id: string;
       orderId: string;
       serviceId: string;
       serviceName: string;
@@ -121,7 +121,6 @@ export type serveWorkHourServicesType = {
   allocationProportion: number;
   createTime?: number;
   goodsItemId: string;
-  id: string;
   orderId: string;
   serviceId: string;
   serviceName?: string;

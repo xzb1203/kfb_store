@@ -71,7 +71,7 @@
                         <span class="font-bold">工时: </span> <span>{{ item.serviceWorkHour }} 小时</span>
                       </span>
                       <span>
-                        <span class="font-bold">￥: </span> <span>{{ item.serviceAmount || 0.0 }}</span>
+                        <span class="font-bold">￥: </span> <span>{{ item.serviceAmount || 0 }}</span>
                       </span>
                     </div>
                   </div>
@@ -190,7 +190,37 @@ const handleAddServe = () => {
   }
 };
 const handleSwitch = (val: string | number | boolean) => {
-  if (val === '1') params.value.orderServiceItems.detailStageAmountType = '1';
+  if (val === '1') {
+    params.value.orderServiceItems.detailStageAmountType = '1';
+  } else {
+    params.value.orderServiceItems.projectDetails = [
+      {
+        itemId: '',
+        itemName: '',
+        itemNameSuffix: '',
+        itemNumber: 1,
+        itemTotalAmount: 0,
+        itemUnit: '',
+        itemUnitPrice: 0,
+        orderDetailId: '',
+        orderDetailItemId: '',
+        workHour: 0,
+        workHourServices: [
+          {
+            allocationProportion: 100,
+            createTime: 0,
+            goodsItemId: '',
+            orderId: '',
+            serviceId: '',
+            serviceName: '',
+            storeId: '',
+            userId: params.value.userResponsibleId,
+            workHour: 0,
+          },
+        ],
+      },
+    ];
+  }
 };
 const handleConfirm = () => {
   params.value.orderServiceItems.projectDetails[currentIndex.value] = currentItem.value as serveProjectDetailsType;
@@ -225,12 +255,11 @@ const handleSelect = (item: searchOptionsType) => {
         allocationProportion: 100,
         createTime: 0,
         goodsItemId: item.serviceId,
-        id: '',
         orderId: '',
         serviceId: '',
         serviceName: '',
         storeId: '',
-        userId: props.staffOptions[0].value,
+        userId: params.value.userResponsibleId,
         workHour: item.serviceWorkHour,
       },
     ],
@@ -253,17 +282,19 @@ const handleItemSelect = (item: searchOptionsType, index: number) => {
         allocationProportion: 100,
         createTime: 0,
         goodsItemId: item.serviceId,
-        id: '',
         orderId: '',
         serviceId: '',
         serviceName: '',
         storeId: '',
-        userId: props.staffOptions[0].value,
+        userId: params.value.userResponsibleId,
         workHour: item.serviceWorkHour,
       },
     ],
   };
 };
+defineExpose({
+  totalPrice,
+});
 </script>
 
 <style scoped></style>

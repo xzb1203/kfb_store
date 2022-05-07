@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="dialogVisible" title="编辑工时分成" width="30%" center>
+  <el-dialog v-model="dialogVisible" title="编辑工时分成" width="800px" center>
     <el-table :data="currentItem.workHourServices" style="width: 100%">
       <el-table-column prop="date" label="作业人员">
         <template #default="{ row }">
