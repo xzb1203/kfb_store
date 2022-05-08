@@ -26,7 +26,7 @@ export default defineConfig((env) => {
       // 接口代理
       proxy: {
         '/api': {
-          // 本地 8000 前端代码的接口 代理到 8888 的服务端口
+          // 本地 8090 前端代码的接口 代理到 xx 的服务端口
           target: 'https://testmd.carszone.cn',
           changeOrigin: true, // 允许跨域
           rewrite: (path) => path.replace('/api/', '/'),
