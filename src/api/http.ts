@@ -34,6 +34,7 @@ axiosInstance.interceptors.request.use(
 // 响应拦截器
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
+    console.log(response);
     const AesResponse: any = WHITE_URL.includes(response.config.url as string) ? response : Aes.decryptAes(response);
     if (AesResponse.data?.kfbCode !== '200' && !WHITE_URL.includes(response.config.url as string)) {
       ElMessage.error(AesResponse.data.kfbErrorMsg);
@@ -59,7 +60,13 @@ const service = {
       method: 'POST',
       params,
     }),
-  put: (url: string, data?: object) => axiosInstance.put(url, data),
+  // put: (url: string, data?: object) => axiosInstance.put(url, data),
+  put: (url: string, data?: object) =>
+    axiosInstance({
+      url,
+      method: 'PUT',
+      data,
+    }),
   delete: (url: string, data?: object) =>
     axiosInstance({
       url,

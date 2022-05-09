@@ -20,8 +20,8 @@
                     :src="userUrlPrefix + item.driverAvatar"
                   ></el-image>
                   <div>
-                    <p>{{ item.driverName }}</p>
-                    <p>{{ item.driverPhone }}</p>
+                    <p>名称: {{ item.driverName }}</p>
+                    <p>电话: {{ item.driverPhone }}</p>
                   </div>
                 </div>
               </template>

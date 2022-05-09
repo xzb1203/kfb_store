@@ -33,17 +33,22 @@
             @select="handleSelect"
           >
             <template #default="{ item }">
-              <div class="flex flex-col w-full" style="border-bottom: 1px dashed var(--el-border-color-light)">
+              <div
+                class="flex flex-col w-full leading-24px py-5px"
+                style="border-bottom: 1px dashed var(--el-border-color-light)"
+              >
                 <div>
-                  <span class="font-bold">名称: </span>
-                  <span class="truncation">{{ item.serviceName }}</span>
+                  <span>名称: </span>
+                  <span class="truncation text-gray-400">{{ item.serviceName }}</span>
                 </div>
                 <div class="flex justify-between">
                   <span>
-                    <span class="font-bold">工时: </span> <span>{{ item.serviceWorkHour }} 小时</span>
+                    <span>工时: </span> <span class="text-gray-400">{{ item.serviceWorkHour }} 小时</span>
                   </span>
+                </div>
+                <div class="flex justify-between">
                   <span>
-                    <span class="font-bold">￥: </span> <span>{{ item.serviceAmount || 0.0 }}</span>
+                    <span>价格: </span> <span class="text-gray-400">{{ item.serviceAmount || 0.0 }} / 元</span>
                   </span>
                 </div>
               </div>
@@ -61,17 +66,22 @@
                 @select="handleItemSelect($event, $index)"
               >
                 <template #default="{ item }">
-                  <div class="flex flex-col w-full" style="border-bottom: 1px dashed var(--el-border-color-light)">
+                  <div
+                    class="flex flex-col w-full leading-24px py-5px"
+                    style="border-bottom: 1px dashed var(--el-border-color-light)"
+                  >
                     <div>
-                      <span class="font-bold">名称: </span>
-                      <span class="truncation">{{ item.serviceName }}</span>
+                      <span>名称: </span>
+                      <span class="truncation text-gray-400">{{ item.serviceName }}</span>
                     </div>
                     <div class="flex justify-between">
                       <span>
-                        <span class="font-bold">工时: </span> <span>{{ item.serviceWorkHour }} 小时</span>
+                        <span>工时: </span> <span class="text-gray-400">{{ item.serviceWorkHour }} 小时</span>
                       </span>
+                    </div>
+                    <div class="flex justify-between">
                       <span>
-                        <span class="font-bold">￥: </span> <span>{{ item.serviceAmount || 0 }}</span>
+                        <span>价格: </span> <span class="text-gray-400">{{ item.serviceAmount || 0.0 }} / 元</span>
                       </span>
                     </div>
                   </div>

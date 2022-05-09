@@ -12,11 +12,27 @@
         <span w:ml="30px">车牌或设备: {{ item.carName }}</span>
       </div>
       <div w:w="full" w:flex="~" w:align="items-center" w:justify="around" w:p="20px">
-        <div w:w="130px" w:text="center">
-          服务{{ item.orderServiceItems.projectDetails.map((item:any) => item.itemName) }} <br />
-          商品{{ item.orderReplacementParts.projectDetails.map((item:any) => item.itemName) }}
-          <!-- <div>暂无商品</div>
-          <div>暂无服务</div> -->
+        <div w:text="center">
+          <div>
+            <div v-if="item.orderReplacementParts.projectDetails.length" w:flex="~">
+              <div v-for="item2 in item.orderReplacementParts.projectDetails">{{ item2.itemName }},</div>
+              <span
+                >等
+                <span class="text-blue-500">{{ item.orderReplacementParts.projectDetails.length }} </span> 件商品</span
+              >
+            </div>
+            <span v-else>暂无配件</span>
+          </div>
+          <div w:flex="~">
+            <div v-if="item.orderServiceItems.projectDetails.length" w:flex="~">
+              <div v-for="item2 in item.orderServiceItems.projectDetails">{{ item2.itemName }},</div>
+              <span
+                >等
+                <span class="text-blue-600">{{ item.orderReplacementParts.projectDetails.length }}</span> 项服务</span
+              >
+            </div>
+            <span v-else>暂无服务</span>
+          </div>
         </div>
         <div w:flex="~ col" w:justify="center" w:text="left" w:w="130px">
           <p>客户:{{ item.driverUserName }}</p>
@@ -54,7 +70,6 @@ defineProps({
     default: () => [],
   },
 });
-
 const getCurrentCorlor = (key: string) => {
   let color = '';
   switch (key) {

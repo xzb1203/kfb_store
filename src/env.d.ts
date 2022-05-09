@@ -38,3 +38,5 @@ declare interface Window {
   // extend the window
 }
 declare module 'crypto-js'
+declare module 'encryptlong'
+declare module 'jsrsasign'

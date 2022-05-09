@@ -10,7 +10,6 @@
       <span class="kl-card-title mr-10px">
         总计: <span class="text-red-500 ml-10px">¥ {{ total }}</span>
       </span>
-      <el-button @click="fn">保存测试按钮</el-button>
       <el-button type="primary">结算</el-button>
       <el-button type="primary" @click="handleSave">保存</el-button>
       <el-button type="primary">打印</el-button>
@@ -46,81 +45,6 @@ const total = computed(() => {
     return (Number(serveInfoRef.value.totalPrice) + Number(partInfoRef.value.totalPrice)).toFixed(2);
   }
 });
-const fn = async () => {
-  const params2 = {
-    orderId: '4598bd5f809741efbb1c8b590c9ba924',
-    storeId: '61cf6c6f78924e61a5375a7c3293de0d',
-    serviceSwitch: 0,
-    goodsSwitch: 0,
-    allocationAllState: '',
-    orderServiceUpdateInfo: {
-      detailStageAmountType: 1,
-      orderServiceItems: [
-        {
-          itemId: '3b3c6f0bbf5344b08f679d20495e9269',
-          itemName: '我爱秀秀',
-          itemNumber: 1,
-          itemTotalAmount: 88,
-          itemUnitPrice: 88,
-          orderDetailId: '3e96e2435d9d4b509772df1babfbc7f6',
-          orderDetailItemId: 'c7e4a35b9d954927b5ca15f22fa09d9a',
-          workHour: 1,
-          workHourServices: [
-            {
-              allocationProportion: 100,
-              createTime: 1651976262000,
-              goodsItemId: '3b3c6f0bbf5344b08f679d20495e9269',
-              id: '94cdcd03e90f41349db8f21ca39eebfa',
-              orderId: '4598bd5f809741efbb1c8b590c9ba924',
-              serviceId: 'c7e4a35b9d954927b5ca15f22fa09d9a',
-              serviceName: '',
-              storeId: '61cf6c6f78924e61a5375a7c3293de0d',
-              userId: '',
-              workHour: 1,
-            },
-          ],
-        },
-      ],
-      detailStageAmount: 0,
-    },
-    orderGoodsUpdateInfo: {
-      detailStageAmountType: 1,
-      orderGoodsItems: [
-        {
-          goodsInventory: 200.5,
-          itemCode: '0-9',
-          itemId: 'a4bf02ac0c194b10b1158ab4f7d3b4e0',
-          itemImage: 'goodsDefault.jpg',
-          itemName: '商品12',
-          itemNumber: 1,
-          itemStandard: 'GE',
-          itemTotalAmount: 2007,
-          itemType: 2,
-          itemUnit: '个',
-          itemUnitPrice: 2007,
-          orderDetailId: '12f5c541740040a8a3828504f4bc9c7a',
-          orderDetailItemId: '0508f390219041e4b757c6aba8c7bf2d',
-          userId: 'e7721b53f53149b383992ed5053ec4de',
-          workHourServices: [
-            {
-              createTime: 1651976263000,
-              goodsItemId: 'a4bf02ac0c194b10b1158ab4f7d3b4e0',
-              id: 'e3c2a982c38842e69e9b431c184bc16c',
-              orderId: '4598bd5f809741efbb1c8b590c9ba924',
-              serviceId: '0508f390219041e4b757c6aba8c7bf2d',
-              serviceName: '商品12',
-              storeId: '61cf6c6f78924e61a5375a7c3293de0d',
-              userId: 'e7721b53f53149b383992ed5053ec4de',
-            },
-          ],
-        },
-      ],
-      detailStageAmount: 0,
-    },
-  };
-  const res = await orderApi.putSaveOrder(params2);
-  console.log(res, '请求返回结果');
-};
 
 const handleSave = () => {
   const data = params.value;

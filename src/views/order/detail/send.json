@@ -1,53 +1,29 @@
 {
-  "afterOrderAmountsPayable": 320.55,
-  "isCompulsoryPayment": "11",
-  "isSendBack": 0,
-  "isShowOriginalAmount": 0,
-  "orderType": 0,
-  "originalAmount": 320.55,
-  "storeName": "测试门店2号",
-  "updateType": 1,
-  "faultDescription": "这是故障信息",
-  "orderId": "11a31a62fc3d4eb6a846c01387eac0af",
-  "storeId": "f48b3abd276e49d69c8710f659f3400b",
-  "remark": "这是订单备注",
-  "serviceSwitch": 1,
-  "goodsSwitch": 1,
-  "allocationAllState": 1,
+  "orderId": "5f9bb4e9629b45559a19f486232e18c2",
+  "storeId": "61cf6c6f78924e61a5375a7c3293de0d",
+  "serviceSwitch": 0,
+  "goodsSwitch": 0,
+  "allocationAllState": "",
   "orderServiceUpdateInfo": {
-    "detailStageAmountType": 0,
+    "detailStageAmountType": 1,
     "orderServiceItems": [
       {
-        "itemId": "0c033618291b4402b674b861ad830726",
-        "itemName": "洗车车",
+        "itemId": "3b3c6f0bbf5344b08f679d20495e9269",
+        "itemName": "我爱秀秀",
         "itemNumber": 1,
-        "workHour": "2",
-        "itemUnitPrice": "234",
+        "workHour": 1,
+        "itemTotalAmount": 88,
+        "itemUnitPrice": 88,
+        "orderGoodsCostPrice": 0,
         "workHourServices": [
           {
-            "goodsItemId": "0c033618291b4402b674b861ad830726",
-            "serviceName": "洗车车",
-            "userId": "2ee0096666b04a30a548e5f91f4496ce",
-            "workHour": "2",
-            "allocationProportion": 50,
-            "workHourAll": 100,
-            "userName": "提莫队长",
-            "ifEdit": false
-          },
-          {
-            "allocationProportion": 50,
-            "goodsItemId": "0c033618291b4402b674b861ad830726",
-            "serviceName": "洗车车",
-            "userId": "58c62a67005a428cb1a66331b5a2dc2a",
-            "userName": "熊大",
-            "isEdit": false,
-            "workHourAll": 100,
-            "workHour": "2",
-            "ifEdit": false
+            "allocationProportion": 0,
+            "goodsItemId": "3b3c6f0bbf5344b08f679d20495e9269",
+            "serviceName": "",
+            "userId": "",
+            "workHour": 1
           }
-        ],
-        "servicesTotal": 100,
-        "hasPid": false
+        ]
       }
     ],
     "detailStageAmount": 0
@@ -56,52 +32,26 @@
     "detailStageAmountType": 1,
     "orderGoodsItems": [
       {
-        "itemId": "a44122794a934ba999e0ece7dfeebe60",
-        "itemName": "高压连接管交换件",
-        "itemRemark": "这是配件备注",
+        "itemId": "a4bf02ac0c194b10b1158ab4f7d3b4e0",
+        "itemName": "商品12",
         "itemNumber": 1,
-        "itemTotalAmount": "86.55",
-        "itemUnitPrice": 86.55,
+        "itemTotalAmount": 2007,
+        "itemUnitPrice": "2007",
         "orderGoodsCostPrice": 0,
-        "itemCode": "BH004",
+        "itemCode": "0-9",
         "itemImage": "goodsDefault.jpg",
         "goodsType": "2",
-        "itemUnit": "支",
-        "storeGoodsInventory": 99,
+        "itemUnit": "个",
+        "storeGoodsInventory": 200.5,
         "workHourServices": [
           {
-            "goodsItemId": "a44122794a934ba999e0ece7dfeebe60",
-            "serviceName": "高压连接管交换件",
-            "userId": "2ee0096666b04a30a548e5f91f4496ce"
+            "goodsItemId": "a4bf02ac0c194b10b1158ab4f7d3b4e0",
+            "serviceName": "商品12",
+            "userId": "e7721b53f53149b383992ed5053ec4de"
           }
-        ],
-        "price": {
-          "averageInventoryPrice": 0,
-          "historyMaintenanceMaxPrice": 86.55,
-          "historyMaintenanceMinPrice": 86.55,
-          "historyPurchaseMaxPrice": 0,
-          "historyPurchaseMinPrice": 0,
-          "historySaleMaxPrice": 0,
-          "historySaleMinPrice": 0,
-          "lastMaintenancePrice": 86.55,
-          "lastSalePrice": 0,
-          "latestPurchasePrice": 0,
-          "salesPrice": 86.55
-        },
-        "userId": "2ee0096666b04a30a548e5f91f4496ce"
+        ]
       }
     ],
     "detailStageAmount": 0
-  },
-  "carCode": "",
-  "carMileage": "0",
-  "carModels": "01d3ae185e664ff5b0c583d99cab08dd",
-  "carModelsName": "物流车",
-  "carPlateNumber": "川E2233",
-  "driverUserId": "8a95a538bcd348aa83d670ccb6524333",
-  "driverUserName": "新的司机",
-  "driverUserPhone": "19722332222",
-  "userResponsibleId": "367772b164e940c4abbb46a10a18e7b4",
-  "userResponsibleName": "六",
-  "collectMoneyRemark": ""
+  }
 }
