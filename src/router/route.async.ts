@@ -45,6 +45,37 @@ const asyncRoutes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  {
+    path: '/goods',
+    meta: {
+      title: '',
+      icon: '',
+    },
+    component: Layout,
+    redirect: '/order/index',
+    children: [
+      {
+        path: 'index',
+        name: 'goodsIndex',
+        component: () => import('@/views/goods/index/index.vue'),
+      },
+      {
+        path: 'three',
+        name: 'goodsThree',
+        component: () => import('@/views/goods/three/index.vue'),
+      },
+      {
+        path: 'allot',
+        name: 'goodsAllot',
+        component: () => import('@/views/goods/allot/index.vue'),
+      },
+      {
+        path: 'storage',
+        name: 'goodsStorage',
+        component: () => import('@/views/goods/storage/index.vue'),
+      },
+    ],
+  },
 ];
 
 export default asyncRoutes;

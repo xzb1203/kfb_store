@@ -51,17 +51,17 @@ const menus: any = ref([
       { path: '/order/warranty', name: '三包工单' },
     ],
   },
-  // {
-  //   icon: '',
-  //   path: '/shop',
-  //   name: '商品管理',
-  //   children: [
-  //     { path: '/shop/ordinary', name: '普通商品管理' },
-  //     { path: '/shop/three', name: '三包商品管理' },
-  //     { path: '/shop/allot', name: '商品调拨管理' },
-  //     { path: '/shop/outbound', name: '进出库管理' },
-  //   ],
-  // },
+  {
+    icon: '',
+    path: '/goods',
+    name: '商品管理',
+    children: [
+      { path: '/goods/index', name: '普通商品管理' },
+      { path: '/goods/three', name: '三包商品管理' },
+      { path: '/goods/allot', name: '商品调拨管理' },
+      { path: '/goods/storage', name: '进出库管理' },
+    ],
+  },
 ]);
 </script>
 
