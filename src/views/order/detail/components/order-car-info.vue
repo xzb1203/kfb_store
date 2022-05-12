@@ -14,14 +14,18 @@
               @select="handleSelect"
             >
               <template #default="{ item }">
-                <div class="flex items-center">
+                <div class="flex items-center w-full" style="border-bottom: 1px dashed var(--el-border-color-light)">
                   <el-image
                     class="w-50px h-50px rounded-full mr-15px"
                     :src="userUrlPrefix + item.driverAvatar"
                   ></el-image>
                   <div>
-                    <p>名称: {{ item.driverName }}</p>
-                    <p>电话: {{ item.driverPhone }}</p>
+                    <div>
+                      名称: <span class="text-gray-400">{{ item.driverName }}</span>
+                    </div>
+                    <div>
+                      电话: <span class="text-gray-400">{{ item.driverPhone }}</span>
+                    </div>
                   </div>
                 </div>
               </template>

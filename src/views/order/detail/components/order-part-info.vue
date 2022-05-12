@@ -120,7 +120,7 @@
           </el-table-column>
           <el-table-column label="配件备注" align="center">
             <template #default="{ row }">
-              <el-input v-model="row.orderGoodsRemark" type="textarea" rows="1" placeholder="请输入备注信息"></el-input>
+              <el-input v-model="row.orderGoodsRemark" placeholder="请输入备注信息"></el-input>
             </template>
           </el-table-column>
           <el-table-column v-if="params.goodsSwitch === '1'" label="配件负责人" align="center">
