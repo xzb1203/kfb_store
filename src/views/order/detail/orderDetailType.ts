@@ -9,7 +9,7 @@ export type orderDetailType = {
   driverCarId: string;
   driverCarRemark: string;
   driverUserRemark: string;
-  goodsSwitch: number;
+  goodsSwitch: number | string;
   orderAddTimeStr: string;
   orderAmountPaid: number;
   orderAmountsPayable: number;

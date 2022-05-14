@@ -24,34 +24,42 @@
               </el-tooltip>
             </el-form-item>
             <el-form-item label="分组" class="!mb-0">
-              <el-select v-model="params.sortname" placeholder="Activity zone">
+              <el-select v-model="params.sortname" placeholder="请选择">
                 <el-option label="Zone one" value="shanghai" />
                 <el-option label="Zone two" value="beijing" />
               </el-select>
             </el-form-item>
             <el-form-item label="商品类型" class="!mb-0">
-              <el-select v-model="params.sortname" placeholder="Activity zone">
+              <el-select v-model="params.sortname" placeholder="请选择">
                 <el-option label="Zone one" value="shanghai" />
                 <el-option label="Zone two" value="beijing" />
               </el-select>
             </el-form-item>
             <el-form-item label="商品来源" class="!mb-0">
-              <el-select v-model="params.sortname" placeholder="Activity zone">
+              <el-select v-model="params.sortname" placeholder="请选择">
                 <el-option label="Zone one" value="shanghai" />
                 <el-option label="Zone two" value="beijing" />
               </el-select>
             </el-form-item>
             <el-form-item label="关键词" class="!mb-0">
-              <el-input v-model="params.sortname" placeholder="Approved by" />
+              <el-input v-model="params.sortname" placeholder="商品名称,编号" />
             </el-form-item>
           </el-form>
           <el-button :icon="Search" type="primary">查询</el-button>
           <el-button :icon="Refresh" plain type="primary">重置</el-button>
           <el-button :icon="Switch" plain type="primary">调拨</el-button>
+          <el-button :icon="Menu" plain type="primary">分组管理</el-button>
         </div>
       </div>
     </template>
-    <tisp-table :columns="columns" :data="tableData" :show-select-column="true">
+    <tisp-table
+      v-model="params"
+      :columns="columns"
+      :data="tableData"
+      :total="total"
+      :show-select-column="true"
+      @change-page="handleGetGoodsList"
+    >
       <template #goodsImage="{ row }">
         <el-image :src="imgUrl + row.goodsImage" class="w-40px h-40px"></el-image>
       </template>
@@ -65,7 +73,7 @@
 
 <script setup lang="ts">
 import { useRequest } from 'vue-request';
-import { Search, Refresh, Switch, Delete, View } from '@element-plus/icons-vue';
+import { Search, Refresh, Switch, Delete, View, Menu } from '@element-plus/icons-vue';
 import type { topBarListType, iconNamesType } from './type';
 import TispSvg from '@/base-ui/tisp-svg';
 import { useUserStore } from '@/store/modules/login';
@@ -101,6 +109,7 @@ const topBarList = ref<topBarListType[]>([
 const imgUrl = `${import.meta.env.VITE_PICTRUE_URL}productPicture/`;
 const tableLoading = ref(false);
 const tableData = ref([]);
+const total = ref(0);
 const columns = ref([
   { prop: 'goodsImage', label: '图片', slotName: 'goodsImage' },
   { prop: 'goodsName', label: '商品名称' },
@@ -135,7 +144,8 @@ const handleGetGoodsList = () => {
     onSuccess: (res) => {
       tableData.value = res.data.datas;
       tableLoading.value = false;
-      console.log(res.data.datas, '商品数据');
+      total.value = res.data.total;
+      console.log(res.data, '商品数据');
     },
     onError: () => {
       tableData.value = [];

@@ -14,11 +14,11 @@
   </el-table>
   <div v-if="showFooter" class="mt-15px flex justify-end">
     <el-pagination
-      v-model:currentPage="page.currentPage"
+      v-model:currentPage="page.pageNum"
       v-model:page-size="page.pageSize"
       :page-sizes="[10, 20, 30, 40]"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="listCount"
+      layout="total, sizes, prev, pager, next"
+      :total="total"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     >
@@ -29,7 +29,6 @@
 <script setup lang="ts">
 import { PropType } from 'vue';
 
-const emit = defineEmits(['selectionChange', 'update:page']);
 const props = defineProps({
   showIndexColumn: {
     type: Boolean,
@@ -43,7 +42,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-
+  total: {
+    type: Number,
+    default: 0,
+  },
   data: {
     type: Array as PropType<any>,
     default: () => [],
@@ -53,32 +55,28 @@ const props = defineProps({
     default: () => [],
   },
   childrenProps: {
-    type: Object,
+    type: Object as PropType<any>,
     default: () => ({}),
   },
-  page: {
-    type: Object,
-    default: () => ({ currentPage: 0, pageSize: 10 }),
-  },
-  listCount: {
-    type: Number,
-    default: 0,
+  modelValue: {
+    type: Object as PropType<any>,
+    default: () => ({ pageNum: 0, pageSize: 10, total: 0 }),
   },
 });
-
+const emits = defineEmits(['update:modelValue', 'change-selection', 'change-page']);
 const page = computed({
-  get: () => props.page,
-  set: (val) => emit('update:page', val),
+  get: () => props.modelValue,
+  set: (val) => emits('update:modelValue', val),
 });
 const handleSelectionChange = (value: any) => {
-  emit('selectionChange', value);
+  emits('change-selection', value);
 };
-const handleCurrentChange = (currentPage: number) => {
-  emit('update:page', { ...props.page, currentPage });
+const handleCurrentChange = () => {
+  emits('change-page');
 };
 
-const handleSizeChange = (pageSize: number) => {
-  emit('update:page', { ...props.page, pageSize });
+const handleSizeChange = () => {
+  emits('change-page');
 };
 </script>
 

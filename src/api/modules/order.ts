@@ -10,6 +10,8 @@ const orderApi = {
   postkeywordwithPagingList: (data: object) =>
     service.postParams(`/organization/driver/user/keyword/withPagingList`, data),
   putSaveOrder: (data: object) => service.put(`${prefix}/goods/unite/update`, data),
+  putSaveFault: (data: object) => service.put(`${prefix}/fault/update`, data),
+  deleteOrder: (data: object) => service.delete(`${prefix}/delete`, data),
 };
 
 export default orderApi;

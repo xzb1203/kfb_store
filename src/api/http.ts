@@ -28,15 +28,11 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // 解决后端的坑 todo
-    // if (config.url === '/organization/driver/user/keyword/withPagingList') {
-    //   config.params.searchKeywords = config.params.searchKeywords ? config.params.searchKeywords : 1;
-    // }
-    const encryptResult = Aes.encryptAesConfig(config);
-    // if (config.url === '/order/store/order/goods/unite/update') {
-    //   console.log(Aes.encryptAesConfig(config), '请求拦截器之工单保存');
-    // }
-    console.log(encryptResult);
-    return encryptResult;
+    console.log(config.url);
+    if (config.url === '/organization/driver/user/keyword/withPagingList') {
+      config.params.searchKeywords = config.params.searchKeywords ? config.params.searchKeywords : 1;
+    }
+    return Aes.encryptAesConfig(config);
   },
   (error: AxiosError) => {
     return Promise.reject(error);
@@ -46,7 +42,6 @@ axiosInstance.interceptors.request.use(
 // 响应拦截器
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
-    console.log(response, '响应');
     const AesResponse: any = WHITE_URL.includes(response.config.url as string) ? response : Aes.decryptAes(response);
     if (AesResponse.data?.kfbCode !== '200' && !WHITE_URL.includes(response.config.url as string)) {
       ElMessage.error(AesResponse.data.kfbErrorMsg);
@@ -72,7 +67,6 @@ const service = {
       method: 'POST',
       params,
     }),
-  // put: (url: string, data?: object) => axiosInstance.put(url, data),
   put: (url: string, data?: object) =>
     axiosInstance({
       url,

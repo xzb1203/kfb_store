@@ -8,7 +8,7 @@
         <span>工单编号: {{ item.orderCode }}</span>
         <span w:ml="30px">开单时间: {{ item.orderAddTimeStr }}</span>
         <span w:ml="30px">预计完成时间: {{ item.orderEstimatedFinishTimeStr }}</span>
-        <span w:ml="30px">负责人: 未知</span>
+        <span w:ml="30px">负责人: {{ item.orderResponsible[0]?.orderResponsibleName }}</span>
         <span w:ml="30px">车牌或设备: {{ item.carName }}</span>
       </div>
       <div w:w="full" w:flex="~" w:align="items-center" w:justify="around" w:p="20px">

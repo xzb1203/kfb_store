@@ -1,3 +1,3 @@
-import TispTable from './src/tisp-table.vue';
+import TispTableTsx from './src/tisp-table-tsx.vue';
 
-export default TispTable;
+export default TispTableTsx;

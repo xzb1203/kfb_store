@@ -20,14 +20,7 @@
     >
     </kl-table-header>
     <el-scrollbar :height="height">
-      <kl-custom-table
-        v-model="orderListParameter"
-        v-loading="loading"
-        :total="total"
-        :header-columns="headerColumns"
-        :table-list="tableList"
-        @handle-page="handleTableList"
-      >
+      <kl-custom-table v-loading="loading" :header-columns="headerColumns" :table-list="tableList">
         <template #handle="{ scope }">
           <div w:w="130px">
             <el-button plain type="text" @click="handleGoOrderInfo(scope)">
@@ -159,10 +152,8 @@ const handleExport = (val: string) => {
 
 const handleTableList = (val: number) => {
   loading.value = true;
-  const params = { ...orderListParameter };
-  params.pageNum = val || params.pageNum;
-  params.orderStatus = params.orderStatus === '0' ? '' : params.orderStatus;
-  useRequest(orderApi.postOrderWithPagingList(params), {
+  orderListParameter.orderStatus = orderListParameter.orderStatus === '0' ? '' : orderListParameter.orderStatus;
+  useRequest(orderApi.postOrderWithPagingList(orderListParameter), {
     onSuccess: (res) => {
       tableList.value = res.data.datas;
       loading.value = false;
