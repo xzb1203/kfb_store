@@ -7,7 +7,11 @@ import localCache from '@/utils/cache';
 
 // 解密
 const BASE_PREFIX = import.meta.env.VITE_API_BASEURL;
-const WHITE_URL = ['/websocket/crypt/key', '/websocket/crypt/js/key', '/order/store/order/withPagingList/excel/export'];
+const WHITE_URL = [
+  '/api/websocket/crypt/key',
+  '/api/websocket/crypt/js/key',
+  '/api/order/store/order/withPagingList/excel/export',
+];
 // 创建实例
 const axiosInstance: AxiosInstance = axios.create({
   // 前缀
@@ -42,6 +46,7 @@ axiosInstance.interceptors.request.use(
 // 响应拦截器
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
+    console.log(response, '响应');
     const AesResponse: any = WHITE_URL.includes(response.config.url as string) ? response : Aes.decryptAes(response);
     if (AesResponse.data?.kfbCode !== '200' && !WHITE_URL.includes(response.config.url as string)) {
       ElMessage.error(AesResponse.data.kfbErrorMsg);
