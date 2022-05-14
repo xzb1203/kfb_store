@@ -5,7 +5,11 @@ import { formatJsonToUrlParams, instanceObject } from '@/utils/format';
 import Aes from '@/utils/aes.js';
 // 解密
 const BASE_PREFIX = import.meta.env.VITE_API_BASEURL;
-const WHITE_URL = ['/websocket/crypt/key', '/websocket/crypt/js/key', '/order/store/order/withPagingList/excel/export'];
+const WHITE_URL = [
+  '/api/websocket/crypt/key',
+  '/api/websocket/crypt/js/key',
+  '/api/order/store/order/withPagingList/excel/export',
+];
 // 创建实例
 const axiosInstance: AxiosInstance = axios.create({
   // 前缀
@@ -22,9 +26,9 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // 解决后端的坑 todo
-    // if (config.url === '/organization/driver/user/keyword/withPagingList') {
-    //   config.params.searchKeywords = config.params.searchKeywords ? config.params.searchKeywords : 1;
-    // }
+    if (config.url === '/organization/driver/user/keyword/withPagingList') {
+      config.params.searchKeywords = config.params.searchKeywords ? config.params.searchKeywords : 1;
+    }
     // if (config.url === '/order/store/order/goods/unite/update') {
     // console.log(Aes.encryptAesConfig(config), '请求拦截器之工单保存');
     // }
@@ -38,6 +42,7 @@ axiosInstance.interceptors.request.use(
 // 响应拦截器
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
+    console.log(response, '响应');
     const AesResponse: any = WHITE_URL.includes(response.config.url as string) ? response : Aes.decryptAes(response);
     if (AesResponse.data?.kfbCode !== '200' && !WHITE_URL.includes(response.config.url as string)) {
       ElMessage.error(AesResponse.data.kfbErrorMsg);
