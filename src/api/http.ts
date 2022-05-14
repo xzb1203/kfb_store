@@ -2,7 +2,9 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } f
 // import { ElMessage } from 'element-plus';
 import showCodeMessage from '@/api/code';
 import { formatJsonToUrlParams, instanceObject } from '@/utils/format';
-import Aes from '@/utils/aes.js';
+import Aes from '@/utils/aes';
+import localCache from '@/utils/cache';
+
 // 解密
 const BASE_PREFIX = import.meta.env.VITE_API_BASEURL;
 const WHITE_URL = ['/websocket/crypt/key', '/websocket/crypt/js/key', '/order/store/order/withPagingList/excel/export'];
@@ -25,10 +27,12 @@ axiosInstance.interceptors.request.use(
     // if (config.url === '/organization/driver/user/keyword/withPagingList') {
     //   config.params.searchKeywords = config.params.searchKeywords ? config.params.searchKeywords : 1;
     // }
+    const encryptResult = Aes.encryptAesConfig(config);
     // if (config.url === '/order/store/order/goods/unite/update') {
-    // console.log(Aes.encryptAesConfig(config), '请求拦截器之工单保存');
+    //   console.log(Aes.encryptAesConfig(config), '请求拦截器之工单保存');
     // }
-    return Aes.encryptAesConfig(config);
+    console.log(encryptResult);
+    return encryptResult;
   },
   (error: AxiosError) => {
     return Promise.reject(error);
