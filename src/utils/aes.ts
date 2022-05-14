@@ -30,14 +30,13 @@ export default {
     const aesKey = getRealKey();
     const key = CryptoJS.enc.Utf8.parse(aesKey);
     if (data && !url.includes('/system/file/upload')) {
-      console.log(data);
       const result = CryptoJS.AES.encrypt(Base64.encode(JSON.stringify(data)), key, {
         mode: CryptoJS.mode.ECB,
         padding: CryptoJS.pad.Pkcs7,
       }).toString();
-      if (url === '/order/store/order/goods/unite/update') {
-        console.log('保存工单接口');
-      }
+      // if (url === '/order/store/order/goods/unite/update') {
+      // console.log(result);
+      // }
       return result;
     }
     return data;
@@ -49,6 +48,7 @@ export default {
       ? (Type = 'application/x-www-form-urlencoded')
       : (Type = 'application/json');
     config.headers['Content-Type'] = Type;
+    config.headers.Accept = 'application/json, text/plain, */*';
     config.data = this.encryptAesBody(config.data, config.url);
     config.params ? (config.params = this.encryptAes(config.params)) : '';
     return config;

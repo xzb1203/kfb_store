@@ -11,57 +11,56 @@
       <p class="kl-label">批量导入/下载</p>
     </div>
   </kl-top-bar>
-  <div>
-    <el-card>
-      <template #header>
-        <div class="flex justify-between place-items-center">
-          <h1 class="kl-card-title">商品列表</h1>
-          <div class="flex items-center justify-end flex-nowrap">
-            <el-form :inline="true" :model="params" class="flex flex-nowrap">
-              <el-form-item label="库存筛选" class="!mb-0">
-                <el-tooltip content="开启后将筛选库存大于0的商品" placement="top">
-                  <el-switch v-model="params.sortname" />
-                </el-tooltip>
-              </el-form-item>
-              <el-form-item label="分组" class="!mb-0">
-                <el-select v-model="params.sortname" placeholder="Activity zone">
-                  <el-option label="Zone one" value="shanghai" />
-                  <el-option label="Zone two" value="beijing" />
-                </el-select>
-              </el-form-item>
-              <el-form-item label="商品类型" class="!mb-0">
-                <el-select v-model="params.sortname" placeholder="Activity zone">
-                  <el-option label="Zone one" value="shanghai" />
-                  <el-option label="Zone two" value="beijing" />
-                </el-select>
-              </el-form-item>
-              <el-form-item label="商品来源" class="!mb-0">
-                <el-select v-model="params.sortname" placeholder="Activity zone">
-                  <el-option label="Zone one" value="shanghai" />
-                  <el-option label="Zone two" value="beijing" />
-                </el-select>
-              </el-form-item>
-              <el-form-item label="关键词" class="!mb-0">
-                <el-input v-model="params.sortname" placeholder="Approved by" />
-              </el-form-item>
-            </el-form>
-            <el-button :icon="Search" type="primary">查询</el-button>
-            <el-button :icon="Refresh" plain type="primary">重置</el-button>
-            <el-button :icon="Switch" plain type="primary">调拨</el-button>
-          </div>
+
+  <el-card v-loading="tableLoading">
+    <template #header>
+      <div class="flex justify-between place-items-center">
+        <h1 class="kl-card-title">商品列表</h1>
+        <div class="flex items-center justify-end flex-nowrap">
+          <el-form :inline="true" :model="params" class="flex flex-nowrap">
+            <el-form-item label="库存筛选" class="!mb-0">
+              <el-tooltip content="开启后将筛选库存大于0的商品" placement="top">
+                <el-switch v-model="params.sortname" />
+              </el-tooltip>
+            </el-form-item>
+            <el-form-item label="分组" class="!mb-0">
+              <el-select v-model="params.sortname" placeholder="Activity zone">
+                <el-option label="Zone one" value="shanghai" />
+                <el-option label="Zone two" value="beijing" />
+              </el-select>
+            </el-form-item>
+            <el-form-item label="商品类型" class="!mb-0">
+              <el-select v-model="params.sortname" placeholder="Activity zone">
+                <el-option label="Zone one" value="shanghai" />
+                <el-option label="Zone two" value="beijing" />
+              </el-select>
+            </el-form-item>
+            <el-form-item label="商品来源" class="!mb-0">
+              <el-select v-model="params.sortname" placeholder="Activity zone">
+                <el-option label="Zone one" value="shanghai" />
+                <el-option label="Zone two" value="beijing" />
+              </el-select>
+            </el-form-item>
+            <el-form-item label="关键词" class="!mb-0">
+              <el-input v-model="params.sortname" placeholder="Approved by" />
+            </el-form-item>
+          </el-form>
+          <el-button :icon="Search" type="primary">查询</el-button>
+          <el-button :icon="Refresh" plain type="primary">重置</el-button>
+          <el-button :icon="Switch" plain type="primary">调拨</el-button>
         </div>
+      </div>
+    </template>
+    <tisp-table :columns="columns" :data="tableData" :show-select-column="true">
+      <template #goodsImage="{ row }">
+        <el-image :src="imgUrl + row.goodsImage" class="w-40px h-40px"></el-image>
       </template>
-      <tisp-table v-loading="tableLoading" :columns="columns" :data="tableData">
-        <template #goodsImage="{ row }">
-          <el-image :src="imgUrl + row.goodsImage" class="w-40px h-40px"></el-image>
-        </template>
-        <template #handle>
-          <el-button type="text" :icon="View">查看详情</el-button>
-          <el-button type="text" :icon="Delete" danger>删除</el-button>
-        </template>
-      </tisp-table>
-    </el-card>
-  </div>
+      <template #handle>
+        <el-button type="text" :icon="View">详情</el-button>
+        <el-button type="text" :icon="Delete" danger>删除</el-button>
+      </template>
+    </tisp-table>
+  </el-card>
 </template>
 
 <script setup lang="ts">
@@ -130,7 +129,6 @@ const params = ref({
   pageSize: 20,
   pageNum: 1,
 });
-
 const handleGetGoodsList = () => {
   tableLoading.value = true;
   useRequest(goodsApi.postStoreGoods(params.value), {

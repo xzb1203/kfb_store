@@ -46,7 +46,7 @@ const total = computed(() => {
   }
 });
 
-const handleSave = () => {
+const handleSave = async () => {
   const data = params.value;
   const queryParams = {
     afterOrderAmountsPayable: total.value,
@@ -88,11 +88,47 @@ const handleSave = () => {
       orderGoodsItems: data.orderReplacementParts.projectDetails,
     },
   };
-  console.log(queryParams, '保存的参数');
-  useRequest(orderApi.putSaveOrder(queryParams), {
+  const abc = {
+    orderId: 'f8870ffb6e5d4761a79f3f590ba4ab73',
+    storeId: '61cf6c6f78924e61a5375a7c3293de0d',
+    serviceSwitch: 0,
+    goodsSwitch: 0,
+    allocationAllState: '',
+    orderServiceUpdateInfo: {
+      detailStageAmountType: 1,
+      orderServiceItems: [
+        {
+          itemId: '3b3c6f0bbf5344b08f679d20495e9269',
+          itemName: '我爱秀秀',
+          itemNumber: 1,
+          workHour: 1,
+          itemTotalAmount: 88,
+          itemUnitPrice: 88,
+          orderGoodsCostPrice: 0,
+          workHourServices: [
+            {
+              allocationProportion: 0,
+              goodsItemId: '3b3c6f0bbf5344b08f679d20495e9269',
+              serviceName: '',
+              userId: '',
+              workHour: 1,
+            },
+          ],
+        },
+      ],
+      detailStageAmount: 0,
+    },
+    orderGoodsUpdateInfo: {
+      detailStageAmountType: 1,
+      orderGoodsItems: [],
+      detailStageAmount: 0,
+    },
+  };
+
+  useRequest(orderApi.putSaveOrder(abc), {
     onSuccess: (res) => {
       const result = res.data.datas;
-      console.log(result);
+      console.log(res.config, '返回结果');
     },
     onError: () => {
       ElMessage.error('保存失败');

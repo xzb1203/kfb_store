@@ -22,11 +22,10 @@ export default defineConfig((env) => {
       port: 8090, // 端口号
       open: false, // 自动打开浏览器
       cors: true, // 跨域设置允许
-      strictPort: true, // 如果端口已占用直接退出
+      strictPort: false, // 如果端口已占用直接退出
       // 接口代理
       proxy: {
         '/api': {
-          // 本地 8090 前端代码的接口 代理到 xx 的服务端口
           target: 'https://testmd.carszone.cn',
           changeOrigin: true, // 允许跨域
           rewrite: (path) => path.replace('/api/', '/'),
