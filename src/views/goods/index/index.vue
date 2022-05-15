@@ -1,12 +1,12 @@
 <template>
   <kl-top-bar v-loading="amountLoading" :list="topBarList">
     <div class="btn">
-      <tisp-svg name="icon_fuwu"></tisp-svg>
+      <tisp-svg name="icon_daoru"></tisp-svg>
       <p w:my="5px" w:text="gray-400 space-nowrap">单个导入商品</p>
       <p class="kl-label">单个导入</p>
     </div>
     <div class="btn ml-20px">
-      <tisp-svg name="icon_guanli"></tisp-svg>
+      <tisp-svg name="icon_piliangdaoru"></tisp-svg>
       <p w:my="5px" w:text="gray-400 space-nowrap">批量导入商品</p>
       <p class="kl-label">批量导入/下载</p>
     </div>

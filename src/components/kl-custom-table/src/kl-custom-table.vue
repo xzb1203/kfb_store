@@ -1,10 +1,17 @@
 <template>
   <div>
-    <div w:my="10px" w:bg="blue-50" w:flex="~" w:align="items-center" w:justify="around" w:h="40px" w:px="20px">
+    <div w:my="10px" w:bg="[#F5F8FD]" w:flex="~" w:align="items-center" w:justify="around" w:h="40px" w:px="20px">
       <div v-for="item in headerColumns" w:text="center" w:w="200px">{{ item.label }}</div>
     </div>
-    <div v-for="item in tableList" style="border: 1px solid var(--el-card-border-color)" w:mb="20px">
-      <div w:h="32px" w:bg="blue-50" w:p="20px" w:flex="~" w:align="items-center" w:text="gray-500">
+    <div v-for="item in tableList" style="border: 1px solid var(--el-card-border-color)" w:mb="20px" w:rounded="5px">
+      <div
+        w:h="32px"
+        w:p="20px"
+        w:flex="~"
+        w:align="items-center"
+        w:text="gray-500"
+        style="border-bottom: 1px solid var(--el-card-border-color)"
+      >
         <span>工单编号: {{ item.orderCode }}</span>
         <span w:ml="30px">开单时间: {{ item.orderAddTimeStr }}</span>
         <span w:ml="30px">预计完成时间: {{ item.orderEstimatedFinishTimeStr }}</span>
