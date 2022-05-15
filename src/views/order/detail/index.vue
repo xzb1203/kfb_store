@@ -2,8 +2,18 @@
   <div class="relative pb-70px">
     <order-info v-model="params" :staff-options="staffOptions"></order-info>
     <order-car-info v-model="params"></order-car-info>
-    <order-serve-info ref="serveInfoRef" v-model="params" :staff-options="staffOptions"></order-serve-info>
-    <order-part-info ref="partInfoRef" v-model="params" :staff-options="staffOptions"></order-part-info>
+    <order-serve-info
+      ref="serveInfoRef"
+      v-model="params"
+      :loading="loading"
+      :staff-options="staffOptions"
+    ></order-serve-info>
+    <order-part-info
+      ref="partInfoRef"
+      v-model="params"
+      :loading="loading"
+      :staff-options="staffOptions"
+    ></order-part-info>
     <order-remark-info v-model="params.orderRemark"></order-remark-info>
 
     <div class="footer">
@@ -112,6 +122,7 @@ const handleSave = async () => {
   });
 };
 const handleGetOrderInfo = () => {
+  loading.value = true;
   useRequest(orderApi.getOrderDetail(route.query.orderId as string), {
     onSuccess: (res) => {
       const result = res.data.datas;

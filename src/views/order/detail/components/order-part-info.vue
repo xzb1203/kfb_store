@@ -57,7 +57,7 @@
             </template>
           </kl-autocomplete>
         </div>
-        <el-table :data="params.orderReplacementParts.projectDetails" style="width: 100%">
+        <el-table v-loading="loading" :data="params.orderReplacementParts.projectDetails" style="width: 100%">
           <el-table-column label="配件图片" align="center">
             <template #default="{ row }">
               <el-image :src="imgUrl + row.itemImage" class="w-50px h-50px"></el-image>
@@ -169,6 +169,10 @@ const props = defineProps({
   staffOptions: {
     type: Array as PropType<optionsType[]>,
     default: () => [],
+  },
+  loading: {
+    type: Boolean,
+    default: false,
   },
 });
 const emits = defineEmits(['update:modelValue']);

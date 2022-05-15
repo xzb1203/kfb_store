@@ -16,7 +16,7 @@
     <el-pagination
       v-model:currentPage="page.pageNum"
       v-model:page-size="page.pageSize"
-      :page-sizes="[10, 20, 30, 40]"
+      :page-sizes="[20, 30, 40, 50]"
       layout="total, sizes, prev, pager, next"
       :total="total"
       @size-change="handleSizeChange"
@@ -60,7 +60,7 @@ const props = defineProps({
   },
   modelValue: {
     type: Object as PropType<any>,
-    default: () => ({ pageNum: 0, pageSize: 10, total: 0 }),
+    default: () => ({ pageNum: 0, pageSize: 20, total: 0 }),
   },
 });
 const emits = defineEmits(['update:modelValue', 'change-selection', 'change-page']);

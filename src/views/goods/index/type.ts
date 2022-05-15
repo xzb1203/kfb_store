@@ -7,3 +7,11 @@ export type topBarListType = {
 export type iconNamesType = {
   [key: string]: string;
 };
+export type optionsType = {
+  label: string;
+  value: string;
+};
+export type queryGoodsGroupType = {
+  groupId: string;
+  groupName: string;
+};

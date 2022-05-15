@@ -55,7 +55,7 @@
             </template>
           </kl-autocomplete>
         </div>
-        <el-table :data="params.orderServiceItems.projectDetails" style="width: 100%">
+        <el-table v-loading="loading" :data="params.orderServiceItems.projectDetails" style="width: 100%">
           <el-table-column label="服务名称" align="center">
             <template #default="{ row, $index }">
               <kl-autocomplete
@@ -161,7 +161,12 @@ const props = defineProps({
     type: Array as PropType<optionsType[]>,
     default: () => [],
   },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
 });
+const loading = computed(() => props.loading);
 const emits = defineEmits(['update:modelValue']);
 const params = computed({
   get: () => props.modelValue,
