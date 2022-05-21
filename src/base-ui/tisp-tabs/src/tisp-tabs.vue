@@ -1,5 +1,5 @@
 <template>
-  <el-tabs v-model="tabValue" :class="className" :type="type" :tab-position="tabPosition">
+  <el-tabs v-model="tabValue" :class="className" :type="type" :tab-position="tabPosition" @tab-change="handleTab">
     <el-tab-pane v-for="item in tabs" :key="item.value" :label="item.label" :name="item.value"> </el-tab-pane>
   </el-tabs>
 </template>
@@ -33,13 +33,16 @@ const props = defineProps({
     default: 'index-tabs',
   },
 });
-const emits = defineEmits(['update:modelValue']);
+const emits = defineEmits(['update:modelValue', 'handle-tab']);
 const tabValue = computed({
   get: () => props.modelValue,
   set: (val: string) => {
     emits('update:modelValue', val);
   },
 });
+const handleTab = () => {
+  emits('handle-tab');
+};
 </script>
 <style lang="scss" scoped>
 :deep(.el-tabs__nav-wrap::after) {
