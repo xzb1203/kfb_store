@@ -5,11 +5,11 @@
       <p w:my="5px" w:text="gray-400 space-nowrap">新建工单服务</p>
       <p class="kl-label">创建工单</p>
     </div>
-    <div class="btn ml-20px">
+    <router-link class="btn ml-20px" :to="{ name: 'orderServe' }">
       <tisp-svg name="icon_guanli"></tisp-svg>
       <p w:my="5px" w:text="gray-400 space-nowrap">管理服务项目</p>
       <p class="kl-label">服务管理</p>
-    </div>
+    </router-link>
   </kl-top-bar>
   <el-card>
     <kl-table-header

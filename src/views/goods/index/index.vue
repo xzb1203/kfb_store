@@ -64,9 +64,9 @@
         <span>{{ sourceOptions.find((item) => item.value == row.storeGoodsMaintenanceType)?.label }}</span>
       </template>
       <template #goodsImage="{ row }">
-        <el-image :src="imgUrl + row.goodsImage" class="w-40px h-40px"></el-image>
+        <el-image :src="imgUrl + row.goodsImage.split(';')[0]" class="w-40px h-40px"></el-image>
       </template>
-      <template #handle>
+      <template #handle="{ row }">
         <el-button type="text" :icon="View">详情</el-button>
         <el-button type="text" :icon="Delete" danger>删除</el-button>
       </template>
@@ -246,5 +246,8 @@ onMounted(() => {
 <style scoped lang="scss">
 .btn {
   @apply bg-white h-full p-20px min-w-120px hover:bg-light-900 rounded-5px cursor-pointer;
+}
+:deep(.el-form-item__label) {
+  font-weight: bold;
 }
 </style>

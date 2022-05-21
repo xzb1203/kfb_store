@@ -68,7 +68,6 @@ function handleAdd() {
     allocationProportion: 100,
     createTime: 0,
     goodsItemId: currentItem.value.itemId,
-    id: '',
     orderId: '',
     serviceId: currentItem.value.orderDetailItemId,
     serviceName: '',

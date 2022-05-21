@@ -34,6 +34,11 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/order/index/index.vue'),
       },
       {
+        path: 'serve',
+        name: 'orderServe',
+        component: () => import('@/views/order/index/serve.vue'),
+      },
+      {
         path: 'warranty',
         name: 'orderWarranty',
         component: () => import('@/views/order/warranty/index.vue'),

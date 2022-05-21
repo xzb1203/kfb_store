@@ -7,6 +7,7 @@ const goodsApi = {
   queryGoodsCountList: (storeId: string) => service.get(`${prefix}/goods/total/${storeId}`),
   queryGoodsGroup: (data: object) => service.postParams(`${prefix}/goods/group/withoutPagingList`, data),
   queryGoodsClass: (data: object) => service.get(`/system/goods/class/withoutPagingList`, data),
+  postServeChange: (data: object) => service.postParams(`${prefix}/service/save`, data),
 };
 
 export default goodsApi;

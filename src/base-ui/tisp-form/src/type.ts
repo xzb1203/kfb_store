@@ -1,4 +1,4 @@
-type IFormType = 'input' | 'password' | 'select' | 'datepicker' | 'text';
+type IFormType = 'input' | 'password' | 'select' | 'datepicker' | 'text' | 'input-number' | 'slot';
 export interface IFormItem {
   field: string;
   type: IFormType;

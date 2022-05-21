@@ -12,7 +12,7 @@
       </el-table-column>
     </template>
   </el-table>
-  <div v-if="showFooter" class="mt-15px flex justify-end">
+  <div v-if="showPage" class="mt-15px flex justify-end">
     <el-pagination
       v-model:currentPage="page.pageNum"
       v-model:page-size="page.pageSize"
@@ -38,7 +38,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  showFooter: {
+  showPage: {
     type: Boolean,
     default: true,
   },
