@@ -1,12 +1,11 @@
 <template>
-  <h1 class="kl-card-title mb-10px">调拨列表</h1>
   <el-card>
     <template #header>
       <div class="flex justify-between items-center">
         <tisp-tabs v-model="state" :tabs="tabs" @handle-tab="handleTab"></tisp-tabs>
         <div class="flex items-start">
           <el-form ref="formRef" :inline="true" :model="params" class="min-w-730px -mr-20px">
-            <el-form-item label="开单时间" class="!mb-0 !mr-0" prop="orderAddBeginTimeStr">
+            <el-form-item label="开单时间" class="!mb-0 !mr-0" prop="beginTime">
               <el-date-picker
                 v-model="params.beginTime"
                 type="date"
@@ -16,7 +15,7 @@
               />
               <tisp-svg name="arrow" w:mx="5px" size="14px"></tisp-svg>
             </el-form-item>
-            <el-form-item prop="orderAddEndTimeStr" class="!mb-0">
+            <el-form-item prop="endTime" class="!mb-0">
               <el-date-picker
                 v-model="params.endTime"
                 type="date"
@@ -34,13 +33,20 @@
               </div>
             </el-form-item>
           </el-form>
-          <el-button :icon="Search" type="primary">查询</el-button>
-          <el-button :icon="Refresh" plain type="primary">重置</el-button>
+          <el-button :icon="Search" type="primary" @click="handleTab">查询</el-button>
+          <el-button :icon="Refresh" plain type="primary" @click="handleReset">重置</el-button>
           <el-button v-show="state !== '0'" :icon="Switch" plain type="primary">调拨</el-button>
         </div>
       </div>
     </template>
-    <tisp-table :columns="columns" :data="tableData" :total="total" :show-select-column="state !== '0'">
+    <tisp-table
+      v-model:params="params"
+      v-model:columns="columns"
+      :data="tableData"
+      :total="total"
+      :show-select-column="state !== '0'"
+      @change-page="handleTab"
+    >
       <template #goodsImage="{ row }">
         <el-tooltip effect="light" placement="top">
           <template #content>
@@ -90,19 +96,19 @@ const apis: any = {
   '2': goodsApi.postStoreThreeGoods,
 };
 const columns: any = ref([]);
+const formRef = ref();
+function handleReset() {
+  formRef.value?.resetFields();
+  handleTab();
+}
 function handleTab() {
-  console.log('哈哈');
   const api = apis[state.value];
   useRequest(api(params.value), {
     onSuccess: (res: any) => {
       if (res.data.kfbCode === '200') {
         tableData.value = res.data.datas;
         total.value = res.data.total;
-        if (state.value !== '0') {
-          columns.value = otherConfig;
-        } else {
-          columns.value = defaultConfig;
-        }
+        columns.value = state.value !== '0' ? otherConfig : defaultConfig;
       }
     },
     onError: () => {

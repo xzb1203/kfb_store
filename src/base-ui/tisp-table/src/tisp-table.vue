@@ -1,9 +1,26 @@
 <template>
-  <el-table :data="data" style="width: 100%" v-bind="childrenProps" @selection-change="handleSelectionChange">
+  <el-popover placement="bottom" :width="200" trigger="hover">
+    <template #reference>
+      <el-button>编辑列</el-button>
+    </template>
+    <p class="text-yellow-500 text-12px mb-10px">*提示: 拖动以排序</p>
+    <vue-draggable-next v-model="columns" class="flex flex-col">
+      <div v-for="item in columns" :key="item.props" class="cursor-move">
+        <el-checkbox v-model="item.show" :label="item.label"></el-checkbox>
+      </div>
+    </vue-draggable-next>
+  </el-popover>
+  <el-table
+    :key="columns"
+    :data="data"
+    style="width: 100%"
+    v-bind="childrenProps"
+    @selection-change="handleSelectionChange"
+  >
     <el-table-column v-if="showSelectColumn" type="selection" align="center" width="60"></el-table-column>
     <el-table-column v-if="showIndexColumn" type="index" label="序号" align="center" width="80"></el-table-column>
     <template v-for="item in columns" :key="item.prop">
-      <el-table-column v-bind="item" align="center">
+      <el-table-column v-if="item.show" v-bind="item" align="center">
         <template #default="scope">
           <slot :name="item.slotName" :row="scope.row">
             {{ scope.row[item.prop] }}
@@ -14,8 +31,8 @@
   </el-table>
   <div v-if="showPage" class="mt-15px flex justify-end">
     <el-pagination
-      v-model:currentPage="page.pageNum"
-      v-model:page-size="page.pageSize"
+      v-model:currentPage="params.pageNum"
+      v-model:page-size="params.pageSize"
       :page-sizes="[20, 30, 40, 50]"
       layout="total, sizes, prev, pager, next"
       :total="total"
@@ -28,6 +45,7 @@
 
 <script setup lang="ts">
 import { PropType } from 'vue';
+import { VueDraggableNext } from 'vue-draggable-next';
 
 const props = defineProps({
   showIndexColumn: {
@@ -58,23 +76,19 @@ const props = defineProps({
     type: Object as PropType<any>,
     default: () => ({}),
   },
-  modelValue: {
+  params: {
     type: Object as PropType<any>,
-    default: () => ({ pageNum: 0, pageSize: 20, total: 0 }),
+    default: () => ({}),
   },
 });
-const emits = defineEmits(['update:modelValue', 'change-selection', 'change-page']);
-const page = computed({
-  get: () => props.modelValue,
-  set: (val) => emits('update:modelValue', val),
-});
+const emits = defineEmits(['change-selection', 'change-page']);
+
 const handleSelectionChange = (value: any) => {
   emits('change-selection', value);
 };
 const handleCurrentChange = () => {
   emits('change-page');
 };
-
 const handleSizeChange = () => {
   emits('change-page');
 };
