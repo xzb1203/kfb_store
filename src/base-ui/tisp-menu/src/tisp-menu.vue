@@ -21,51 +21,51 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue'
-import { MenuType } from './tisp-menu.type'
-import TispMenuItem from './tisp-menu-item.vue'
+import { PropType } from 'vue';
+import { MenuType } from './tisp-menu.type';
+import TispMenuItem from './tisp-menu-item.vue';
 
 const props = defineProps({
   menus: {
     type: Array as PropType<MenuType[]>,
-    default: () => []
+    default: () => [],
   },
   model: {
     type: String,
-    default: 'vertical'
+    default: 'vertical',
   },
   defaultActive: {
     type: String,
-    default: ''
+    default: '',
   },
   bgColor: {
     type: String,
-    default: ''
+    default: '',
   },
   textColor: {
     type: String,
-    default: ''
+    default: '',
   },
   activeTextColor: {
     type: String,
-    default: ''
+    default: '',
   },
   defaultOpeneds: {
     type: Array as PropType<string[]>,
-    default: () => []
+    default: () => [],
   },
   uniqueOpened: {
     type: Boolean,
-    default: true
-  }
-})
+    default: true,
+  },
+});
 
-const emits = defineEmits(['select'])
+const emits = defineEmits(['select']);
 
 const handleSelect = (index: string, indexPath: string[]) => {
-  console.log(index, indexPath)
-  emits('select', { index, indexPath })
-}
+  console.log(index, indexPath);
+  emits('select', { index, indexPath });
+};
 </script>
 <style lang="scss" scoped>
 .el-menu--horizontal {

@@ -1,34 +1,36 @@
 <template>
-  <el-popover placement="bottom" :width="200" trigger="hover">
-    <template #reference>
-      <el-button>编辑列</el-button>
-    </template>
-    <p class="text-yellow-500 text-12px mb-10px">*提示: 拖动以排序</p>
-    <vue-draggable-next v-model="columns" class="flex flex-col">
-      <div v-for="item in columns" :key="item.props" class="cursor-move">
-        <el-checkbox v-model="item.show" :label="item.label"></el-checkbox>
-      </div>
-    </vue-draggable-next>
-  </el-popover>
-  <el-table
-    :key="columns"
-    :data="data"
-    style="width: 100%"
-    v-bind="childrenProps"
-    @selection-change="handleSelectionChange"
-  >
-    <el-table-column v-if="showSelectColumn" type="selection" align="center" width="60"></el-table-column>
-    <el-table-column v-if="showIndexColumn" type="index" label="序号" align="center" width="80"></el-table-column>
-    <template v-for="item in columns" :key="item.prop">
-      <el-table-column v-if="item.show" v-bind="item" align="center">
-        <template #default="scope">
-          <slot :name="item.slotName" :row="scope.row">
-            {{ scope.row[item.prop] }}
-          </slot>
-        </template>
-      </el-table-column>
-    </template>
-  </el-table>
+  <div class="relative">
+    <el-popover placement="left" :width="200" trigger="hover">
+      <template #reference>
+        <el-button text :icon="Menu" type="primary" plain class="absolute top-0 h-40px right-0 z-50"></el-button>
+      </template>
+      <p class="text-yellow-500 text-12px mb-10px">*提示: 拖动以排序</p>
+      <vue-draggable-next v-model="columns" class="flex flex-col">
+        <div v-for="item in columns" :key="item.props" class="cursor-move">
+          <el-checkbox v-model="item.show" :label="item.label"></el-checkbox>
+        </div>
+      </vue-draggable-next>
+    </el-popover>
+    <el-table
+      :key="columns"
+      :data="data"
+      style="width: 100%"
+      v-bind="childrenProps"
+      @selection-change="handleSelectionChange"
+    >
+      <el-table-column v-if="showSelectColumn" type="selection" align="center" width="60"></el-table-column>
+      <el-table-column v-if="showIndexColumn" type="index" label="序号" align="center" width="80"></el-table-column>
+      <template v-for="item in columns" :key="item.prop">
+        <el-table-column v-if="item.show" v-bind="item" align="center">
+          <template #default="scope">
+            <slot :name="item.slotName" :row="scope.row">
+              {{ scope.row[item.prop] }}
+            </slot>
+          </template>
+        </el-table-column>
+      </template>
+    </el-table>
+  </div>
   <div v-if="showPage" class="mt-15px flex justify-end">
     <el-pagination
       v-model:currentPage="params.pageNum"
@@ -46,6 +48,8 @@
 <script setup lang="ts">
 import { PropType } from 'vue';
 import { VueDraggableNext } from 'vue-draggable-next';
+import { Menu } from '@element-plus/icons-vue';
+import localCache from '@/utils/cache';
 
 const props = defineProps({
   showIndexColumn: {
