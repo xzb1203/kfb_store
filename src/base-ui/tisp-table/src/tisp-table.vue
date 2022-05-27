@@ -2,12 +2,14 @@
   <div class="relative">
     <el-popover placement="left" :width="200" trigger="hover">
       <template #reference>
-        <el-button text :icon="Menu" type="primary" plain class="absolute top-0 h-40px right-0 z-50"></el-button>
+        <div class="absolute top-12px right-10 z-50">
+          <el-icon color="#409eff" size="18px"><Setting /></el-icon>
+        </div>
       </template>
       <p class="text-yellow-500 text-12px mb-10px">*提示: 拖动以排序</p>
-      <vue-draggable-next v-model="columns" class="flex flex-col">
-        <div v-for="item in columns" :key="item.props" class="cursor-move">
-          <el-checkbox v-model="item.show" :label="item.label"></el-checkbox>
+      <vue-draggable-next v-model="columns" class="flex flex-col" @change="changeColumns">
+        <div v-for="item in columns" :key="item.prop" class="cursor-move">
+          <el-checkbox v-model="item.show" :label="item.label" @change="changeColumns"></el-checkbox>
         </div>
       </vue-draggable-next>
     </el-popover>
@@ -48,7 +50,7 @@
 <script setup lang="ts">
 import { PropType } from 'vue';
 import { VueDraggableNext } from 'vue-draggable-next';
-import { Menu } from '@element-plus/icons-vue';
+import { Setting } from '@element-plus/icons-vue';
 import localCache from '@/utils/cache';
 
 const props = defineProps({
@@ -63,6 +65,10 @@ const props = defineProps({
   showPage: {
     type: Boolean,
     default: true,
+  },
+  name: {
+    type: String,
+    default: '',
   },
   total: {
     type: Number,
@@ -85,8 +91,15 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const emits = defineEmits(['change-selection', 'change-page']);
-
+const emits = defineEmits(['update:params', 'update:columns', 'change-selection', 'change-page']);
+const params = computed({
+  get: () => props.params,
+  set: (val) => emits('update:params', val),
+});
+const columns = computed({
+  get: () => props.columns,
+  set: (val) => emits('update:columns', val),
+});
 const handleSelectionChange = (value: any) => {
   emits('change-selection', value);
 };
@@ -96,6 +109,18 @@ const handleCurrentChange = () => {
 const handleSizeChange = () => {
   emits('change-page');
 };
+const changeColumns = () => {
+  if (!props.name) return;
+  const tableColumn = localCache.getCache('tableColumn');
+  localCache.setCache('tableColumn', { ...tableColumn, [props.name]: props.columns });
+};
+
+onMounted(() => {
+  if (!props.name) return;
+  const tableColumn = localCache.getCache('tableColumn');
+  localCache.setCache('tableColumn', { ...tableColumn, [props.name]: props.columns });
+  columns.value = tableColumn[props.name];
+});
 </script>
 
 <style scoped lang="scss"></style>

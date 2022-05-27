@@ -12,7 +12,7 @@
     <div w:mb="15px">
       共 <span w:text="blue-500">{{ tableData.length }}</span> 项服务
     </div>
-    <tisp-table :columns="columns" :data="tableData" :total="total" :show-page="false">
+    <tisp-table v-model:columns="columns" name="orderIndexSercve" :data="tableData" :total="total" :show-page="false">
       <template #handle="{ row }">
         <el-button :icon="Edit" type="text" @click="handleEdit(row)">编辑</el-button>
         <el-button :icon="Delete" type="text" @click="handleDelete(row)">删除</el-button>

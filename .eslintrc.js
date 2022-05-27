@@ -55,6 +55,5 @@ module.exports = {
     'no-debugger': 'off',
     'no-async-promise-executor': 'off',
     'prefer-destructuring': 'off',
-    'vue/no-mutating-props': 'off',
   },
 };

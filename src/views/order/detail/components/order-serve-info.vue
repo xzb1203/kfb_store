@@ -138,7 +138,7 @@
     :staff-options="staffOptions"
     @handle-confirm="handleConfirm"
   ></edit-serve-dialog>
-  <kl-add-serve-dialog ref="addServeDialogRef"></kl-add-serve-dialog>
+  <!-- <kl-add-serve-dialog ref="addServeDialogRef"></kl-add-serve-dialog> -->
 </template>
 
 <script setup lang="ts">
@@ -150,7 +150,7 @@ import goodsApi from '@/api/modules/goods';
 import { useUserStore } from '@/store/modules/login';
 import type { searchOptionsType } from '../type';
 import EditServeDialog from './edit-serve-dialog.vue';
-import KlAddServeDialog from '@/components/kl-add-serve-dialog';
+// import KlAddServeDialog from '@/components/kl-add-serve-dialog';
 
 const props = defineProps({
   modelValue: {
@@ -182,7 +182,7 @@ const apiParams = {
 const field = ref('');
 
 const editServeDialogRef = ref<InstanceType<typeof EditServeDialog>>();
-const addServeDialogRef = ref<InstanceType<typeof KlAddServeDialog>>();
+// const addServeDialogRef = ref<InstanceType<typeof KlAddServeDialog>>();
 const currentItem = ref<serveProjectDetailsType>();
 const currentIndex = ref(0);
 // 服务价格总计
@@ -199,10 +199,10 @@ const serviceSwitch = computed(() => params.value.serviceSwitch === '1');
 const clearingSwitch = computed(() => params.value.orderServiceItems.detailStageAmountType === '1');
 
 const handleAddServe = () => {
-  if (addServeDialogRef.value) {
-    addServeDialogRef.value.dialogVisible = true;
-    console.log('新增服务');
-  }
+  //   if (addServeDialogRef.value) {
+  //     addServeDialogRef.value.dialogVisible = true;
+  //     console.log('新增服务');
+  //   }
 };
 const handleSwitch = (val: string | number | boolean) => {
   if (val === '1') {

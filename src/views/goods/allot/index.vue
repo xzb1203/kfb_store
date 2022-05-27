@@ -40,11 +40,13 @@
       </div>
     </template>
     <tisp-table
+      v-if="tableData.length"
       v-model:params="params"
       v-model:columns="columns"
       :data="tableData"
       :total="total"
       :show-select-column="state !== '0'"
+      name="goodsAllot"
       @change-page="handleTab"
     >
       <template #goodsImage="{ row }">
@@ -71,6 +73,7 @@ import { defaultConfig, otherConfig } from './config';
 
 const storeInfo = computed(() => useUserStore().storeInfo);
 const state = ref('0');
+const loading = ref(false);
 const params = ref({
   beginTime: '',
   endTime: '',
@@ -102,6 +105,7 @@ function handleReset() {
   handleTab();
 }
 function handleTab() {
+  loading.value = true;
   const api = apis[state.value];
   useRequest(api(params.value), {
     onSuccess: (res: any) => {
@@ -109,11 +113,13 @@ function handleTab() {
         tableData.value = res.data.datas;
         total.value = res.data.total;
         columns.value = state.value !== '0' ? otherConfig : defaultConfig;
+        loading.value = false;
       }
     },
     onError: () => {
       tableData.value = [];
       total.value = 0;
+      loading.value = false;
     },
   });
 }
