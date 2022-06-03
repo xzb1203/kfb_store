@@ -46,7 +46,6 @@
       :data="tableData"
       :total="total"
       :show-select-column="state !== '0'"
-      name="goodsAllot"
       @change-page="handleTab"
     >
       <template #goodsImage="{ row }">

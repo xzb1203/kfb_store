@@ -39,6 +39,8 @@
 
 <script setup lang="ts">
 const route = useRoute();
+const router = useRouter();
+console.log(router);
 const activeIndex = ref(route.path);
 const menus: any = ref([
   { icon: '', path: '/', name: '首页' },

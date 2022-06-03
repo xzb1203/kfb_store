@@ -58,6 +58,7 @@
       :data="tableData"
       :total="total"
       :show-select-column="true"
+      name="goodsIndex"
       @change-page="handleGetGoodsList"
     >
       <template #storeGoodsMaintenanceType="{ row }">

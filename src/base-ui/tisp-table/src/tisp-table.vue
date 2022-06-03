@@ -1,17 +1,18 @@
 <template>
   <div class="relative">
-    <el-popover placement="left" :width="200" trigger="hover">
+    <el-popover v-if="name" placement="left" :width="200" trigger="hover">
       <template #reference>
         <div class="absolute top-12px right-10 z-50">
           <el-icon color="#409eff" size="18px"><Setting /></el-icon>
         </div>
       </template>
-      <p class="text-yellow-500 text-12px mb-10px">*提示: 拖动以排序</p>
+      <p class="text-yellow-500 text-12px mb-10px">提示: 拖动以排序</p>
       <vue-draggable-next v-model="columns" class="flex flex-col" @change="changeColumns">
         <div v-for="item in columns" :key="item.prop" class="cursor-move">
           <el-checkbox v-model="item.show" :label="item.label" @change="changeColumns"></el-checkbox>
         </div>
       </vue-draggable-next>
+      <el-button plain type="primary" size="small" @click="handleResetColumn">重置</el-button>
     </el-popover>
     <el-table
       :key="columns"
@@ -100,6 +101,7 @@ const columns = computed({
   get: () => props.columns,
   set: (val) => emits('update:columns', val),
 });
+const cloneColumns = JSON.parse(JSON.stringify(props.columns));
 const handleSelectionChange = (value: any) => {
   emits('change-selection', value);
 };
@@ -112,14 +114,22 @@ const handleSizeChange = () => {
 const changeColumns = () => {
   if (!props.name) return;
   const tableColumn = localCache.getCache('tableColumn');
-  localCache.setCache('tableColumn', { ...tableColumn, [props.name]: props.columns });
+  localCache.setCache('tableColumn', { ...tableColumn, [props.name]: columns.value });
 };
-
+const handleResetColumn = () => {
+  const tableColumn = localCache.getCache('tableColumn');
+  delete tableColumn[props.name];
+  localCache.setCache('tableColumn', tableColumn);
+  columns.value = cloneColumns;
+  localCache.setCache('tableColumn', { ...tableColumn, [props.name]: columns.value });
+};
 onMounted(() => {
   if (!props.name) return;
   const tableColumn = localCache.getCache('tableColumn');
-  localCache.setCache('tableColumn', { ...tableColumn, [props.name]: props.columns });
-  columns.value = tableColumn[props.name];
+  localCache.setCache('tableColumn', { ...tableColumn, [props.name]: columns.value });
+  if (tableColumn) {
+    columns.value = tableColumn[props.name] ? tableColumn[props.name] : columns.value;
+  }
 });
 </script>
 
