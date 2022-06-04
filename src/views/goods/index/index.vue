@@ -68,8 +68,10 @@
         <el-image :src="imgUrl + row.goodsImage.split(';')[0]" class="w-40px h-40px"></el-image>
       </template>
       <template #handle="{ row }">
-        <el-button type="text" :icon="View">详情</el-button>
-        <el-button type="text" :icon="Delete" danger>删除</el-button>
+        <span class="whitespace-nowrap">
+          <el-button type="text" :icon="View" @click="handleDetail(row)">详情</el-button>
+          <el-button type="text" :icon="Delete" @click="handleDelete(row)">删除</el-button>
+        </span>
       </template>
     </tisp-table>
   </el-card>
@@ -79,7 +81,7 @@
 import { useRequest } from 'vue-request';
 import { Search, Refresh, Switch, Delete, View, Menu } from '@element-plus/icons-vue';
 import type { ElForm } from 'element-plus';
-import type { topBarListType, iconNamesType, optionsType, queryGoodsGroupType } from './type';
+import type { topBarListType, iconNamesType, tableDataType, optionsType, queryGoodsGroupType } from './type';
 import TispSvg from '@/base-ui/tisp-svg';
 import { useUserStore } from '@/store/modules/login';
 import goodsApi from '@/api/modules/goods';
@@ -113,7 +115,7 @@ const topBarList = ref<topBarListType[]>([
 ]);
 const imgUrl = `${import.meta.env.VITE_PICTRUE_URL}productPicture/`;
 const tableLoading = ref(false);
-const tableData = ref([]);
+const tableData = ref<tableDataType[]>([]);
 const total = ref(0);
 const formRef = ref<InstanceType<typeof ElForm>>();
 const groupOptions = ref<optionsType[]>([]);
@@ -170,6 +172,14 @@ const props = reactive({
     resolve(res);
   },
 });
+// 查看详情
+const handleDetail = (row: tableDataType) => {
+  console.log(row);
+};
+// 删除
+const handleDelete = (row: tableDataType) => {
+  console.log(row);
+};
 // 改变级联
 const handleCascader = (val: string[]) => {
   if (val) {

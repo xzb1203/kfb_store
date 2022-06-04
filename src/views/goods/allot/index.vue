@@ -79,7 +79,6 @@
 import { Search, Refresh, ChatLineSquare, Switch, View } from '@element-plus/icons-vue';
 import { useRequest } from 'vue-request';
 import type { ElForm } from 'element-plus';
-import { ValidateComponentsMap } from 'element-plus/es/utils';
 import tispSvg from '@/base-ui/tisp-svg';
 import TispTable from '@/base-ui/tisp-table';
 import goodsApi from '@/api/modules/goods';

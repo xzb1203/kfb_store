@@ -11,6 +11,7 @@ const WHITE_URL = [
   '/api/websocket/crypt/key',
   '/api/websocket/crypt/js/key',
   '/api/order/store/order/withPagingList/excel/export',
+  '/api/goods/store/goods/records/export',
 ];
 // 创建实例
 const axiosInstance: AxiosInstance = axios.create({
@@ -28,7 +29,6 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // 解决后端的坑 todo
-    console.log(config.url);
     if (config.url === '/organization/driver/user/keyword/withPagingList') {
       config.params.searchKeywords = config.params.searchKeywords ? config.params.searchKeywords : 1;
     }

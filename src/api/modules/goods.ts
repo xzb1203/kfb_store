@@ -12,6 +12,8 @@ const goodsApi = {
   queryGoodsAllot: (data: object) => service.get(`${prefix}/goods/allot/record/order/withPagingList`, data),
   postGoodsAllot: (data: object) => service.post(`${prefix}/goods/allot`, data),
   getAllotDetail: (data: object) => service.get(`${prefix}/goods/allot/record/withPagingList`, data),
+  getRecordsWithPagingList: (data: object) => service.get(`${prefix}/goods/records/withPagingList`, data),
+  getDownloadRecordsExport: (data: object) => service.getDownload(`${prefix}/goods/records/export`, data),
 };
 
 export default goodsApi;

@@ -1,50 +1,52 @@
 <template>
-  <div class="relative">
-    <el-popover v-if="name" placement="left" :width="200" trigger="hover">
-      <template #reference>
-        <div class="absolute top-12px right-10 z-50">
-          <el-icon color="#409eff" size="18px"><Setting /></el-icon>
-        </div>
-      </template>
-      <p class="text-yellow-500 text-12px mb-10px">提示: 拖动以排序</p>
-      <vue-draggable-next v-model="columns" class="flex flex-col" @change="changeColumns">
-        <div v-for="item in columns" :key="item.prop" class="cursor-move">
-          <el-checkbox v-model="item.show" :label="item.label" @change="changeColumns"></el-checkbox>
-        </div>
-      </vue-draggable-next>
-      <el-button plain type="primary" size="small" @click="handleResetColumn">重置</el-button>
-    </el-popover>
-    <el-table
-      :key="columns"
-      :data="data"
-      style="width: 100%"
-      v-bind="childrenProps"
-      @selection-change="handleSelectionChange"
-    >
-      <el-table-column v-if="showSelectColumn" type="selection" align="center" width="60"></el-table-column>
-      <el-table-column v-if="showIndexColumn" type="index" label="序号" align="center" width="80"></el-table-column>
-      <template v-for="item in columns" :key="item.prop">
-        <el-table-column v-if="item.show" v-bind="item" align="center">
-          <template #default="scope">
-            <slot :name="item.slotName" :row="scope.row">
-              {{ scope.row[item.prop] }}
-            </slot>
-          </template>
-        </el-table-column>
-      </template>
-    </el-table>
-  </div>
-  <div v-if="showPage" class="mt-15px flex justify-end">
-    <el-pagination
-      v-model:currentPage="params.pageNum"
-      v-model:page-size="params.pageSize"
-      :page-sizes="[20, 30, 40, 50]"
-      layout="total, sizes, prev, pager, next"
-      :total="total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-    >
-    </el-pagination>
+  <div>
+    <div class="relative">
+      <el-popover v-if="name" placement="left" :width="200" trigger="hover">
+        <template #reference>
+          <div class="absolute top-12px right-10 z-50">
+            <el-icon color="#409eff" size="18px"><Setting /></el-icon>
+          </div>
+        </template>
+        <p class="text-yellow-500 text-12px mb-10px">提示: 拖动以排序</p>
+        <vue-draggable-next v-model="columns" class="flex flex-col" @change="changeColumns">
+          <div v-for="item in columns" :key="item.prop" class="cursor-move">
+            <el-checkbox v-model="item.show" :label="item.label" @change="changeColumns"></el-checkbox>
+          </div>
+        </vue-draggable-next>
+        <el-button plain type="primary" size="small" @click="handleResetColumn">重置</el-button>
+      </el-popover>
+      <el-table
+        :key="columns"
+        :data="data"
+        style="width: 100%"
+        v-bind="childrenProps"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column v-if="showSelectColumn" type="selection" align="center" width="60"></el-table-column>
+        <el-table-column v-if="showIndexColumn" type="index" label="序号" align="center" width="80"></el-table-column>
+        <template v-for="item in columns" :key="item.prop">
+          <el-table-column v-if="item.show" v-bind="item" align="center">
+            <template #default="scope">
+              <slot :name="item.slotName" :row="scope.row">
+                {{ scope.row[item.prop] }}
+              </slot>
+            </template>
+          </el-table-column>
+        </template>
+      </el-table>
+    </div>
+    <div v-if="showPage" class="mt-15px flex justify-end">
+      <el-pagination
+        v-model:currentPage="params.pageNum"
+        v-model:page-size="params.pageSize"
+        :page-sizes="[20, 30, 40, 50]"
+        layout="total, sizes, prev, pager, next"
+        :total="total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      >
+      </el-pagination>
+    </div>
   </div>
 </template>
 

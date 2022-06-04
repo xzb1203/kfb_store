@@ -27,7 +27,6 @@
 
 <script setup lang="ts">
 import { PropType } from 'vue';
-import { Eleme } from '@element-plus/icons-vue';
 import tispSvg from '@/base-ui/tisp-svg';
 
 const props = defineProps({
