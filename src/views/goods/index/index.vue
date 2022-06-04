@@ -123,19 +123,19 @@ const sourceOptions: optionsType[] = [
   { value: '', label: '全部' },
 ];
 const columns = ref([
-  { show: true, prop: 'goodsImage', label: '图片', slotName: 'goodsImage' },
-  { show: true, prop: 'goodsName', label: '商品名称' },
-  { show: true, prop: 'goodsCode', label: '商品编号' },
-  { show: true, prop: 'storeGoodsSalePrice', label: '零售价' },
-  { show: true, prop: 'storeGoodsInventory', label: '库存' },
-  { show: true, prop: 'storeGoodsMaintenanceType', label: '商品来源', slotName: 'storeGoodsMaintenanceType' },
-  { show: true, prop: 'goodsWarrantyPeriod', label: '维保期' },
-  { show: true, prop: 'goodsPositionNumber', label: '库存仓位' },
-  { show: true, prop: 'storeGoodsTotalSales', label: '总销量' },
-  { show: true, prop: 'goodsGroupName', label: '分组' },
-  { show: true, prop: 'goodsStandard', label: '规格' },
-  { show: true, prop: 'goodsUnit', label: '单位' },
-  { show: true, prop: 'handle', label: '操作', slotName: 'handle' },
+  { prop: 'goodsImage', label: '图片', slotName: 'goodsImage' },
+  { prop: 'goodsName', label: '商品名称' },
+  { prop: 'goodsCode', label: '商品编号' },
+  { prop: 'storeGoodsSalePrice', label: '零售价' },
+  { prop: 'storeGoodsInventory', label: '库存' },
+  { prop: 'storeGoodsMaintenanceType', label: '商品来源', slotName: 'storeGoodsMaintenanceType' },
+  { prop: 'goodsWarrantyPeriod', label: '维保期' },
+  { prop: 'goodsPositionNumber', label: '库存仓位' },
+  { prop: 'storeGoodsTotalSales', label: '总销量' },
+  { prop: 'goodsGroupName', label: '分组' },
+  { prop: 'goodsStandard', label: '规格' },
+  { prop: 'goodsUnit', label: '单位' },
+  { prop: 'handle', label: '操作', slotName: 'handle' },
 ]);
 const cascader = ref<string[]>([]); // 级联数据
 

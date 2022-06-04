@@ -42,11 +42,11 @@ const total = ref(0);
 const storeInfo = computed(() => useUserStore().storeInfo);
 const tableData = ref([]);
 const columns = ref([
-  { show: true, prop: 'serviceName', label: '名称' },
-  { show: true, prop: 'serviceAmount', label: '价格' },
-  { show: true, prop: 'serviceWorkHour', label: '工时' },
-  { show: true, prop: 'serviceGroupId', label: '分组' },
-  { show: true, prop: 'handle', label: '操作', slotName: 'handle' },
+  { prop: 'serviceName', label: '名称' },
+  { prop: 'serviceAmount', label: '价格' },
+  { prop: 'serviceWorkHour', label: '工时' },
+  { prop: 'serviceGroupId', label: '分组' },
+  { prop: 'handle', label: '操作', slotName: 'handle' },
 ]);
 const title = ref('新增');
 const loading = ref(false);

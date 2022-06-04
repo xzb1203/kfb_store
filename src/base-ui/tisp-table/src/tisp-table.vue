@@ -92,18 +92,18 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const emits = defineEmits(['update:params', 'update:columns', 'change-selection', 'change-page']);
+const emits = defineEmits(['update:params', 'update:columns', 'selection-change', 'change-page']);
 const params = computed({
   get: () => props.params,
   set: (val) => emits('update:params', val),
 });
 const columns = computed({
-  get: () => props.columns,
+  get: () => props.columns.map((item: any) => ({ ...item, show: true })),
   set: (val) => emits('update:columns', val),
 });
 const cloneColumns = JSON.parse(JSON.stringify(props.columns));
 const handleSelectionChange = (value: any) => {
-  emits('change-selection', value);
+  emits('selection-change', value);
 };
 const handleCurrentChange = () => {
   emits('change-page');
