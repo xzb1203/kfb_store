@@ -64,6 +64,16 @@ const menus: any = ref([
       { path: '/goods/storage', name: '进出库管理' },
     ],
   },
+  {
+    icon: '',
+    path: '/parts',
+    name: '汽配查询',
+  },
+  {
+    icon: '',
+    path: '/customer',
+    name: '客户管理',
+  },
 ]);
 </script>
 

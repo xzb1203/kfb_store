@@ -81,6 +81,38 @@ const asyncRoutes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  {
+    path: '/parts',
+    meta: {
+      title: '',
+      icon: '',
+    },
+    component: Layout,
+    redirect: '/parts/index',
+    children: [
+      {
+        path: 'index',
+        name: 'partsIndex',
+        component: () => import('@/views/parts/index.vue'),
+      },
+    ],
+  },
+  {
+    path: '/customer',
+    meta: {
+      title: '',
+      icon: '',
+    },
+    component: Layout,
+    redirect: '/customer/index',
+    children: [
+      {
+        path: 'index',
+        name: 'customerIndex',
+        component: () => import('@/views/customer/index.vue'),
+      },
+    ],
+  },
 ];
 
 export default asyncRoutes;

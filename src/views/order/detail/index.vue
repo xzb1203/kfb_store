@@ -75,7 +75,7 @@ const handleSave = async () => {
     faultDescription: data.orderFaultDescription,
     goodsSwitch: data.goodsSwitch,
     serviceSwitch: data.serviceSwitch,
-    isCompulsoryPayment: '11',
+    isCompulsoryPayment: '',
     isSendBack: 0,
     isShowOriginalAmount: 0,
     orderDiscountAmount: '',
