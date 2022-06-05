@@ -1,6 +1,7 @@
 <template>
   <div w:h="full">
     <el-menu
+      unique-opened
       active-text-color="#ffd04b"
       background-color="#2F3035"
       class="el-menu-vertical-demo"
@@ -62,6 +63,15 @@ const menus: any = ref([
       { path: '/goods/three', name: '三包商品管理' },
       { path: '/goods/allot', name: '商品调拨管理' },
       { path: '/goods/storage', name: '进出库管理' },
+    ],
+  },
+  {
+    icon: '',
+    path: '/purchase',
+    name: '采购管理',
+    children: [
+      { path: '/purchase/index', name: '采购管理' },
+      { path: '/purchase/warning', name: '库存预警' },
     ],
   },
   {

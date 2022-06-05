@@ -3,7 +3,7 @@
     <div class="left" w:h="full" w:flex="~" w:justify="between">
       <slot></slot>
     </div>
-    <div w:flex="~ 1" w:justify="between" w:ml="20px" w:p="20px" w:bg="white" w:rounded="5px">
+    <div w:flex="~ 1" w:justify="around" w:ml="20px" w:p="20px" w:bg="white" w:rounded="5px">
       <div v-for="item in list" w:flex="~ col" w:justify="between" w:min-w="150px" w:rounded="5px">
         <p class="kl-label">{{ item.label }}</p>
         <div w:flex="~" w:justify="between" w:align="items-center" w:mt="15px">

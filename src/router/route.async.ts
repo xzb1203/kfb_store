@@ -82,6 +82,27 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     ],
   },
   {
+    path: '/purchase',
+    meta: {
+      title: '',
+      icon: '',
+    },
+    component: Layout,
+    redirect: '/purchase/index',
+    children: [
+      {
+        path: 'index',
+        name: 'purchaseIndex',
+        component: () => import('@/views/purchase/index/index.vue'),
+      },
+      {
+        path: 'warning',
+        name: 'purchaseWarning',
+        component: () => import('@/views/purchase/warning/index.vue'),
+      },
+    ],
+  },
+  {
     path: '/parts',
     meta: {
       title: '',

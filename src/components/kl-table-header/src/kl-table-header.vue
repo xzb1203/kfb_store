@@ -1,11 +1,11 @@
 <template>
   <div w:flex="~" w:align="items-center" w:justify="between">
-    <tisp-tabs v-model="orderListParameter.orderStatus" :tabs="tabs"></tisp-tabs>
+    <tisp-tabs v-model="params.orderStatus" :tabs="tabs"></tisp-tabs>
     <div w:flex="~ nowrap" w:align="items-center" w:mt="-18px" w:pt="6px">
-      <el-form ref="formRef" :inline="true" :model="orderListParameter" class="min-w-730px">
+      <el-form ref="formRef" :inline="true" :model="params" class="min-w-730px">
         <el-form-item label="开单时间" class="!mb-0 !mr-0" prop="orderAddBeginTimeStr">
           <el-date-picker
-            v-model="orderListParameter.orderAddBeginTimeStr"
+            v-model="params.orderAddBeginTimeStr"
             type="date"
             placeholder="开始日期"
             value-format="YYYY-MM-DD"
@@ -15,7 +15,7 @@
         </el-form-item>
         <el-form-item prop="orderAddEndTimeStr" class="!mb-0">
           <el-date-picker
-            v-model="orderListParameter.orderAddEndTimeStr"
+            v-model="params.orderAddEndTimeStr"
             type="date"
             placeholder="结束日期"
             value-format="YYYY-MM-DD"
@@ -27,8 +27,7 @@
             <el-tooltip effect="dark" content="客户名、联系人、手机号、车牌号、订单号" placement="top">
               <el-icon class="!-ml-10px mr-12px hover:text-blue-500"><chat-line-square /></el-icon>
             </el-tooltip>
-            <el-input v-model="orderListParameter.searchKeywords" clearable placeholder="客户名、联系人、手机号">
-            </el-input>
+            <el-input v-model="params.searchKeywords" clearable placeholder="客户名、联系人、手机号"> </el-input>
           </div>
         </el-form-item>
       </el-form>
@@ -57,7 +56,7 @@ const props = defineProps({
   },
 });
 const emits = defineEmits(['update:modelValue', 'handle-search', 'handle-export']);
-const orderListParameter = ref(props.modelValue);
+const params = ref(props.modelValue);
 const formRef = ref();
 
 const handleReset = (formEl: FormInstance | undefined) => {

@@ -1,5 +1,5 @@
 export type columnsType = {
-  prop: string;
+  prop?: string;
   label: string;
   slotName?: string;
   width?: string;
