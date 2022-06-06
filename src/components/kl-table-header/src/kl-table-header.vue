@@ -3,9 +3,9 @@
     <tisp-tabs v-model="params.orderStatus" :tabs="tabs"></tisp-tabs>
     <div w:flex="~ nowrap" w:align="items-center" w:mt="-18px" w:pt="6px">
       <el-form ref="formRef" :inline="true" :model="params" class="min-w-730px">
-        <el-form-item label="开单时间" class="!mb-0 !mr-0" prop="orderAddBeginTimeStr">
+        <el-form-item label="开单时间" class="!mb-0 !mr-0" prop="orderBeginTimeStr">
           <el-date-picker
-            v-model="params.orderAddBeginTimeStr"
+            v-model="params.orderBeginTimeStr"
             type="date"
             placeholder="开始日期"
             value-format="YYYY-MM-DD"
@@ -13,9 +13,9 @@
           />
           <tisp-svg name="arrow" w:mx="5px" size="14px"></tisp-svg>
         </el-form-item>
-        <el-form-item prop="orderAddEndTimeStr" class="!mb-0">
+        <el-form-item prop="orderEndTimeStr" class="!mb-0">
           <el-date-picker
-            v-model="params.orderAddEndTimeStr"
+            v-model="params.orderEndTimeStr"
             type="date"
             placeholder="结束日期"
             value-format="YYYY-MM-DD"

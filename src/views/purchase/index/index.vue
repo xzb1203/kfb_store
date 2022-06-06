@@ -25,7 +25,7 @@
       v-model="params"
       :tabs="tabs"
       @handle-export="handleExport('open')"
-      @handle-search="handleTableList(1)"
+      @handle-search="handleTableList"
     >
     </kl-table-header>
     <tisp-table v-model:params="params" v-model:columns="columns" :total="total" :data="tableData">
@@ -65,6 +65,8 @@ import TispSvg from '@/base-ui/tisp-svg';
 import TispTable, { columnsType } from '@/base-ui/tisp-table';
 import { useUserStore } from '@/store/modules/login';
 import orderApi from '@/api/modules/order';
+import type { tableListType } from './type';
+import KlTableHeader from '@/components/kl-table-header';
 
 const storeInfo = computed(() => useUserStore().storeInfo);
 const imgUrl = `${import.meta.env.VITE_PICTRUE_URL}productPicture/`;
@@ -114,7 +116,7 @@ const params = ref({
   pageNum: 1,
   pageSize: 20,
 });
-const tableData = ref([]);
+const tableData = ref<tableListType[]>([]);
 const columns = ref<columnsType[]>([
   { label: '商品', slotName: 'orderDetail' },
   { prop: 'orderCode', label: '订单编号' },
@@ -127,20 +129,22 @@ const columns = ref<columnsType[]>([
 const total = ref(0);
 
 const handleTabChange = (val: TabPanelName) => {
+  handleTableList();
   console.log(val);
 };
 const handleExport = (val: string) => {
   console.log(val);
 };
-const handleTableList = (val: number) => {
-  console.log(val);
-};
-const getTableData = () => {
+
+const handleTableList = () => {
   useRequest(orderApi.postOfflineList(params.value), {
     onSuccess: (res) => {
-      tableData.value = res.data.datas;
+      tableData.value = res.data.datas.map((item: tableListType) => ({
+        ...item,
+        orderStatus: offlineTabs.value.find((tab: any) => tab.value === item.orderStatus)?.label,
+      }));
       total.value = res.data.total;
-      console.log(res);
+      console.log(tableData.value);
     },
     onError: () => {
       tableData.value = [];
@@ -148,7 +152,7 @@ const getTableData = () => {
   });
 };
 onMounted(() => {
-  getTableData();
+  handleTableList();
 });
 </script>
 

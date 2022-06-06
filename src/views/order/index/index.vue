@@ -12,6 +12,8 @@
     </router-link>
   </kl-top-bar>
   <el-card>
+    <!-- todo 时间字段取值有问题 字段不统一 -->
+
     <kl-table-header
       v-model="orderListParameter"
       :tabs="tabs"
@@ -102,7 +104,7 @@ const headerColumns = ref([
   { label: '订单状态' },
   { label: '操作' },
 ]);
-const orderListParameter = reactive({
+const orderListParameter: any = reactive({
   orderAddBeginTimeStr: '',
   orderAddEndTimeStr: '',
   orderStatus: '',
@@ -153,6 +155,7 @@ const handleExport = (val: string) => {
 const handleTableList = (val: number) => {
   loading.value = true;
   orderListParameter.orderStatus = orderListParameter.orderStatus === '0' ? '' : orderListParameter.orderStatus;
+  console.log(orderListParameter, 'orderListParameter');
   useRequest(orderApi.postOrderWithPagingList(orderListParameter), {
     onSuccess: (res) => {
       tableList.value = res.data.datas;

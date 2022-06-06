@@ -28,9 +28,15 @@ const axiosInstance: AxiosInstance = axios.create({
 // 请求拦截器
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    // 解决后端的坑 todo
+    //  todo 待优化
     if (config.url === '/organization/driver/user/keyword/withPagingList') {
       config.params.searchKeywords = config.params.searchKeywords ? config.params.searchKeywords : 1;
+    }
+    if (config?.params?.orderStatus) {
+      config.params = {
+        ...config.params,
+        orderStatus: config.params.orderStatus === '0' ? '' : config.params.orderStatus,
+      };
     }
     return Aes.encryptAesConfig(config);
   },
