@@ -13,6 +13,7 @@ const orderApi = {
   putSaveFault: (data: object) => service.put(`${prefix}/order/fault/update`, data),
   deleteOrder: (data: object) => service.delete(`${prefix}/order/delete`, data),
   postOfflineList: (data: object) => service.postParams(`${prefix}/private/purchase/order/withPagingList`, data),
+  postLineList: (data: object) => service.postParams(`${prefix}/purchase/order/withPagingList`, data),
 };
 
 export default orderApi;

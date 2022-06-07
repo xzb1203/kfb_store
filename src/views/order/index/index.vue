@@ -17,6 +17,7 @@
     <kl-table-header
       v-model="orderListParameter"
       :tabs="tabs"
+      placeholder="客户名,联系人,手机号,车牌号,订单号"
       @handle-export="handleExport('open')"
       @handle-search="handleTableList(1)"
     >

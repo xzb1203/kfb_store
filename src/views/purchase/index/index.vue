@@ -16,7 +16,7 @@
       <p class="kl-label">地址管理</p>
     </div>
   </kl-top-bar>
-  <el-tabs v-model="activeName" @tab-change="handleTabChange">
+  <el-tabs v-model="activeName" @tab-change="handleTableList">
     <el-tab-pane label="线下采购" name="线下采购"></el-tab-pane>
     <el-tab-pane label="平台采购" name="平台采购"></el-tab-pane>
   </el-tabs>
@@ -24,11 +24,18 @@
     <kl-table-header
       v-model="params"
       :tabs="tabs"
+      placeholder="采购单号,供应商,商品,商品编号"
       @handle-export="handleExport('open')"
       @handle-search="handleTableList"
     >
     </kl-table-header>
-    <tisp-table v-model:params="params" v-model:columns="columns" :total="total" :data="tableData">
+    <tisp-table
+      v-model:params="params"
+      v-model:columns="columns"
+      :total="total"
+      :data="tableData"
+      @change-page="handleTableList"
+    >
       <template #orderDetail="{ row }">
         <div class="flex">
           <div v-for="item in row.orderDetail.slice(0, 3)">
@@ -50,17 +57,25 @@
         </div>
       </template>
       <template #handle="{ row }">
-        <el-button type="text" :icon="View">查看详情</el-button>
-        <el-button type="text" :icon="Delete">取消订单</el-button>
+        <span v-show="activeName === '线下采购'">
+          <el-button v-if="row.orderStatus === '已完成' || row.orderStatus === '已作废'" type="text" :icon="View">
+            查看详情
+          </el-button>
+          <el-button v-else type="text" :icon="Goods">继续采购</el-button>
+        </span>
+        <span v-show="activeName === '平台采购'">
+          <el-button type="text" :icon="View">查看详情</el-button>
+          <el-button v-if="row.orderStatus === '已完成'" type="text" :icon="Remove">发起退货</el-button>
+          <el-button v-else type="text" :icon="Close">取消订单</el-button>
+        </span>
       </template>
     </tisp-table>
   </el-card>
 </template>
 
 <script setup lang="ts">
-import type { TabPanelName } from 'element-plus';
 import { useRequest } from 'vue-request';
-import { View, Delete } from '@element-plus/icons-vue';
+import { View, Delete, Goods, Close, Remove } from '@element-plus/icons-vue';
 import TispSvg from '@/base-ui/tisp-svg';
 import TispTable, { columnsType } from '@/base-ui/tisp-table';
 import { useUserStore } from '@/store/modules/login';
@@ -115,6 +130,7 @@ const params = ref({
   searchKeywords: '',
   pageNum: 1,
   pageSize: 20,
+  type: '',
 });
 const tableData = ref<tableListType[]>([]);
 const columns = ref<columnsType[]>([
@@ -128,23 +144,20 @@ const columns = ref<columnsType[]>([
 ]);
 const total = ref(0);
 
-const handleTabChange = (val: TabPanelName) => {
-  handleTableList();
-  console.log(val);
-};
 const handleExport = (val: string) => {
   console.log(val);
 };
-
+const currentApi = computed(() => (activeName.value === '线下采购' ? orderApi.postOfflineList : orderApi.postLineList));
 const handleTableList = () => {
-  useRequest(orderApi.postOfflineList(params.value), {
+  useRequest(currentApi.value(params.value), {
     onSuccess: (res) => {
+      const currentTabs = activeName.value === '线下采购' ? offlineTabs.value : onlineTabs.value;
       tableData.value = res.data.datas.map((item: tableListType) => ({
         ...item,
-        orderStatus: offlineTabs.value.find((tab: any) => tab.value === item.orderStatus)?.label,
+        orderStatus: currentTabs.find((tab: any) => tab.value === item.orderStatus)?.label,
       }));
       total.value = res.data.total;
-      console.log(tableData.value);
+      console.log(res.data.datas, 'res.data.datasres.data.datas');
     },
     onError: () => {
       tableData.value = [];

@@ -24,10 +24,10 @@
         </el-form-item>
         <el-form-item label="关键词" class="!mb-0" prop="searchKeywords">
           <div class="flex items-center">
-            <el-tooltip effect="dark" content="客户名、联系人、手机号、车牌号、订单号" placement="top">
+            <el-tooltip effect="dark" :content="placeholder" placement="top">
               <el-icon class="!-ml-10px mr-12px hover:text-blue-500"><chat-line-square /></el-icon>
             </el-tooltip>
-            <el-input v-model="params.searchKeywords" clearable placeholder="客户名、联系人、手机号"> </el-input>
+            <el-input v-model="params.searchKeywords" clearable placeholder="输入关键词搜索"> </el-input>
           </div>
         </el-form-item>
       </el-form>
@@ -53,6 +53,10 @@ const props = defineProps({
   modelValue: {
     type: Object as PropType<any>,
     default: () => ({}),
+  },
+  placeholder: {
+    type: String,
+    default: '',
   },
 });
 const emits = defineEmits(['update:modelValue', 'handle-search', 'handle-export']);
