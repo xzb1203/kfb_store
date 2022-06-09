@@ -1,14 +1,18 @@
 <template>
   <kl-top-bar v-loading="topLoading" :list="topBarList">
     <div class="btn">
-      <tisp-svg name="icon_daoru"></tisp-svg>
-      <p w:my="5px" w:text="gray-400 space-nowrap">从线下采购商品</p>
-      <p class="kl-label">线下采购</p>
+      <router-link to="/purchase/offline/index">
+        <tisp-svg name="icon_daoru"></tisp-svg>
+        <p w:my="5px" w:text="gray-400 space-nowrap">从线下采购商品</p>
+        <p class="kl-label">线下采购</p>
+      </router-link>
     </div>
     <div class="btn ml-20px">
-      <tisp-svg name="icon_piliangdaoru"></tisp-svg>
-      <p w:my="5px" w:text="gray-400 space-nowrap">从平台采购商品</p>
-      <p class="kl-label">平台采购</p>
+      <router-link to="/purchase/online/index">
+        <tisp-svg name="icon_piliangdaoru"></tisp-svg>
+        <p w:my="5px" w:text="gray-400 space-nowrap">从平台采购商品</p>
+        <p class="kl-label">平台采购</p>
+      </router-link>
     </div>
     <div class="btn ml-20px">
       <tisp-svg name="icon_piliangdaoru"></tisp-svg>
@@ -58,13 +62,18 @@
       </template>
       <template #handle="{ row }">
         <span v-show="activeName === '线下采购'">
-          <el-button v-if="row.orderStatus === '已完成' || row.orderStatus === '已作废'" type="text" :icon="View">
+          <el-button
+            v-if="row.orderStatus === '已完成' || row.orderStatus === '已作废'"
+            type="text"
+            :icon="View"
+            @click="handleDetail('线下采购')"
+          >
             查看详情
           </el-button>
-          <el-button v-else type="text" :icon="Goods">继续采购</el-button>
+          <el-button v-else type="text" :icon="Goods" @click="handleShopping(row)">继续采购</el-button>
         </span>
         <span v-show="activeName === '平台采购'">
-          <el-button type="text" :icon="View">查看详情</el-button>
+          <el-button type="text" :icon="View" @click="handleDetail('平台采购')">查看详情</el-button>
           <el-button v-if="row.orderStatus === '已完成'" type="text" :icon="Remove">发起退货</el-button>
           <el-button v-else type="text" :icon="Close">取消订单</el-button>
         </span>
@@ -83,6 +92,7 @@ import orderApi from '@/api/modules/order';
 import type { tableListType } from './type';
 import KlTableHeader from '@/components/kl-table-header';
 
+const router = useRouter();
 const storeInfo = computed(() => useUserStore().storeInfo);
 const imgUrl = `${import.meta.env.VITE_PICTRUE_URL}productPicture/`;
 const topLoading = ref(false);
@@ -148,6 +158,18 @@ const handleExport = (val: string) => {
   console.log(val);
 };
 const currentApi = computed(() => (activeName.value === '线下采购' ? orderApi.postOfflineList : orderApi.postLineList));
+const handleShopping = (row: any) => {
+  console.log(row);
+  router.push({ name: 'purchaseOfflineIndex' });
+};
+const handleDetail = (val: string) => {
+  if (val === '线下采购') {
+    console.log(val);
+    router.push({ name: 'purchaseOfflineDetail' });
+  } else {
+    router.push({ name: 'purchaseOnlineDetail' });
+  }
+};
 const handleTableList = () => {
   useRequest(currentApi.value(params.value), {
     onSuccess: (res) => {

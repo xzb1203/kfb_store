@@ -96,6 +96,27 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/purchase/index/index.vue'),
       },
       {
+        path: 'offline/index',
+        name: 'purchaseOfflineIndex',
+        component: () => import('@/views/purchase/offline/index.vue'),
+      },
+      {
+        path: 'online/index',
+        name: 'purchaseOnlineIndex',
+        component: () => import('@/views/purchase/online/index.vue'),
+      },
+      {
+        path: 'offline/detail',
+        name: 'purchaseOfflineDetail',
+        component: () => import('@/views/purchase/offline/detail.vue'),
+      },
+      {
+        path: 'online/detail',
+        name: 'purchaseOnlineDetail',
+        component: () => import('@/views/purchase/online/detail.vue'),
+      },
+
+      {
         path: 'warning',
         name: 'purchaseWarning',
         component: () => import('@/views/purchase/warning/index.vue'),
