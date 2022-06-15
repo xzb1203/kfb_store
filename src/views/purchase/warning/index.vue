@@ -6,7 +6,7 @@
         <el-tab-pane label="三包商品" name="三包商品"></el-tab-pane>
         <el-tab-pane label="平台商品" name="平台商品"></el-tab-pane>
       </el-tabs>
-      <el-button type="primary">批量补货</el-button>
+      <el-button type="primary" :icon="CirclePlus">批量补货</el-button>
     </div>
     <tisp-table
       v-model:params="params"
@@ -19,7 +19,7 @@
     >
       <template #goodsInfo="{ row }">
         <div class="flex items-center">
-          <el-image :src="imgUrl + row.goodsImage" class="w-40px h-40px ml-10px"></el-image>
+          <el-image :src="imgUrl + row.goodsImage" class="w-60px h-60px ml-10px"></el-image>
           <div class="flex flex-col text-left ml-10px">
             <span>{{ row.goodsName }}</span>
             <span>{{ row.goodsCode }}</span>
@@ -36,6 +36,7 @@
 <script setup lang="ts">
 import type { TabPanelName } from 'element-plus';
 import { useRequest } from 'vue-request';
+import { CirclePlus } from '@element-plus/icons-vue';
 import TispTable, { columnsType } from '@/base-ui/tisp-table';
 import { useUserStore } from '@/store/modules/login';
 import purchaseApi from '@/api/modules/purchase';

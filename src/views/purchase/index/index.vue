@@ -42,7 +42,7 @@
     >
       <template #orderDetail="{ row }">
         <div class="flex">
-          <div v-for="item in row.orderDetail.slice(0, 3)">
+          <div v-for="item in row.orderDetail">
             <el-tooltip effect="light" placement="top">
               <template #content>
                 <div class="max-w-400px h-86px">
@@ -55,7 +55,7 @@
                   </el-tabs>
                 </div>
               </template>
-              <el-image :src="imgUrl + item.detailGoodsImage" class="w-40px h-40px ml-10px"></el-image>
+              <el-image :src="imgUrl + item.detailGoodsImage" class="w-60px h-60px ml-10px"></el-image>
             </el-tooltip>
           </div>
         </div>
@@ -150,6 +150,7 @@ const columns = ref<columnsType[]>([
   { prop: 'orderSaleName', label: '供应商' },
   { prop: 'orderTotalAmount', label: '金额' },
   { prop: 'orderStatus', label: '订单状态' },
+  { prop: 'orderAddTimeStr', label: '时间' },
   { label: '操作', slotName: 'handle' },
 ]);
 const total = ref(0);
@@ -192,22 +193,13 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/styles/el-tabs-tooltip.scss';
+
 .btn {
   @apply bg-white h-full p-20px min-w-120px hover:bg-light-900 rounded-5px cursor-pointer;
 }
 
-:deep(.el-form-item__label),
-:deep(.el-tabs__item) {
+:deep(.el-form-item__label) {
   font-weight: bold;
-}
-:deep(.el-tabs__nav-wrap) {
-  display: flex;
-  align-items: center;
-  border: none !important;
-}
-:deep(.el-tabs__nav),
-:deep(.el-tabs__header),
-:deep(.el-tabs__item) {
-  border: none !important;
 }
 </style>

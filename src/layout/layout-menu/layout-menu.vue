@@ -84,6 +84,21 @@ const menus: any = ref([
     path: '/customer',
     name: '客户管理',
   },
+  {
+    icon: '',
+    path: '/sales',
+    name: '销售管理',
+  },
+  {
+    icon: '',
+    path: '/return',
+    name: '退货管理',
+  },
+  {
+    icon: '',
+    path: '/supply',
+    name: '供应管理',
+  },
 ]);
 </script>
 

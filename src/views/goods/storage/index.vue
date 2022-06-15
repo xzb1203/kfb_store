@@ -64,7 +64,7 @@
           <template #content>
             <el-image :src="imgUrl + row.goodsImage.split(';')[0]" class="max-w-150px max-h-150px"></el-image>
           </template>
-          <el-image :src="imgUrl + row.goodsImage.split(';')[0]" class="w-40px h-40px"></el-image>
+          <el-image :src="imgUrl + row.goodsImage.split(';')[0]" class="w-60px h-60px"></el-image>
         </el-tooltip>
       </template>
       <template #handle="{ row }">

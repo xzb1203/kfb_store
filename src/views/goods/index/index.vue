@@ -65,7 +65,7 @@
         <span>{{ sourceOptions.find((item) => item.value == row.storeGoodsMaintenanceType)?.label }}</span>
       </template>
       <template #goodsImage="{ row }">
-        <el-image :src="imgUrl + row.goodsImage.split(';')[0]" class="w-40px h-40px"></el-image>
+        <el-image :src="imgUrl + row.goodsImage.split(';')[0]" class="w-60px h-60px"></el-image>
       </template>
       <template #handle="{ row }">
         <span class="whitespace-nowrap">

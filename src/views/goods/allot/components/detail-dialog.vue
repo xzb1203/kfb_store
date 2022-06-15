@@ -12,7 +12,7 @@
             </template>
             <el-image
               :src="row.goodsImage ? imgUrl + row.goodsImage.split(';')[0] : ''"
-              class="w-40px h-40px"
+              class="w-60px h-60px"
             ></el-image>
           </el-tooltip>
         </template>
