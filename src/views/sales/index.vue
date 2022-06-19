@@ -57,8 +57,6 @@ import { Search, Refresh, Delete, View } from '@element-plus/icons-vue';
 import type { topBarListType, iconNamesType, tableDataType, optionsType, GroupType } from './type';
 import TispSvg from '@/base-ui/tisp-svg';
 import { useUserStore } from '@/store/modules/login';
-import customerApi from '@/api/modules/customer';
-import goodsApi from '@/api/modules/goods';
 import salesApi from '@/api/modules/sales';
 import TispTable from '@/base-ui/tisp-table';
 import KlTableHeader from '@/components/kl-table-header';
