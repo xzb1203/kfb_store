@@ -11,6 +11,8 @@ const financialApi = {
   // 主机厂账单
   postMainengineplantsList: (data: object) =>
     service.postParams(`/organization/store/income/expend/mainengineplants/info`, data),
+  // 获取积分列表
+  postIntegralList: (data: object) => service.get(`/system/points/rules/detail/list`, data),
 };
 
 export default financialApi;

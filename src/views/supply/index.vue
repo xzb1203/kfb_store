@@ -37,7 +37,7 @@
       v-model:columns="columnsMap[current]"
       :data="tableData"
       :total="total"
-      name="customerIndex"
+      name="supplyIndex"
       @change-page="handleGetTableData"
     >
       <template #avatar="{ row }">
@@ -67,6 +67,7 @@ import TispTable from '@/base-ui/tisp-table';
 import TispTabs from '@/base-ui/tisp-tabs';
 
 const storeInfo = computed(() => useUserStore().storeInfo);
+// todo
 const topBarList = ref<topBarListType[]>([
   {
     label: '客户总数',

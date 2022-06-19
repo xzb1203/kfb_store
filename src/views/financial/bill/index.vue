@@ -75,8 +75,10 @@ const columnsMap: any = reactive({
     { prop: 'supplierName', label: '供应商名称' },
     { prop: 'supplierContacts', label: '联系人' },
     { prop: 'supplierPhone', label: '手机号' },
-    { prop: 'supplierTotalOrder', label: '平台采购单' }, // todo
-    { prop: 'supplierTotalOrder', label: '线下采购单' }, // todo
+    // todo
+    // { prop: 'supplierTotalOrder', label: '平台采购单' },
+    // todo
+    // { prop: 'supplierTotalOrder', label: '线下采购单' },
     { prop: 'accountBalance', label: '应付款' },
     { prop: 'updateTimeStr', label: '更新时间' },
     { label: '操作', slotName: 'handle' },
