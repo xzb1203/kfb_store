@@ -77,12 +77,7 @@ const topBarList = ref<topBarListType[]>([
     value: '',
     icon: 'icon_shangpingzhongshu',
   },
-  {
-    label: '最近销售金额',
-    value: '',
-    icon: 'icon_xiaoshouzongjiazhi',
-    unit: '￥',
-  },
+
   {
     label: '累计销售金额',
     value: '',
@@ -135,6 +130,7 @@ const handleGetTableData = () => {
       }));
       console.log(tableData.value, '销售列表');
       tableLoading.value = false;
+      topBarList.value[0].value = res.data.total;
       total.value = res.data.total;
     },
     onError: () => {
@@ -144,21 +140,18 @@ const handleGetTableData = () => {
   });
 };
 // 获取顶部数据 todo
-const { loading: amountLoading, run: handleGetTotal } = useRequest(customerApi.getUserTotal, {
+const { loading: amountLoading, run: handleGetTotal } = useRequest(salesApi.postSalesWithPagingListSum, {
   manual: true,
   onSuccess: (res) => {
-    const countList = Object.values(res.data.datas);
-    topBarList.value.forEach((item: topBarListType, index: number) => {
-      item.value = countList[index] as string;
-    });
+    topBarList.value[1].value = res.data.datas;
   },
   onError: () => {
     topBarList.value = [];
   },
 });
 onMounted(() => {
-  handleGetTotal(storeInfo.value.id);
   handleGetTableData();
+  handleGetTotal(params.value);
 });
 </script>
 

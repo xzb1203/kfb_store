@@ -13,8 +13,8 @@
 import { getRsaKeys } from '@/utils/jsrsasign';
 import { useUserStore } from '@/store/modules/login';
 
-const account = ref('test05');
-const password = ref('kfbtest123456');
+const account = ref('testmd01');
+const password = ref('123456');
 const { handlePostLogin } = useUserStore();
 function handleLogin() {
   const data = {
