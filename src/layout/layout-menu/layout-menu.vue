@@ -4,7 +4,6 @@
       unique-opened
       active-text-color="#ffd04b"
       background-color="#2F3035"
-      class="el-menu-vertical-demo"
       :default-active="activeIndex"
       text-color="#fff"
       router
@@ -20,7 +19,7 @@
             <span>{{ item.name }}</span>
           </template>
 
-          <template v-for="subitem in item.children">
+          <template v-for="subitem in item.children" :key="item.path">
             <el-menu-item :index="subitem.path">
               {{ subitem.icon }}
               <!-- <el-icon v-if="subitem.icon">
@@ -40,14 +39,12 @@
 
 <script setup lang="ts">
 const route = useRoute();
-const router = useRouter();
-console.log(router);
-const activeIndex = ref(route.path);
+const activeIndex = computed(() => route.path);
 const menus: any = ref([
-  { icon: '', path: '/', name: '首页' },
+  { icon: '', path: '/index', name: '首页' },
   {
     icon: '',
-    path: '/order',
+    path: '/order/index',
     name: '工单管理',
     children: [
       { path: '/order/index', name: '普通工单' },
@@ -76,27 +73,27 @@ const menus: any = ref([
   },
   {
     icon: '',
-    path: '/parts',
+    path: '/parts/index',
     name: '汽配查询',
   },
   {
     icon: '',
-    path: '/customer',
+    path: '/customer/index',
     name: '客户管理',
   },
   {
     icon: '',
-    path: '/sales',
+    path: '/sales/index',
     name: '销售管理',
   },
   {
     icon: '',
-    path: '/return',
+    path: '/return/index',
     name: '退货管理',
   },
   {
     icon: '',
-    path: '/supply',
+    path: '/supply/index',
     name: '供应管理',
   },
 ]);
