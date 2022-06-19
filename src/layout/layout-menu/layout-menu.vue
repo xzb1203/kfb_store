@@ -96,6 +96,26 @@ const menus: any = ref([
     path: '/supply/index',
     name: '供应管理',
   },
+  {
+    icon: '',
+    path: '/financial',
+    name: '财务统计',
+    children: [
+      { path: '/financial/chart', name: '图表' },
+      { path: '/financial/bop', name: '收支' },
+      { path: '/financial/bill', name: '账单' },
+      { path: '/financial/integral', name: '积分' },
+    ],
+  },
+  {
+    icon: '',
+    path: '/system',
+    name: '系统设置',
+    children: [
+      { path: '/system/price', name: '价格设置' },
+      { path: '/system/permission', name: '权限设置' },
+    ],
+  },
 ]);
 </script>
 

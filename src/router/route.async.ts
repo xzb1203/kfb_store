@@ -203,6 +203,58 @@ const asyncRoutes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  {
+    path: '/financial',
+    meta: {
+      title: '',
+      icon: '',
+    },
+    component: Layout,
+    redirect: '/financial/chart',
+    children: [
+      {
+        path: 'chart',
+        name: 'financialChart',
+        component: () => import('@/views/financial/chart/index.vue'),
+      },
+      {
+        path: 'bop',
+        name: 'financialBop',
+        component: () => import('@/views/financial/bop/index.vue'),
+      },
+      {
+        path: 'bill',
+        name: 'financialBill',
+        component: () => import('@/views/financial/bill/index.vue'),
+      },
+      {
+        path: 'integral',
+        name: 'financialIntegral',
+        component: () => import('@/views/financial/integral/index.vue'),
+      },
+    ],
+  },
+  {
+    path: '/system',
+    meta: {
+      title: '',
+      icon: '',
+    },
+    component: Layout,
+    redirect: '/system/price',
+    children: [
+      {
+        path: 'price',
+        name: 'systemPrice',
+        component: () => import('@/views/system/price/index.vue'),
+      },
+      {
+        path: 'permission',
+        name: 'systemPermission',
+        component: () => import('@/views/system/permission/index.vue'),
+      },
+    ],
+  },
 ];
 
 export default asyncRoutes;
