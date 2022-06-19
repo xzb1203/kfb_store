@@ -51,6 +51,7 @@
       v-if="tableData.length"
       v-model:params="params"
       v-model:columns="columns"
+      name="goodsAllot"
       :data="tableData"
       :total="total"
       :show-select-column="state !== '0'"
