@@ -67,7 +67,7 @@
       v-model:columns="columns"
       :data="tableData"
       :total="total"
-      name="customerIndex"
+      name="financialBop"
       @change-page="handleGetTableData"
     >
       <template #handle="{ row }">
@@ -154,19 +154,6 @@ const handleReset = () => {
   formRef.value.resetFields();
   handleGetTableData();
 };
-// 获取分组
-const { run: handleGroup } = useRequest(customerApi.postUserGroupList, {
-  manual: true,
-  onSuccess: (res) => {
-    groupOptions.value = res.data.datas.map((item: GroupType) => ({
-      label: item.groupName,
-      value: item.groupId,
-    }));
-  },
-  onError: () => {
-    groupOptions.value = [];
-  },
-});
 
 // 获取列表数据
 const handleGetTableData = () => {
@@ -199,7 +186,6 @@ const { loading: amountLoading, run: handleGetTotal } = useRequest(customerApi.g
 });
 onMounted(() => {
   handleGetTotal(storeInfo.value.id);
-  handleGroup({ storeId: storeInfo.value.id });
   handleGetTableData();
 });
 </script>
