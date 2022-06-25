@@ -14,7 +14,7 @@
 
   <el-card v-loading="tableLoading">
     <template #header>
-      <div class="flex justify-between place-items-center">
+      <div class="flex justify-between items-center">
         <h1 class="kl-card-title">商品列表</h1>
         <div class="flex items-center justify-end flex-nowrap">
           <el-form ref="formRef" :inline="true" :model="params" class="flex flex-nowrap">

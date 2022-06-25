@@ -79,6 +79,12 @@ const service = {
       method: 'PUT',
       data,
     }),
+  putParams: (url: string, data?: object) =>
+    axiosInstance({
+      url,
+      method: 'PUT',
+      params: data,
+    }),
   delete: (url: string, data?: object) =>
     axiosInstance({
       url,
