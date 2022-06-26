@@ -5,7 +5,7 @@
     </template>
     <el-row :gutter="20">
       <el-col v-for="item in list" :span="12">
-        <div class="flex justify-between items-center mb-10px">
+        <div class="flex justify-between items-center mb-20px">
           <div class="leading-24px">
             <p>{{ item.label }}</p>
             <p class="text-12px text-gray-400">{{ item.hint }}</p>

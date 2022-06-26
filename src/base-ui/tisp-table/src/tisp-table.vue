@@ -91,7 +91,7 @@ const props = defineProps({
   },
   params: {
     type: Object as PropType<any>,
-    default: () => ({}),
+    default: () => ({ pageNum: 1, pageSize: 20 }),
   },
 });
 const emits = defineEmits(['update:params', 'update:columns', 'selection-change', 'change-page']);
